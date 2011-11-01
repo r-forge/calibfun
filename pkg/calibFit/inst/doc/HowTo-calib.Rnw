@@ -584,7 +584,7 @@ x = \frac{y-\beta_0}{\beta1}
 \noindent Calculation of the inverse in the THPL and quadratic regression cases is 
 straightforward.
 
-\Rpackage{calib} has two options for calculating the confidence intervals for the calibrated
+\Rpackage{calibFit} has two options for calculating the confidence intervals for the calibrated
 estimates. The first of the two uses the confidence intervals calculated from the fit of the
 $y$'s as a function of the $x$'s
 
@@ -669,14 +669,14 @@ x_{RDL} = min\{x: LCL_x \geq UCL_0\}
 
 Last is the limit of quantitization (LOQ). LOQ is the lowest concentration 
 at which the coefficient of variation of dose is less 
-than a fixed percent, the default is 20 in the \Rpackage{calib} package.
+than a fixed percent, the default is 20 in the \Rpackage{calibFit} package.
 
 \section{Appendix}
 \label{SEC:Ex}
 
-\noindent First load the \Rpackage{calib} library
+\noindent First load the \Rpackage{calibFit} library
 <<loadLibrary, echo=TRUE, results = hide>>=
-library(calib)
+library(calibFit)
 @
 
 \noindent then the data

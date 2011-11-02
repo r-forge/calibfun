@@ -40,7 +40,7 @@
 if(!exists(".pkg")) {
   .path <- getwd()
   .way <- "shell"
-  .pkg <- "calib"
+  .pkg <- "calibFit"
   print(.pkg)
   testFileRegexp <- "^runit.+\\.[rR]$"
 }

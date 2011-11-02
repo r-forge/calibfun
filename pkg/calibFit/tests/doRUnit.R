@@ -46,12 +46,11 @@ if(!exists(".pkg")) {
 }
 
 if(require("RUnit", quietly=TRUE)) {
-
   ## Debugging echo
   cat("\nRunning RUnit tests\n")
   print(list(pkg=.pkg, getwd=getwd(), pathToRUnitTests=.path))
 
-  ## Load the package - not needed for .runRUnitTests()
+  ## Load the package - not needed for .runRUnitTests()  
   if(.way %in% c("shell"))
     library(package=.pkg, character.only=TRUE)
 

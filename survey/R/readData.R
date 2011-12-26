@@ -6,10 +6,10 @@
 ## Author: Haaland
 ###############################################################################
 
-
+## read the csv file as exported from the survey software
 allDf = read.csv("data/Prenatal_Survey20111222.csv",header=TRUE,as.is=TRUE)
-dim(allDf)
-# dim(df)
+## this shows how many rows (subjects) and columns (questions)
+dim(df)
 # [1]   5 110
 
 names(allDf)
@@ -30,19 +30,30 @@ names(allDf)
 # [105] "Q34_4"  "Q34_5"  "Q34_6"  "Q34_7"  "Q34_8"  "Q41"   
 
 allDf[1,1:5]
-str(allDf)
+## I'm going to use vdesc to get reasonable descriptions later
 vdesc = unlist(allDf[1,])
+## this is the actual 88th question
+vdesc[88]
+# vdesc[88]
+#                                                                                                                                                                     Q32_5 
+# "Please rate how strongly you agree or disagree with each of the following statements by selecting th...-My partner fears that people will talk too much during my labor" 
 
+
+## now delete this information from the data frame which shoudl have
+## only data now
 allDf = allDf[-1,]
 
+## these variables are ones that aren't numeric
 charVarNames  = c("V1","V2","V3","V4","Q2","Q5","Q14")
 allDf[,charVarNames]
+## these are the variables that are numeric
 numVarNames = names(allDf)[!(names(allDf) %in% charVarNames)]
 numVarNames
 
-
+## convert all of the numeric responses from character to numeric
+## that's just the way R read them the first time
 for(i in numVarNames){
-	allDf[,x] = as.numeric(allDf[,x])
+	allDf[,i] = as.numeric(allDf[,i])
 }
 
 ## Note that the first 5 columns of df have sensible names
@@ -68,8 +79,8 @@ for(i in 1:length(vdesc1)){
 }
 ## look to be sure
 vdesc1 =unlist(vdesc1)
-
-descDf = data.frame(varName=names(df)[-(1:5)],varDesc=vdesc1)
+vdesc1
+descDf = data.frame(varName=names(allDf)[-(1:5)],varDesc=vdesc1)
 descDf
 
 save(allDf,descDf,file="rdata/curData.RData")

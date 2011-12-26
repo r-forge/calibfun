@@ -1,18 +1,19 @@
 ##############################################################################
-## readData.R
+## readPrenatalData.R
 ##
-## read the data table (csv) and make a data frame
+## read the data table (csv) and make a data frame for the prenatal survey
 ## 
 ## Author: Haaland
 ###############################################################################
 
 ## read the csv file as exported from the survey software
-allDf = read.csv("data/Prenatal_Survey20111222.csv",header=TRUE,as.is=TRUE)
+## prefile is set in the driver.R file
+preDf = read.csv(prefile,header=TRUE,as.is=TRUE)
 ## this shows how many rows (subjects) and columns (questions)
 dim(df)
 # [1]   5 110
 
-names(allDf)
+names(preDf)
 # names(df)
 #   [1] "V1"     "V2"     "V3"     "V4"     "V5"     "Q36"    "Q37"    "Q35"   
 #   [9] "Q1"     "Q2"     "Q3"     "Q4"     "Q5"     "Q6"     "Q7"     "Q8"    
@@ -29,40 +30,54 @@ names(allDf)
 #  [97] "Q33_4"  "Q33_5"  "Q33_6"  "Q33_7"  "Q33_8"  "Q34_1"  "Q34_2"  "Q34_3" 
 # [105] "Q34_4"  "Q34_5"  "Q34_6"  "Q34_7"  "Q34_8"  "Q41"   
 
-allDf[1,1:5]
+preDf[1,1:5]
+#####################################################################################
 ## I'm going to use vdesc to get reasonable descriptions later
-vdesc = unlist(allDf[1,])
+## it needs to be removed now so the dataframe can be fixed up
+#####################################################################################
+predesc = unlist(preDf[1,])
 ## this is the actual 88th question
-vdesc[88]
+predesc[88]
 # vdesc[88]
 #                                                                                                                                                                     Q32_5 
 # "Please rate how strongly you agree or disagree with each of the following statements by selecting th...-My partner fears that people will talk too much during my labor" 
 
-
-## now delete this information from the data frame which shoudl have
+## now delete this information from the data frame which should have
 ## only data now
-allDf = allDf[-1,]
+preDf = preDf[-1,]
 
+
+#####################################################################################
+## identify the character vs numeric variables and change as necessary
+#####################################################################################
 ## these variables are ones that aren't numeric
-charVarNames  = c("V1","V2","V3","V4","Q2","Q5","Q14")
-allDf[,charVarNames]
+preCharVarNames  = c("V1","V2","V3","V4","Q2","Q5","Q14")
+preDf[,preCharVarNames]
 ## these are the variables that are numeric
-numVarNames = names(allDf)[!(names(allDf) %in% charVarNames)]
+numVarNames = names(preDf)[!(names(preDf) %in% preCharVarNames)]
 numVarNames
 
 ## convert all of the numeric responses from character to numeric
 ## that's just the way R read them the first time
 for(i in numVarNames){
-	allDf[,i] = as.numeric(allDf[,i])
+	preDf[,i] = as.numeric(preDf[,i])
 }
 
+#####################################################################################
+## Mostly we are going to have to accept the question identification provided
+## by the survey instrument -- here we change a couple of names that make
+## sense then save the descriptions with the coded names
+#####################################################################################
 ## Note that the first 5 columns of df have sensible names
-names(allDf)[1:5] =vdesc[1:5]
-head(allDf)
+names(preDf)[1:5] =predesc[1:5]
+head(preDf)
 
-## the rest of the descriptions need to be parsed to be R friendly names
-vdesc = vdesc[-c(1:5)]
-vdesc1 = strsplit(vdesc,split="...-",fixed=TRUE)
+## the rest of the descriptions need to be parsed so that 
+## repetitive information is discarded and we have just the information
+## that positively identifies the question and can be used for 
+## labels, etc.
+predesc = predesc[-c(1:5)]
+vdesc1 = strsplit(predesc,split="...-",fixed=TRUE)
 
 ## from visual inspection, I see that if there are two entries, we can discard
 ## the first one
@@ -80,7 +95,7 @@ for(i in 1:length(vdesc1)){
 ## look to be sure
 vdesc1 =unlist(vdesc1)
 vdesc1
-descDf = data.frame(varName=names(allDf)[-(1:5)],varDesc=vdesc1)
-descDf
+descPreDf = data.frame(varName=names(preDf)[-(1:5)],varDesc=vdesc1)
+descPreDf
 
-save(allDf,descDf,file="rdata/curData.RData")
+save(preDf,descPreDf,file="rdata/preData.RData")

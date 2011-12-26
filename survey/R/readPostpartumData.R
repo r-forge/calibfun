@@ -37,8 +37,60 @@ names(postDf)
 # [145] "Q55_5"  "Q55_6"  "Q55_7"  "Q55_8"  "Q55_9"  "Q55_10" "Q56_1"  "Q56_2" 
 # [153] "Q56_3"  "Q56_4"  "Q56_5"  "Q56_6"  "Q56_7"  "Q57.1"  "Q58"    "Q59.1" 
 # [161] "Q60"    "Q61"    "Q62"    "Q63"    "Q64"    "Q66"   
+## not sure why the first name is funny
+names(postDf)[1]="V1"
 
-postDf[1,1:5]
+
+
+#####################################################################################
+## a few of these aren't going to be analyzed
+#####################################################################################
+postDf = postDf[,!(names(postDf) %in% c("V2","V5","Q27","Q29","Q31"))]
+names(postDf)
+				
+				
+#####################################################################################
+## the variables names don't have any particular meaning, so
+## I'm just going to set them sequentially
+## Note: the first 5 columns are going to get separate names
+#####################################################################################
+nvars = ncol(postDf)-3
+nvars
+# nvars
+# [1] 158
+## we are going to start after the pre variables
+nstart = ncol(preDf)-3
+nstart
+# nstart
+# [1] 102
+names(preDf)[ncol(preDf)]
+# names(preDf)[ncol(preDf)]
+# [1] "Q102"
+
+newPostNames = paste("Q",(nstart+1):(nstart+nvars),sep="")
+newPostNames
+# newPostNames
+#   [1] "Q103" "Q104" "Q105" "Q106" "Q107" "Q108" "Q109" "Q110" "Q111" "Q112"
+#  [11] "Q113" "Q114" "Q115" "Q116" "Q117" "Q118" "Q119" "Q120" "Q121" "Q122"
+#  [21] "Q123" "Q124" "Q125" "Q126" "Q127" "Q128" "Q129" "Q130" "Q131" "Q132"
+#  [31] "Q133" "Q134" "Q135" "Q136" "Q137" "Q138" "Q139" "Q140" "Q141" "Q142"
+#  [41] "Q143" "Q144" "Q145" "Q146" "Q147" "Q148" "Q149" "Q150" "Q151" "Q152"
+#  [51] "Q153" "Q154" "Q155" "Q156" "Q157" "Q158" "Q159" "Q160" "Q161" "Q162"
+#  [61] "Q163" "Q164" "Q165" "Q166" "Q167" "Q168" "Q169" "Q170" "Q171" "Q172"
+#  [71] "Q173" "Q174" "Q175" "Q176" "Q177" "Q178" "Q179" "Q180" "Q181" "Q182"
+#  [81] "Q183" "Q184" "Q185" "Q186" "Q187" "Q188" "Q189" "Q190" "Q191" "Q192"
+#  [91] "Q193" "Q194" "Q195" "Q196" "Q197" "Q198" "Q199" "Q200" "Q201" "Q202"
+# [101] "Q203" "Q204" "Q205" "Q206" "Q207" "Q208" "Q209" "Q210" "Q211" "Q212"
+# [111] "Q213" "Q214" "Q215" "Q216" "Q217" "Q218" "Q219" "Q220" "Q221" "Q222"
+# [121] "Q223" "Q224" "Q225" "Q226" "Q227" "Q228" "Q229" "Q230" "Q231" "Q232"
+# [131] "Q233" "Q234" "Q235" "Q236" "Q237" "Q238" "Q239" "Q240" "Q241" "Q242"
+# [141] "Q243" "Q244" "Q245" "Q246" "Q247" "Q248" "Q249" "Q250" "Q251" "Q252"
+# [151] "Q253" "Q254" "Q255" "Q256" "Q257" "Q258" "Q259" "Q260"
+
+
+oldPostNames = names(postDf)[-c(1:3)]
+names(postDf)[-c(1:3)] = newPostNames
+postDf[1,1:3]
 #####################################################################################
 ## I'm going to use vdesc to get reasonable descriptions later
 ## it needs to be removed now so the dataframe can be fixed up
@@ -47,8 +99,9 @@ postdesc = unlist(postDf[1,])
 ## this is the actual 88th question
 postdesc[88]
 # postdesc[88]
-#                                                                                                                                                                          Q48_8 
-# "Please rate how strongly you agree or disagree with each of the following statements by selecting th...-I approached my labor through conscious reasoning and/or rationality" 
+#                                                                                                                                                     Q187 
+# "Please rate how strongly you agree or disagree with each of the following statements by selecting th...-My birth did not go according to my birth plan" 
+# > cat("Synch1324866261257190000\n");
 
 ## now delete this information from the data frame which should have
 ## only data now
@@ -58,20 +111,29 @@ postDf = postDf[-1,]
 #####################################################################################
 ## identify the character vs numeric variables and change as necessary
 #####################################################################################
-## for reasons I'm unclear of the first name is messed up so fix it
-names(postDf)[1]
-# [1] "X...V1"
-names(postDf)[1] = "V1"
-## these variables are ones that aren't numeric
-postCharVarNames  = c("V1","V2","V3","V4","Q35","Q41","Q59")
+## these original variables are ones that aren't numeric
+## "Q35","Q41","Q59"
+newPostNames[oldPostNames=="Q35"]
+# newPostNames[oldPostNames=="Q35"]
+# [1] "Q104"
+
+newPostNames[oldPostNames=="Q41"]
+# newPostNames[oldPostNames=="Q41"]
+# [1] "Q107"
+
+newPostNames[oldPostNames=="Q59"]
+# newPostNames[oldPostNames=="Q59"]
+# [1] "Q116"
+
+postCharVarNames  = c("V1","V3","V4","Q104","Q107","Q116")
 postDf[,postCharVarNames]
 ## these are the variables that are numeric
-numVarNames = names(postDf)[!(names(postDf) %in% postCharVarNames)]
-numVarNames
+postNumVarNames = names(postDf)[!(names(postDf) %in% postCharVarNames)]
+postNumVarNames
 
 ## convert all of the numeric responses from character to numeric
 ## that's just the way R read them the first time
-for(i in numVarNames){
+for(i in postNumVarNames){
 	postDf[,i] = as.numeric(postDf[,i])
 }
 
@@ -80,24 +142,24 @@ for(i in numVarNames){
 ## by the survey instrument -- here we change a couple of names that make
 ## sense then save the descriptions with the coded names
 #####################################################################################
-## Note that the first 5 columns of df have sensible names
-names(postDf)[1:5] =postdesc[1:5]
+## Note that the first 3 columns of df have sensible names
+names(postDf)[1:3] =postdesc[1:3]
 head(postDf)
 
 ## the rest of the descriptions need to be parsed so that 
 ## repetitive information is discarded and we have just the information
 ## that positively identifies the question and can be used for 
 ## labels, etc.
-postdesc = postdesc[-c(1:5)]
+postdesc = postdesc[-c(1:3)]
 postdesc = strsplit(postdesc,split="...-",fixed=TRUE)
 
 ## from visual inspection, I see that if there are two entries, we can discard
 ## the first one
 postdesc[90]
-# vdesc1[90]
-# $Q50_5
+# postdesc[90]
+# $Q192
 # [1] "Please rate how strongly you agree or disagree with each of the following statements by selecting th"
-# [2] "My behavior was intuitive rather than rational"                                                      
+# [2] "I relinquished rational control of myself and listened to my body"                                   
 
 
 for(i in 1:length(postdesc)){
@@ -108,7 +170,8 @@ for(i in 1:length(postdesc)){
 ## look to be sure
 postdesc =unlist(postdesc)
 postdesc
-descPostDf = data.frame(varName=names(postDf)[-(1:5)],varDesc=postdesc)
+descPostDf = data.frame(varName=newPostNames,oldName=oldPostNames,varDesc=postdesc)
+
 descPostDf
 
-save(postDf,descPostDf,file="rdata/postData.RData")
+save(postDf,descPostDf,postNumVarNames,file="rdata/postData.RData")

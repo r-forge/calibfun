@@ -20,13 +20,13 @@ source("R/readPrenatalData.R")
 ## check to be sure you have the number of responses you are expecting
 dim(preDf)
 # dim(preDf)
-# [1]   4 110
+# [1]   4 105
 dim(descPreDf)
 # dim(descPreDf)
-# [1] 105   2
+# [1] 102   3
 ## the number of columns shouldn't change
-checkEquals(ncol(preDf),110)
-checkEquals(nrow(descPreDf),105)
+checkEquals(ncol(preDf),105)
+checkEquals(nrow(descPreDf),102)
 
 ## make rdata/postData.RData
 postfile = "data/Postpartum_Survey20111124.csv"
@@ -34,10 +34,10 @@ source("R/readPostpartumData.R")
 ## check to be sure you have the number of responses you are expecting
 dim(postDf)
 # dim(postDf)
-# [1]   4 166
+# [1]   4 161
 dim(descPostDf)
 # dim(descPostDf)
-# [1] 161   2
+# [1] 158   3
 ## the number of columns shouldn't change
-checkEquals(ncol(postDf),166)
-checkEquals(nrow(descPostDf),161)
+checkEquals(ncol(postDf),161)
+checkEquals(nrow(descPostDf),158)

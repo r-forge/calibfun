@@ -113,19 +113,22 @@ postDf = postDf[-1,]
 #####################################################################################
 ## these original variables are ones that aren't numeric
 ## "Q35","Q41","Q59"
-newPostNames[oldPostNames=="Q35"]
+c1 = newPostNames[oldPostNames=="Q35"]
 # newPostNames[oldPostNames=="Q35"]
-# [1] "Q104"
+# [1] "Q103"
 
-newPostNames[oldPostNames=="Q41"]
+c2 = newPostNames[oldPostNames=="Q41"]
 # newPostNames[oldPostNames=="Q41"]
-# [1] "Q107"
+# [1] "Q106"
 
-newPostNames[oldPostNames=="Q59"]
+c3 =newPostNames[oldPostNames=="Q59"]
 # newPostNames[oldPostNames=="Q59"]
-# [1] "Q116"
+# [1] "Q115"
 
-postCharVarNames  = c("V1","V3","V4","Q104","Q107","Q116")
+## it is better not to hard code this
+#postCharVarNames  = c("V1","V3","V4","Q103","Q106","Q115")
+postCharVarNames  = c("V1","V3","V4",c1,c2,c3)
+
 postDf[,postCharVarNames]
 ## these are the variables that are numeric
 postNumVarNames = names(postDf)[!(names(postDf) %in% postCharVarNames)]
@@ -174,4 +177,17 @@ descPostDf = data.frame(varName=newPostNames,oldName=oldPostNames,varDesc=postde
 
 descPostDf
 
+#########################################################################
+## delete the last question
+#########################################################################
+descPostDf=descPostDf[-nrow(descPostDf),]
+postDf=postDf[,-ncol(postDf)]
+
 save(postDf,descPostDf,postNumVarNames,file="rdata/postData.RData")
+
+#########################################################################
+## save a csv file with the mappings of questions
+## this is in the dataframe descPostDf
+#########################################################################
+
+#write.csv(descPostDf,file="output/descPostDf.csv",row.names=FALSE)

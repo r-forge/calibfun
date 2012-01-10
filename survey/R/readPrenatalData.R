@@ -143,4 +143,17 @@ predesc
 descPreDf = data.frame(varName=newPreNames,oldName=oldPreNames,varDesc=predesc)
 descPreDf
 
+#########################################################################
+## delete the last question
+#########################################################################
+descPreDf=descPreDf[-nrow(descPreDf),]
+preDf=preDf[,-ncol(preDf)]
+
 save(preDf,descPreDf,preNumVarNames,file="rdata/preData.RData")
+
+#########################################################################
+## save a csv file with the mappings of questions
+## this is in the dataframe desPreDf
+#########################################################################
+
+#write.csv(descPreDf,file="output/descPreDf.csv",row.names=FALSE)

@@ -15,7 +15,7 @@ library(RUnit)
 ## makes rdata/preData.RData
 ## Note: when you save the data, you should always modify the name so it 
 ## shows the date, then correct the next line accordingly
-prefile = "data/Prenatal_Survey20111222.csv"
+prefile = "data/Prenatal_Survey20120127.csv"
 source("R/readPrenatalData.R")
 ## check to be sure you have the number of responses you are expecting
 dim(preDf)
@@ -29,7 +29,7 @@ checkEquals(ncol(preDf),104)
 checkEquals(nrow(descPreDf),101)
 
 ## make rdata/postData.RData
-postfile = "data/Postpartum_Survey20111124.csv"
+postfile = "data/Postpartum_Survey20120127.csv"
 source("R/readPostpartumData.R")
 ## check to be sure you have the number of responses you are expecting
 dim(postDf)

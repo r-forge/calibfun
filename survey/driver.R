@@ -7,6 +7,7 @@
 ###############################################################################
 
 library(RUnit)
+library(psych)
 
 #####################################################################################
 ## read the surveys -- this needs to be done after every new download
@@ -20,7 +21,7 @@ source("R/readPrenatalData.R")
 ## check to be sure you have the number of responses you are expecting
 dim(preDf)
 # dim(preDf)
-# [1]   4 104
+# [1]   12 104
 dim(descPreDf)
 # dim(descPreDf)
 # [1] 101   3

@@ -37,7 +37,7 @@
 ##sensitive)
 
 #names(object) gives you variable names
-#describe(object) gives you statistics (?)
+#describe(object) gives you statistics
 
 #to check a correlation among measures, you can create a new dataframe 
 ##that picks out the varialbes you want to look at.

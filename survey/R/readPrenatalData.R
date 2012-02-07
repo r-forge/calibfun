@@ -10,7 +10,7 @@
 ## prefile is set in the driver.R file
 preDf = read.csv(prefile,header=TRUE,as.is=TRUE)
 ## this shows how many rows (subjects) and columns (questions)
-dim(df)
+dim(preDf)
 # [1]   5 110
 
 names(preDf)
@@ -148,6 +148,7 @@ descPreDf
 #########################################################################
 descPreDf=descPreDf[-nrow(descPreDf),]
 preDf=preDf[,-ncol(preDf)]
+preNumVarNames = preNumVarNames[-length(preNumVarNames)]
 
 save(preDf,descPreDf,preNumVarNames,file="rdata/preData.RData")
 

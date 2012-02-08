@@ -13,7 +13,12 @@ library(psych)
 ## read the surveys -- this needs to be done after every new download
 ## the data will be saved to an rdata object
 #####################################################################################
+
+
+#####################################################################################
 ## makes rdata/preData.RData
+## 
+#####################################################################################
 ## Note: when you save the data, you should always modify the name so it 
 ## shows the date, then correct the next line accordingly
 prefile = "data/Prenatal_Survey20120127.csv"
@@ -28,8 +33,16 @@ dim(descPreDf)
 ## the number of columns shouldn't change
 checkEquals(ncol(preDf),102)
 checkEquals(nrow(descPreDf),101)
+## now fix the recoding or reverse orders
+source("R/recodePreVars.R")
 
+
+#####################################################################################
 ## make rdata/postData.RData
+## 
+#####################################################################################
+## Note: when you save the data, you should always modify the name so it 
+## shows the date, then correct the next line accordingly
 postfile = "data/Postpartum_Survey20120206.csv"
 source("R/readPostpartumData.R")
 ## check to be sure you have the number of responses you are expecting
@@ -42,6 +55,10 @@ dim(descPostDf)
 ## the number of columns shouldn't change
 checkEquals(ncol(postDf),157)
 checkEquals(nrow(descPostDf),156)
+
+## now fix the recoding or reverse orders
+source("R/recodePostVars.R")
+
 
 #####################################################################################
 ## make some histograms of the data 

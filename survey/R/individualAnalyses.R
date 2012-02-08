@@ -1,7 +1,7 @@
 ###############################################################################
 ## individualAnalyses.R
 ##
-## TODO: Basic descriptive statistics and individual comparisons
+## Basic descriptive statistics and individual comparisons
 ##		 and analyses 
 ##
 ## Author: Haaland
@@ -12,7 +12,7 @@
 numPreDf <- preDf[-c(1:3,5,8,17)]
 #calculate mean and standard deviation
 describe(numPreDf)
-sapply(numPreDf, mean)
+apply(numPreDf[,preNumVarNames],1,mean)
 sapply(numPreDf, sd)
 
 # first, create a data.frame with only numeric responses

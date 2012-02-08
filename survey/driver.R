@@ -21,12 +21,12 @@ source("R/readPrenatalData.R")
 ## check to be sure you have the number of responses you are expecting
 dim(preDf)
 # dim(preDf)
-# [1]   12 104
+# [1]  12 102
 dim(descPreDf)
 # dim(descPreDf)
 # [1] 101   3
 ## the number of columns shouldn't change
-checkEquals(ncol(preDf),104)
+checkEquals(ncol(preDf),102)
 checkEquals(nrow(descPreDf),101)
 
 ## make rdata/postData.RData
@@ -35,10 +35,15 @@ source("R/readPostpartumData.R")
 ## check to be sure you have the number of responses you are expecting
 dim(postDf)
 # dim(postDf)
-# [1]   4 160
+# [1]  23 157
 dim(descPostDf)
 # dim(descPostDf)
-# [1] 157   3
+# [1] 156   3
 ## the number of columns shouldn't change
-checkEquals(ncol(postDf),160)
-checkEquals(nrow(descPostDf),157)
+checkEquals(ncol(postDf),157)
+checkEquals(nrow(descPostDf),156)
+
+#####################################################################################
+## make some histograms of the data 
+#####################################################################################
+source("R/plotHistograms.R")

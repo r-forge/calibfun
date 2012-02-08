@@ -6,7 +6,7 @@
 ## Author: Haaland
 ###############################################################################
 
-load("rdata/curData.RData")
+load("rdata/preData.RData")
 library(ggplot2)
 
 pdf("plots/preHistograms.pdf")
@@ -28,6 +28,7 @@ for(i in 1:nrow(descPreDf)){
 }
 dev.off()
 
+load("rdata/postData.RData")
 
 pdf("plots/postHistograms.pdf")
 for(i in 1:nrow(descPostDf)){

@@ -46,52 +46,93 @@ names(postDf)[1]="V1"
 #####################################################################################
 ## a few of these aren't going to be analyzed
 #####################################################################################
-postDf = postDf[,!(names(postDf) %in% c("V2","V5","Q27","Q29","Q31"))]
+postDf = postDf[,!(names(postDf) %in% c("V2","V3","V4","V5","Q27","Q29","Q31","Q32","Q66"))]
 names(postDf)
-				
+dim(postDf)		
+# dim(postDf)
+# [1]  24 157
+
+
 				
 #####################################################################################
 ## the variables names don't have any particular meaning, so
 ## I'm just going to set them sequentially
 ## Note: the first 5 columns are going to get separate names
 #####################################################################################
-nvars = ncol(postDf)-3
+nvars = ncol(postDf)-1
 nvars
 # nvars
-# [1] 158
-## we are going to start after the pre variables
-nstart = ncol(preDf)-3
+# [1] 156
+
+
+## we are going to start with 1,
+nstart = 1
 nstart
 # nstart
-# [1] 102
-names(preDf)[ncol(preDf)]
-# names(preDf)[ncol(preDf)]
-# [1] "Q102"
+# [1] 1
 
-newPostNames = paste("Q",(nstart+1):(nstart+nvars),sep="")
+
+newPostNames = c(paste("P00",1:9,sep=""),paste("P0",10:99,sep=""),paste("P",100:nvars,sep=""))
 newPostNames
 # newPostNames
-#   [1] "Q102" "Q103" "Q104" "Q105" "Q106" "Q107" "Q108" "Q109" "Q110" "Q111"
-#  [11] "Q112" "Q113" "Q114" "Q115" "Q116" "Q117" "Q118" "Q119" "Q120" "Q121"
-#  [21] "Q122" "Q123" "Q124" "Q125" "Q126" "Q127" "Q128" "Q129" "Q130" "Q131"
-#  [31] "Q132" "Q133" "Q134" "Q135" "Q136" "Q137" "Q138" "Q139" "Q140" "Q141"
-#  [41] "Q142" "Q143" "Q144" "Q145" "Q146" "Q147" "Q148" "Q149" "Q150" "Q151"
-#  [51] "Q152" "Q153" "Q154" "Q155" "Q156" "Q157" "Q158" "Q159" "Q160" "Q161"
-#  [61] "Q162" "Q163" "Q164" "Q165" "Q166" "Q167" "Q168" "Q169" "Q170" "Q171"
-#  [71] "Q172" "Q173" "Q174" "Q175" "Q176" "Q177" "Q178" "Q179" "Q180" "Q181"
-#  [81] "Q182" "Q183" "Q184" "Q185" "Q186" "Q187" "Q188" "Q189" "Q190" "Q191"
-#  [91] "Q192" "Q193" "Q194" "Q195" "Q196" "Q197" "Q198" "Q199" "Q200" "Q201"
-# [101] "Q202" "Q203" "Q204" "Q205" "Q206" "Q207" "Q208" "Q209" "Q210" "Q211"
-# [111] "Q212" "Q213" "Q214" "Q215" "Q216" "Q217" "Q218" "Q219" "Q220" "Q221"
-# [121] "Q222" "Q223" "Q224" "Q225" "Q226" "Q227" "Q228" "Q229" "Q230" "Q231"
-# [131] "Q232" "Q233" "Q234" "Q235" "Q236" "Q237" "Q238" "Q239" "Q240" "Q241"
-# [141] "Q242" "Q243" "Q244" "Q245" "Q246" "Q247" "Q248" "Q249" "Q250" "Q251"
-# [151] "Q252" "Q253" "Q254" "Q255" "Q256" "Q257" "Q258" "Q259"
+#   [1] "P001" "P002" "P003" "P004" "P005" "P006" "P007" "P008" "P009" "P010"
+#  [11] "P011" "P012" "P013" "P014" "P015" "P016" "P017" "P018" "P019" "P020"
+#  [21] "P021" "P022" "P023" "P024" "P025" "P026" "P027" "P028" "P029" "P030"
+#  [31] "P031" "P032" "P033" "P034" "P035" "P036" "P037" "P038" "P039" "P040"
+#  [41] "P041" "P042" "P043" "P044" "P045" "P046" "P047" "P048" "P049" "P050"
+#  [51] "P051" "P052" "P053" "P054" "P055" "P056" "P057" "P058" "P059" "P060"
+#  [61] "P061" "P062" "P063" "P064" "P065" "P066" "P067" "P068" "P069" "P070"
+#  [71] "P071" "P072" "P073" "P074" "P075" "P076" "P077" "P078" "P079" "P080"
+#  [81] "P081" "P082" "P083" "P084" "P085" "P086" "P087" "P088" "P089" "P090"
+#  [91] "P091" "P092" "P093" "P094" "P095" "P096" "P097" "P098" "P099" "P100"
+# [101] "P101" "P102" "P103" "P104" "P105" "P106" "P107" "P108" "P109" "P110"
+# [111] "P111" "P112" "P113" "P114" "P115" "P116" "P117" "P118" "P119" "P120"
+# [121] "P121" "P122" "P123" "P124" "P125" "P126" "P127" "P128" "P129" "P130"
+# [131] "P131" "P132" "P133" "P134" "P135" "P136" "P137" "P138" "P139" "P140"
+# [141] "P141" "P142" "P143" "P144" "P145" "P146" "P147" "P148" "P149" "P150"
+# [151] "P151" "P152" "P153" "P154" "P155" "P156"
 
 
-oldPostNames = names(postDf)[-c(1:3)]
-names(postDf)[-c(1:3)] = newPostNames
+oldPostNames = names(postDf)[-1]
+names(postDf)[-1] = newPostNames
+names(postDf)[1] = "ResponseId"
 postDf[1,1:3]
+names(postDf)
+# names(postDf)
+#   [1] "ResponseId" "P001"       "P002"       "P003"       "P004"      
+#   [6] "P005"       "P006"       "P007"       "P008"       "P009"      
+#  [11] "P010"       "P011"       "P012"       "P013"       "P014"      
+#  [16] "P015"       "P016"       "P017"       "P018"       "P019"      
+#  [21] "P020"       "P021"       "P022"       "P023"       "P024"      
+#  [26] "P025"       "P026"       "P027"       "P028"       "P029"      
+#  [31] "P030"       "P031"       "P032"       "P033"       "P034"      
+#  [36] "P035"       "P036"       "P037"       "P038"       "P039"      
+#  [41] "P040"       "P041"       "P042"       "P043"       "P044"      
+#  [46] "P045"       "P046"       "P047"       "P048"       "P049"      
+#  [51] "P050"       "P051"       "P052"       "P053"       "P054"      
+#  [56] "P055"       "P056"       "P057"       "P058"       "P059"      
+#  [61] "P060"       "P061"       "P062"       "P063"       "P064"      
+#  [66] "P065"       "P066"       "P067"       "P068"       "P069"      
+#  [71] "P070"       "P071"       "P072"       "P073"       "P074"      
+#  [76] "P075"       "P076"       "P077"       "P078"       "P079"      
+#  [81] "P080"       "P081"       "P082"       "P083"       "P084"      
+#  [86] "P085"       "P086"       "P087"       "P088"       "P089"      
+#  [91] "P090"       "P091"       "P092"       "P093"       "P094"      
+#  [96] "P095"       "P096"       "P097"       "P098"       "P099"      
+# [101] "P100"       "P101"       "P102"       "P103"       "P104"      
+# [106] "P105"       "P106"       "P107"       "P108"       "P109"      
+# [111] "P110"       "P111"       "P112"       "P113"       "P114"      
+# [116] "P115"       "P116"       "P117"       "P118"       "P119"      
+# [121] "P120"       "P121"       "P122"       "P123"       "P124"      
+# [126] "P125"       "P126"       "P127"       "P128"       "P129"      
+# [131] "P130"       "P131"       "P132"       "P133"       "P134"      
+# [136] "P135"       "P136"       "P137"       "P138"       "P139"      
+# [141] "P140"       "P141"       "P142"       "P143"       "P144"      
+# [146] "P145"       "P146"       "P147"       "P148"       "P149"      
+# [151] "P150"       "P151"       "P152"       "P153"       "P154"      
+# [156] "P155"       "P156"      
+
+
 #####################################################################################
 ## I'm going to use vdesc to get reasonable descriptions later
 ## it needs to be removed now so the dataframe can be fixed up
@@ -107,7 +148,7 @@ postdesc[88]
 ## now delete this information from the data frame which should have
 ## only data now
 postDf = postDf[-1,]
-
+head(postDf)
 
 #####################################################################################
 ## identify the character vs numeric variables and change as necessary
@@ -115,20 +156,24 @@ postDf = postDf[-1,]
 ## these original variables are ones that aren't numeric
 ## "Q35","Q41","Q59"
 c1 = newPostNames[oldPostNames=="Q35"]
-# newPostNames[oldPostNames=="Q35"]
-# [1] "Q103"
+c1
+# c1
+# [1] "P002"
 
 c2 = newPostNames[oldPostNames=="Q41"]
-# newPostNames[oldPostNames=="Q41"]
-# [1] "Q106"
+c2
+# c2
+# [1] "P005"
+
 
 c3 =newPostNames[oldPostNames=="Q59"]
-# newPostNames[oldPostNames=="Q59"]
-# [1] "Q115"
+c3
+# c3
+# [1] "P014"
+
 
 ## it is better not to hard code this
-#postCharVarNames  = c("V1","V3","V4","Q103","Q106","Q115")
-postCharVarNames  = c("V1","V3","V4",c1,c2,c3)
+postCharVarNames  = c("ResponseId",c1,c2,c3)
 
 postDf[,postCharVarNames]
 ## these are the variables that are numeric
@@ -146,24 +191,21 @@ for(i in postNumVarNames){
 ## by the survey instrument -- here we change a couple of names that make
 ## sense then save the descriptions with the coded names
 #####################################################################################
-## Note that the first 3 columns of df have sensible names
-names(postDf)[1:3] =postdesc[1:3]
-head(postDf)
 
 ## the rest of the descriptions need to be parsed so that 
 ## repetitive information is discarded and we have just the information
 ## that positively identifies the question and can be used for 
 ## labels, etc.
-postdesc = postdesc[-c(1:3)]
+postdesc = postdesc[-1]
 postdesc = strsplit(postdesc,split="...-",fixed=TRUE)
 
 ## from visual inspection, I see that if there are two entries, we can discard
 ## the first one
 postdesc[90]
 # postdesc[90]
-# $Q192
+# $P090
 # [1] "Please rate how strongly you agree or disagree with each of the following statements by selecting th"
-# [2] "I relinquished rational control of myself and listened to my body"                                   
+# [2] "My partner and I felt intimate"                                                                      
 
 
 for(i in 1:length(postdesc)){
@@ -176,14 +218,11 @@ postdesc =unlist(postdesc)
 postdesc
 descPostDf = data.frame(varName=newPostNames,oldName=oldPostNames,varDesc=postdesc)
 
-descPostDf
+head(descPostDf)
 
 #########################################################################
-## delete the last question
+## save what we have just done
 #########################################################################
-descPostDf=descPostDf[-nrow(descPostDf),]
-postDf=postDf[,-ncol(postDf)]
-postNumVarNames = postNumVarNames[-length(postNumVarNames)]
 
 save(postDf,descPostDf,postNumVarNames,file="rdata/postData.RData")
 
@@ -191,5 +230,6 @@ save(postDf,descPostDf,postNumVarNames,file="rdata/postData.RData")
 ## save a csv file with the mappings of questions
 ## this is in the dataframe descPostDf
 #########################################################################
-
+## comment this out because we are going to edit the file and don't want
+## to write over it by accident
 #write.csv(descPostDf,file="output/descPostDf.csv",row.names=FALSE)

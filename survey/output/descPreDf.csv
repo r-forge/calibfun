@@ -1,1 +1,102 @@
-varName,oldName,,varDescQ001,Q1,,How many previous full-term pregnancies have you had?Q002,Q2,,When is your estimated due date? (MM/DD/YYYY)Q003,Q3,,Is this a single or a multiple pregnancy?Q004,Q4,,AgeQ005,Q5,,OccupationQ006,Q6,,Highest educational level achievedQ007,Q7,,Are you currently partnered?Q008,Q8,,Religious affiliationQ009,Q9,,Average household incomeQ010,Q10,,RaceQ011,Q11,,How many siblings do you have?Q012,Q12,,Highest educational level achieved by your motherQ013,Q13,,Highest educational level achieved by your fatherQ014,Q14,,What is your primary motivating factor for choosing an out-of-hospital birth?Q015,Q16_1,,InterestedQ016,Q16_2,,DistressedQ017,Q16_3,,ExcitedQ018,Q16_4,,UpsetQ019,Q16_5,,StrongQ020,Q16_6,,GuiltyQ021,Q16_7,,ScaredQ022,Q16_8,,HostileQ023,Q16_9,,EnthusiasticQ024,Q16_10,,ProudQ025,Q16_11,,IrritableQ026,Q16_12,,AlertQ027,Q16_13,,AshamedQ028,Q16_14,,InspiredQ029,Q16_15,,NervousQ030,Q16_16,,DeterminedQ031,Q16_17,,AttentiveQ032,Q16_18,,JitteryQ033,Q16_19,,ActiveQ034,Q16_20,,AfraidQ035,Q17_1,INV,I am afraid that I will let my partner down in laborQ036,Q17_2,INV,I suspect that I will lose control of myself during laborQ037,Q17_3,,Having an unmedicated labor and birth is important to meQ038,Q17_4,,I expect to use no pain medications during laborQ039,Q17_5,INV,I fear that my birth will not go exactly how I expectQ040,Q17_6,INV,I have an ideal of childbirth that I feel I must attainQ041,Q17_7,,I consider myself a highly intuitive womanQ042,Q17_8,~,It is important to me to remain calm and composed during laborQ043,Q17_9,INV,I fear that people will talk too much during my laborQ044,Q17_10,INV,I fear that my emotions will become overwhelming during laborQ045,Q18_1,INV (~),"I will need to be coached during labor (by a doula, partner, midwife...) in order to give birth successfully"Q046,Q18_2,~,I have high expectations for my own performance during laborQ047,Q18_3,,I expect my labor to be a very positive experienceQ048,Q18_4,,I believe that my body holds the wisdom to give birth on its ownQ049,Q18_5,,I have prepared mentally for the childbirth experienceQ050,Q18_6,~,I have a specific image of how my childbirth should goQ051,Q18_7,,I have confidence in my ability to succeed in childbirthQ052,Q18_8,,I expect to move around the room during laborQ053,Q18_9,,"Even if it’s not my ideal, I can imagine giving birth at one of a variety of locations (home, birth center, hospital, etc.)"Q054,Q18_10,,"Even if it’s not my ideal, I would be comfortable giving birth at one of a variety of locations (home, birth center, hospital, etc.)"Q055,Q19_1,,I am confident that I will “be myself” in laborQ056,Q19_2,,I expect to feel uninhibited in my noises during laborQ057,Q19_3,,I have prepared physically for the childbirth experienceQ058,Q19_4,,I have high expectations for my own coping ability during laborQ059,Q19_5,,I am confident that my birthing environment will be comfortable and relaxingQ060,Q19_6,,I expect to feel uninhibited in my movement during laborQ061,Q19_7,INV,I don't expect to be involved in decision-making processes during my labor (especially regarding interventions)Q062,Q19_8,INV,I expect to cope poorly with the pain of laborQ063,Q19_9,INV,I am afraid that I will let myself down in laborQ064,Q20,,I expect my labor to be __ hours long (from active labor to birth)Q065,Q21,,I expect my partner to be present for the birth (Partner can mean a romantic partner or a birth part...Q066,Q22,,I expect my partner to be my primary support personQ067,Q23,,I expect to work with a doulaQ068,Q25,,How did your mother give birth to you?Q069,Q26,,How close are you to your mother?Q070,Q27,,My mother's beliefs and/or experiences of birth have strongly influenced my own beliefs and expectat...Q071,Q28,,"I engaged in activities that strengthen mind/body awareness during my pregnancy (ex. yoga, meditatio..."Q072,Q24,,I have written or I plan to write a birth planQ073,Q29,,My birth plan addresses personal factors (ex. preferences and beliefs)Q074,Q30,,My birth plan addresses external factors (ex. interventions or emergency situations)Q075,Q31,,I am open to changes in my birth planQ076,Q32_1,INV (~),My partner believes it is important to me to remain calm and composed during laborQ077,Q32_2,,My partner expects me to feel uninhibited in my movement during laborQ078,Q32_3,,My partner has confidence in my ability to succeed in childbirthQ079,Q32_4,,My partner feels I have prepared physically for the childbirth experienceQ080,Q32_5,INV,My partner fears that people will talk too much during my laborQ081,Q32_6,INV,My partner does not expect me to be involved in decision-making processes during my labor (especially regarding interventions)Q082,Q32_7,INV,My partner is afraid that I will let myself down in laborQ083,Q32_8,INV,My partner fears that my emotions will become overwhelming during laborQ084,Q32_9,~,My partner has high expectations for my coping ability during laborQ085,Q32_10,,My partner believes that my body holds the wisdom to give birth on its ownQ086,Q33_1,INV,"My partner believes I will need to be coached during labor (by a doula, partner, midwife...) in order to give birth successfully"Q087,Q33_2,,My partner expects me to use no pain medications during laborQ088,Q33_3,INV,My partner fears that my birth will not go exactly how I expectQ089,Q33_4,,My partner expects me to move around the room during my laborQ090,Q33_5,,My partner feels I have prepared mentally for the childbirth experienceQ091,Q33_6,,Having an unmedicated labor and birth is important to my partnerQ092,Q33_7,INV,My partner expects me to cope poorly with the pain of laborQ093,Q33_8,INV,My partner has an ideal of childbirth I feel I must attainQ094,Q34_1,INV (~),My partner has a specific image of how my childbirth should goQ095,Q34_2,,My partner considers me a highly intuitive womanQ096,Q34_3,,My partner is confident that my birthing environment will be comfortable and relaxingQ097,Q34_4,~,My partner has high expectations for my performance during laborQ098,Q34_5,,My partner is confident that I will “be myself” in laborQ099,Q34_6,INV,My partner suspects that I will lose control of myself during laborQ100,Q34_7,,My partner expects my labor to be a very positive experienceQ101,Q34_8,,My partner expects me to feel uninhibited in my noises during labor
+"varName","oldName","varDesc"
+"N001","Q1","How many previous full-term pregnancies have you had?"
+"N002","Q2","When is your estimated due date? (MM/DD/YYYY)"
+"N003","Q3","Is this a single or a multiple pregnancy?"
+"N004","Q4","Age"
+"N005","Q5","Occupation"
+"N006","Q6","Highest educational level achieved"
+"N007","Q7","Are you currently partnered?"
+"N008","Q8","Religious affiliation"
+"N009","Q9","Average household income"
+"N010","Q10","Race"
+"N011","Q11","How many siblings do you have?"
+"N012","Q12","Highest educational level achieved by your mother"
+"N013","Q13","Highest educational level achieved by your father"
+"N014","Q14","What is your primary motivating factor for choosing an out-of-hospital birth?"
+"N015","Q16_1","Interested"
+"N016","Q16_2","Distressed"
+"N017","Q16_3","Excited"
+"N018","Q16_4","Upset"
+"N019","Q16_5","Strong"
+"N020","Q16_6","Guilty"
+"N021","Q16_7","Scared"
+"N022","Q16_8","Hostile"
+"N023","Q16_9","Enthusiastic"
+"N024","Q16_10","Proud"
+"N025","Q16_11","Irritable"
+"N026","Q16_12","Alert"
+"N027","Q16_13","Ashamed"
+"N028","Q16_14","Inspired"
+"N029","Q16_15","Nervous"
+"N030","Q16_16","Determined"
+"N031","Q16_17","Attentive"
+"N032","Q16_18","Jittery"
+"N033","Q16_19","Active"
+"N034","Q16_20","Afraid"
+"N035","Q17_1","I am afraid that I will let my partner down in labor"
+"N036","Q17_2","I suspect that I will lose control of myself during labor"
+"N037","Q17_3","Having an unmedicated labor and birth is important to me"
+"N038","Q17_4","I expect to use no pain medications during labor"
+"N039","Q17_5","I fear that my birth will not go exactly how I expect"
+"N040","Q17_6","I have an ideal of childbirth that I feel I must attain"
+"N041","Q17_7","I consider myself a highly intuitive woman"
+"N042","Q17_8","It is important to me to remain calm and composed during labor"
+"N043","Q17_9","I fear that people will talk too much during my labor"
+"N044","Q17_10","I fear that my emotions will become overwhelming during labor"
+"N045","Q18_1","I will need to be coached during labor (by a doula, partner, midwife...) in order to give birth successfully"
+"N046","Q18_2","I have high expectations for my own performance during labor"
+"N047","Q18_3","I expect my labor to be a very positive experience"
+"N048","Q18_4","I believe that my body holds the wisdom to give birth on its own"
+"N049","Q18_5","I have prepared mentally for the childbirth experience"
+"N050","Q18_6","I have a specific image of how my childbirth should go"
+"N051","Q18_7","I have confidence in my ability to succeed in childbirth"
+"N052","Q18_8","I expect to move around the room during labor"
+"N053","Q18_9","Even if it‚Äôs not my ideal, I can imagine giving birth at one of a variety of locations (home, birth center, hospital, etc.)"
+"N054","Q18_10","Even if it‚Äôs not my ideal, I would be comfortable giving birth at one of a variety of locations (home, birth center, hospital, etc.)"
+"N055","Q19_1","I am confident that I will ‚Äúbe myself‚Äù in labor"
+"N056","Q19_2","I expect to feel uninhibited in my noises during labor"
+"N057","Q19_3","I have prepared physically for the childbirth experience"
+"N058","Q19_4","I have high expectations for my own coping ability during labor"
+"N059","Q19_5","I am confident that my birthing environment will be comfortable and relaxing"
+"N060","Q19_6","I expect to feel uninhibited in my movement during labor"
+"N061","Q19_7","I don't expect to be involved in decision-making processes during my labor (especially regarding interventions)"
+"N062","Q19_8","I expect to cope poorly with the pain of labor"
+"N063","Q19_9","I am afraid that I will let myself down in labor"
+"N064","Q20","I expect my labor to be __ hours long (from active labor to birth)"
+"N065","Q21","I expect my partner to be present for the birth (Partner can mean a romantic partner or a birth part..."
+"N066","Q22","I expect my partner to be my primary support person"
+"N067","Q23","I expect to work with a doula"
+"N068","Q25","How did your mother give birth to you?"
+"N069","Q26","How close are you to your mother?"
+"N070","Q27","My mother's beliefs and/or experiences of birth have strongly influenced my own beliefs and expectat..."
+"N071","Q28","I engaged in activities that strengthen mind/body awareness during my pregnancy (ex. yoga, meditatio..."
+"N072","Q24","I have written or I plan to write a birth plan"
+"N073","Q29","My birth plan addresses personal factors (ex. preferences and beliefs)"
+"N074","Q30","My birth plan addresses external factors (ex. interventions or emergency situations)"
+"N075","Q31","I am open to changes in my birth plan"
+"N076","Q32_1","My partner believes it is important to me to remain calm and composed during labor"
+"N077","Q32_2","My partner expects me to feel uninhibited in my movement during labor"
+"N078","Q32_3","My partner has confidence in my ability to succeed in childbirth"
+"N079","Q32_4","My partner feels I have prepared physically for the childbirth experience"
+"N080","Q32_5","My partner fears that people will talk too much during my labor"
+"N081","Q32_6","My partner does not expect me to be involved in decision-making processes during my labor (especially regarding interventions)"
+"N082","Q32_7","My partner is afraid that I will let myself down in labor"
+"N083","Q32_8","My partner fears that my emotions will become overwhelming during labor"
+"N084","Q32_9","My partner has high expectations for my coping ability during labor"
+"N085","Q32_10","My partner believes that my body holds the wisdom to give birth on its own"
+"N086","Q33_1","My partner believes I will need to be coached during labor (by a doula, partner, midwife...) in order to give birth successfully"
+"N087","Q33_2","My partner expects me to use no pain medications during labor"
+"N088","Q33_3","My partner fears that my birth will not go exactly how I expect"
+"N089","Q33_4","My partner expects me to move around the room during my labor"
+"N090","Q33_5","My partner feels I have prepared mentally for the childbirth experience"
+"N091","Q33_6","Having an unmedicated labor and birth is important to my partner"
+"N092","Q33_7","My partner expects me to cope poorly with the pain of labor"
+"N093","Q33_8","My partner has an ideal of childbirth I feel I must attain"
+"N094","Q34_1","My partner has a specific image of how my childbirth should go"
+"N095","Q34_2","My partner considers me a highly intuitive woman"
+"N096","Q34_3","My partner is confident that my birthing environment will be comfortable and relaxing"
+"N097","Q34_4","My partner has high expectations for my performance during labor"
+"N098","Q34_5","My partner is confident that I will ‚Äúbe myself‚Äù in labor"
+"N099","Q34_6","My partner suspects that I will lose control of myself during labor"
+"N100","Q34_7","My partner expects my labor to be a very positive experience"
+"N101","Q34_8","My partner expects me to feel uninhibited in my noises during labor"

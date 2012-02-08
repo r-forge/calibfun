@@ -10,8 +10,10 @@
 ## prefile is set in the driver.R file
 preDf = read.csv(prefile,header=TRUE,as.is=TRUE)
 ## this shows how many rows (subjects) and columns (questions)
-dim(df)
-# [1]   5 110
+dim(preDf)
+# dim(preDf)
+# [1]  13 110
+
 
 names(preDf)
 # names(df)
@@ -39,7 +41,7 @@ names(preDf)
 #R_5pCLMdvULGaB2bW	Default Response Set	Dec 11, 2011 11:46 AM	Dec 11, 2011 12:00 PM	1	1	1	1
 #R_9AXBNcQ1fcpNtru	Default Response Set	Dec 11, 2011 6:42 PM	Dec 11, 2011 7:17 PM	1	1	1	1
 #R_1ZzxGWSu5jraeyM	Default Response Set	Dec 21, 2011 6:09 PM	Dec 21, 2011 6:17 PM	1	1	1	1
-preDf = preDf[,!(names(preDf) %in% c("V2","V3","V4","V5","Q36","Q37","Q35"))]
+preDf = preDf[,!(names(preDf) %in% c("V2","V3","V4","V5","Q36","Q37","Q35","Q41"))]
 names(preDf)
 #####################################################################################
 ## the variables names don't have any particular meaning, so
@@ -47,23 +49,24 @@ names(preDf)
 ## Note: the first 5 columns are going to get separate names
 #####################################################################################
 nvars = ncol(preDf)-1
-newPreNames = c(paste("Q00",1:9,sep=""),paste("Q0",10:99,sep=""),paste("Q",100:nvars,sep=""))
+newPreNames = c(paste("N00",1:9,sep=""),paste("N0",10:99,sep=""),paste("N",100:nvars,sep=""))
 newPreNames
 # newPreNames
-#   [1] "Q001" "Q002" "Q003" "Q004" "Q005" "Q006" "Q007" "Q008" "Q009" "Q010"
-#  [11] "Q011" "Q012" "Q013" "Q014" "Q015" "Q016" "Q017" "Q018" "Q019" "Q020"
-#  [21] "Q021" "Q022" "Q023" "Q024" "Q025" "Q026" "Q027" "Q028" "Q029" "Q030"
-#  [31] "Q031" "Q032" "Q033" "Q034" "Q035" "Q036" "Q037" "Q038" "Q039" "Q040"
-#  [41] "Q041" "Q042" "Q043" "Q044" "Q045" "Q046" "Q047" "Q048" "Q049" "Q050"
-#  [51] "Q051" "Q052" "Q053" "Q054" "Q055" "Q056" "Q057" "Q058" "Q059" "Q060"
-#  [61] "Q061" "Q062" "Q063" "Q064" "Q065" "Q066" "Q067" "Q068" "Q069" "Q070"
-#  [71] "Q071" "Q072" "Q073" "Q074" "Q075" "Q076" "Q077" "Q078" "Q079" "Q080"
-#  [81] "Q081" "Q082" "Q083" "Q084" "Q085" "Q086" "Q087" "Q088" "Q089" "Q090"
-#  [91] "Q091" "Q092" "Q093" "Q094" "Q095" "Q096" "Q097" "Q098" "Q099" "Q100"
-# [101] "Q101" "Q102"
+#   [1] "N001" "N002" "N003" "N004" "N005" "N006" "N007" "N008" "N009" "N010"
+#  [11] "N011" "N012" "N013" "N014" "N015" "N016" "N017" "N018" "N019" "N020"
+#  [21] "N021" "N022" "N023" "N024" "N025" "N026" "N027" "N028" "N029" "N030"
+#  [31] "N031" "N032" "N033" "N034" "N035" "N036" "N037" "N038" "N039" "N040"
+#  [41] "N041" "N042" "N043" "N044" "N045" "N046" "N047" "N048" "N049" "N050"
+#  [51] "N051" "N052" "N053" "N054" "N055" "N056" "N057" "N058" "N059" "N060"
+#  [61] "N061" "N062" "N063" "N064" "N065" "N066" "N067" "N068" "N069" "N070"
+#  [71] "N071" "N072" "N073" "N074" "N075" "N076" "N077" "N078" "N079" "N080"
+#  [81] "N081" "N082" "N083" "N084" "N085" "N086" "N087" "N088" "N089" "N090"
+#  [91] "N091" "N092" "N093" "N094" "N095" "N096" "N097" "N098" "N099" "N100"
+# [101] "N101"
 
 oldPreNames = names(preDf)[-c(1)]
 names(preDf)[-c(1)] = newPreNames
+names(preDf)[1] = "ResponseId"
 
 preDf[1,1:10]
 #####################################################################################
@@ -87,17 +90,19 @@ preDf = preDf[-1,]
 #####################################################################################
 ## these variables are ones that aren't numeric
 ## Q2, Q5, and Q14 are the original names
-newPreNames[oldPreNames=="Q2"]
+c1 = newPreNames[oldPreNames=="Q2"]
 # newPreNames[oldPreNames=="Q2"]
-# [1] "Q002"
-newPreNames[oldPreNames=="Q5"]
-# newPreNames[oldPreNames=="Q5"]
-# [1] "Q005"
-newPreNames[oldPreNames=="Q14"]
-# newPreNames[oldPreNames=="Q14"]
-# [1] "Q014"
+# [1] "N002"
 
-preCharVarNames  = c("V1","Q002","Q005","Q014")
+c2 = newPreNames[oldPreNames=="Q5"]
+# newPreNames[oldPreNames=="Q5"]
+# [1] "N005"
+
+c3 =newPreNames[oldPreNames=="Q14"]
+# newPreNames[oldPreNames=="Q14"]
+# [1] "N014"
+
+preCharVarNames  = c("ResponseId",c1,c2,c3)
 preDf[,preCharVarNames]
 ## these are the variables that are numeric
 preNumVarNames = names(preDf)[!(names(preDf) %in% preCharVarNames)]
@@ -128,7 +133,7 @@ predesc = strsplit(predesc,split="...-",fixed=TRUE)
 ## the first one
 predesc[90]
 # predesc[90]
-# $Q090
+# $N090
 # [1] "Please rate how strongly you agree or disagree with each of the following statements by selecting th"
 # [2] "My partner feels I have prepared mentally for the childbirth experience"                             
 
@@ -144,10 +149,8 @@ descPreDf = data.frame(varName=newPreNames,oldName=oldPreNames,varDesc=predesc)
 descPreDf
 
 #########################################################################
-## delete the last question
+## save the results
 #########################################################################
-descPreDf=descPreDf[-nrow(descPreDf),]
-preDf=preDf[,-ncol(preDf)]
 
 save(preDf,descPreDf,preNumVarNames,file="rdata/preData.RData")
 
@@ -155,5 +158,7 @@ save(preDf,descPreDf,preNumVarNames,file="rdata/preData.RData")
 ## save a csv file with the mappings of questions
 ## this is in the dataframe desPreDf
 #########################################################################
-
+## comment this out so that you don't over write it by mistake
 #write.csv(descPreDf,file="output/descPreDf.csv",row.names=FALSE)
+
+

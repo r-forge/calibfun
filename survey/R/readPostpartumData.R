@@ -220,6 +220,103 @@ descPostDf = data.frame(varName=newPostNames,oldName=oldPostNames,varDesc=postde
 
 head(descPostDf)
 
+#####################################################################################
+## correct the ones that are scored in reverse
+#####################################################################################
+## this is the list of variables based on old names that need to be reverse
+## this is for the list of variables that are 1-5
+## TODO: get the full list of switch variables
+## -- run all of the code up to here
+## -- run this block of code 
+## -- update pastes
+## -- copy and paste for the 1-3 variables, or any other groups
+## -- 
+revPostOldNames = c("Q37.1","Q47_3","Q47_9")
+## check to be sure they are all actually legal names
+all(revPostOldNames %in% descPostDf$oldName)
+# all(revPostOldNames %in% descPostDf$oldName)
+# [1] TRUE
+## now get the new names
+selNames = descPostDf$oldName %in% revPostOldNames
+descPostDf[selNames,c("varName","oldName")]
+# descPostDf[selNames,c("varName","oldName")]
+#      varName oldName
+# P052    P052   Q37.1
+# P064    P064   Q47_3
+# P070    P070   Q47_9
+
+revPostNames = as.character(descPostDf$varName[selNames])
+revPostNames
+# revPostNames
+# [1] "P052" "P064" "P070"
+
+## keep this just in case you need it
+adf = postDf
+
+## now switch the values
+for(i in revPostNames) {
+	postDf[,i] = 6-postDf[,i]
+}
+## just check to be sure this makes sense
+adf[,revPostNames]
+# adf[,revPostNames]
+#    P052 P064 P070
+# 2     5    4    5
+# 3     5    1    5
+# 4     5    3    3
+# 5     5    2    5
+# 6     5    1    4
+# 7     5    1    5
+# 8     2    2    2
+# 9     5    3    5
+# 10    5    3    5
+# 11    1    2    2
+# 12    4    4    5
+# 13    5    3    4
+# 14    3    3    5
+# 15    4    1    2
+# 16    4    2    5
+# 17    4    4    5
+# 18    2    2    5
+# 19    5    3    5
+# 20    3    2    5
+# 21    5    2    2
+# 22    5    5    5
+# 23    5    2    5
+# 24    4    2    4
+# > cat("Synch1328671829478672000\n");
+
+postDf[,revPostNames]
+# postDf[,revPostNames]
+#    P052 P064 P070
+# 2     1    2    1
+# 3     1    5    1
+# 4     1    3    3
+# 5     1    4    1
+# 6     1    5    2
+# 7     1    5    1
+# 8     4    4    4
+# 9     1    3    1
+# 10    1    3    1
+# 11    5    4    4
+# 12    2    2    1
+# 13    1    3    2
+# 14    3    3    1
+# 15    2    5    4
+# 16    2    4    1
+# 17    2    2    1
+# 18    4    4    1
+# 19    1    3    1
+# 20    3    4    1
+# 21    1    4    4
+# 22    1    1    1
+# 23    1    4    1
+# 24    2    4    2
+# > cat("Synch1328671840380053000\n");
+
+
+
+
 #########################################################################
 ## save what we have just done
 #########################################################################

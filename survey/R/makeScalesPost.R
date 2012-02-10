@@ -25,35 +25,45 @@ summary(scores)
 
 
 ## simple example
-scaleNames1 = c("P011","P012","P020","P035","P067")
-sDf1 = postDf[,scaleNames1]
-describe(sDf1)
-scale1 = apply(sDf1[,1:3],1,sum)
-scale2 = apply(sDf1[,4:5],1,sum)
-sDf = data.frame(sDf1, scale1 = scale1, scale2 = scale2)
-cor(sDf)
+# scaleNames1 = c("P011","P012","P020","P035","P067")
+# sDf1 = postDf[,scaleNames1]
+# describe(sDf1)
+# scale1 = apply(sDf1[,1:3],1,sum)
+# scale2 = apply(sDf1[,4:5],1,sum)
+# sDf = data.frame(sDf1, scale1 = scale1, scale2 = scale2)
+# cor(sDf)
 
-physEnvNames = c("P011","P012","P020","P035","P067")
-sDf1 = postDf[,physEnvNames]
-sDf1 = scale(sDf1)
-describe(sDf1)
-physEnv = apply(sDf1,1,sum)
-sDf = data.frame(sDf1, physEnv = physEnv)
-sDf
-cor(sDf)
+physEnvNames = c("P048","P049","P051","P083","P102","P110","P118")
+physEnvDf = postDf[,physEnvNames]
+physEnvDf = scale(physEnvDf)
+describe(physEnvDf)
+physEnv = apply(physEnvDf,1,sum)
+physEnvDf = data.frame(physEnvDf, physEnv = physEnv)
+physEnvDf
+cor(physEnvDf)
 
-emotEnvNames = c("P036","P041","P101","P111","P029")
-emotEnvDf = postDf[,emotEnvNames]
-emotEnvDf = scale(emotEnvDf)
-describe(emotEnvDf)
-emotEnv = apply(emotEnvDf,1,sum)
-emotEnvDf = data.frame(emotEnvDf, emotEnv = emotEnv)
-emotEnvDf
-cor(emotEnvDf)
+#emotEnvNames = c("P036","P041","P101","P111","P029")
+#emotEnvDf = postDf[,emotEnvNames]
+#emotEnvDf = scale(emotEnvDf)
+#describe(emotEnvDf)
+#emotEnv = apply(emotEnvDf,1,sum)
+#emotEnvDf = data.frame(emotEnvDf, emotEnv = emotEnv)
+#emotEnvDf
+#cor(emotEnvDf)
+
+laborLandNames = c("P071","P072","P073","P079","P080","P085","P086",
+		"P089","P093","P094","P096","P108","P115","P132","P146")
+laborLandDf = postDf[,laborLandNames]
+laborLandDf = scale(laborLandDf)
+describe(laborLandDf)
+laborLand = apply(laborLandDf,1,sum)
+laborLandDf = data.frame(laborLandDf, laborLand = laborLand)
+laborLandDf
+cor(laborLandDf)
 
 ## TODO: practice with two or three most important
 
-groupsDf = data.frame(physEnv = physEnv, emotEnv = emotEnv)
+groupsDf = data.frame(physEnv = physEnv, laborLand = laborLand)
 cor(groupsDf)
 library(ggplot2)
-ggplot(groupsDf,aes(x=physEnv, y=emotEnv))+geom_point()
+ggplot(groupsDf,aes(x=physEnv, y=laborLand))+geom_point()

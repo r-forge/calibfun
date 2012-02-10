@@ -1,30 +1,27 @@
 ###############################################################################
-## recodePostVars.R
+## recodePreVars.R
 ##
-## recode all of the post partum variables that were reversed in the original survey
+## recode all of the prenatal variables that were reversed in the original survey
 ## 
 ## Author: Haaland
 ###############################################################################
 
 ## you don't need to rerun the original file unless there was a problem of some sort
-load("rdata/postData.RData")
+load("rdata/preData.RData")
 
 #####################################################################################
 ## correct the ones that are scored in reverse
 #####################################################################################
 ## this is the list of variables based on old names that need to be reverse
 ## this is for the list of variables that are 1-5
-revPostOldNames = c("Q37.1","Q47_3","Q47_9","Q48_3","Q48_6","Q48_8",
-		"Q48_9","Q50_3","Q51_6","Q51_8","Q52_5","Q52_6","Q52_9",
-		"Q52_10","Q53_3","Q53_6","Q53_8","Q53_10","Q54_3","Q54_5",
-		"Q54_6","Q54_9","Q55_4","Q55_8","Q56_1","Q56_7","Q57.1")
+revPreOldNames = c("")
 ## check to be sure they are all actually legal names
-all(revPostOldNames %in% descPostDf$oldName)
+all(revPreOldNames %in% descPreDf$oldName)
 # all(revPostOldNames %in% descPostDf$oldName)
 # [1] TRUE
 ## now get the new names
-selNames = descPostDf$oldName %in% revPostOldNames
-descPostDf[selNames,c("varName","oldName")]
+selNamesPre = descPreDf$oldName %in% revPreOldNames
+descPreDf[selNamesPre,c("varName","oldName")]
 # descPostDf[selNames,c("varName","oldName")]
 # 		varName oldName
 # P052    P052   Q37.1
@@ -55,8 +52,8 @@ descPostDf[selNames,c("varName","oldName")]
 # P148    P148   Q56_7
 # P149    P149   Q57.1
 
-revPostNames = as.character(descPostDf$varName[selNames])
-revPostNames
+revPreNames = as.character(descPreDf$varName[selNamesPre])
+revPreNames
 # revPostNames
 #  [1] "P052" "P064" "P070" "P074" "P077" "P079" "P080" "P084" "P097" "P099"
 # [11] "P106" "P107" "P110" "P111" "P114" "P117" "P119" "P121" "P124" "P126"
@@ -64,16 +61,16 @@ revPostNames
 
 
 ## keep this just in case you need it
-adf = postDf
+adf = preDf
 ## safe point
-## postDf = adf
+## preDf = adf
 
 ## now switch the values
-for(i in revPostNames) {
-	postDf[,i] = 6-postDf[,i]
+for(i in revPreNames) {
+	preDf[,i] = 6-preDf[,i]
 }
 ## just check to be sure this makes sense
-head(adf[,revPostNames])
+head(adf[,revPreNames])
 # head(adf[,revPostNames])
 #   P052 P064 P070 P074 P077 P079 P080 P084 P097 P099 P106 P107 P110 P111 P114
 # 2    5    4    5    2    4    2    3    5    5    4    5    4    4    4    5
@@ -90,7 +87,7 @@ head(adf[,revPostNames])
 # 6    4    4    5    4    5    3    3    5    4    4    3    4
 # 7    1    1    1    2    4    2    2    2    1    1    2    1
 
-head(postDf[,revPostNames])
+head(preDf[,revPreNames])
 # head(postDf[,revPostNames])
 #   P052 P064 P070 P074 P077 P079 P080 P084 P097 P099 P106 P107 P110 P111 P114
 # 2    1    2    1    4    2    4    3    1    1    2    1    2    2    2    1
@@ -113,6 +110,8 @@ head(postDf[,revPostNames])
 #########################################################################
 ## this overwrites the original, so if you make a big mistake
 ## you'll have to run the code to remake the dataframe
-save(postDf,descPostDf,postNumVarNames,file="rdata/postData.RData")
+save(preDf,descPreDf,preNumVarNames,file="rdata/preData.RData")
+
+
 
 

@@ -33,6 +33,7 @@ dim(descPreDf)
 ## the number of columns shouldn't change
 checkEquals(ncol(preDf),102)
 checkEquals(nrow(descPreDf),101)
+
 ## now fix the recoding or reverse orders
 source("R/recodePreVars.R")
 
@@ -64,3 +65,8 @@ source("R/recodePostVars.R")
 ## make some histograms of the data 
 #####################################################################################
 source("R/plotHistograms.R")
+
+#########################################################################
+## run individual analyses
+#########################################################################
+source("R/individualAnalyses.R")

@@ -45,6 +45,9 @@ head(sumPostDf)
 # P007 1    0    0   
 # P008 5.61 3.63 0.76
 
+## look at the data and determine the questions that have no 
+## standard deviation
+# P003, P007, P024
 
 #########################################################################
 ## create a rating of how fully each woman entered laborland

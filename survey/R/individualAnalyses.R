@@ -6,7 +6,9 @@
 ##
 ## Author: Haaland
 ###############################################################################
-
+load("rdata/preData.RData")
+load("rdata/postData.RData")
+library(ggplot2)
 ## do descriptive statistics for all questions
 # first, create a data.frame with only numeric responses
 numPreDf <- preDf[,preNumVarNames]
@@ -49,12 +51,33 @@ head(sumPostDf)
 ## standard deviation
 # P003, P007, P024
 
+pdf("plots/scales.pdf")
 #########################################################################
 ## create a rating of how fully each woman entered laborland
 #########################################################################
-
+## plot laborLand score v. physEnv
+ggplot(groupsDf,aes(x=physEnv, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)
 
 #########################################################################
 ## group questions into themes and create composite score
 #########################################################################
 
+#########################################################################
+## create plots of actual-perceived scores
+#########################################################################
+ggplot(data=postDf,aes(x=tActualAct,y=tPerceivedAct))+geom_point()+
+		geom_abline(intercept=0, slope=1)
+ggplot(data=postDf,aes(x=tActualPush,y=tPerceivedPush))+geom_point()+
+		geom_abline(intercept=0, slope=1)
+
+ggplot(data=postDf,aes(x=laborLand,y=tDiffAct,color=physEnv))+geom_point()
+ggplot(data=postDf,aes(x=physEnv,y=tDiffAct,color=laborLand))+geom_point()
+
+ggplot(data=postDf,aes(x=laborLand,y=tDiffPush,color=physEnv))+geom_point()
+ggplot(data=postDf,aes(x=physEnv,y=tDiffPush,color=laborLand))+geom_point()
+
+dev.off()
+#########################################################################
+## create
+#########################################################################

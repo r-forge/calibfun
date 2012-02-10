@@ -41,6 +41,7 @@ physEnv = apply(physEnvDf,1,sum)
 physEnvDf = data.frame(physEnvDf, physEnv = physEnv)
 physEnvDf
 cor(physEnvDf)
+postDf$physEnv=physEnv
 
 #emotEnvNames = c("P036","P041","P101","P111","P029")
 #emotEnvDf = postDf[,emotEnvNames]
@@ -60,6 +61,7 @@ laborLand = apply(laborLandDf,1,sum)
 laborLandDf = data.frame(laborLandDf, laborLand = laborLand)
 laborLandDf
 cor(laborLandDf)
+postDf$laborLand=laborLand
 
 ## TODO: practice with two or three most important
 
@@ -67,3 +69,34 @@ groupsDf = data.frame(physEnv = physEnv, laborLand = laborLand)
 cor(groupsDf)
 library(ggplot2)
 ggplot(groupsDf,aes(x=physEnv, y=laborLand))+geom_point()
+
+#########################################################################
+## creating difference scores for actual vs. perceived time in active
+## labor and pushing
+#########################################################################
+
+## 0-2 hours | 2-4 hours | 4-6 hours | 6-8 hours | 8-10 hours | 
+## 10-12 hours | More than 12 hours
+tValsAct = c(1,3,5,7,9,11,13)
+## values for active labor
+tActualAct = tValsAct[postDf[,c("P022")]]
+tPerceivedAct = tValsAct[postDf[,c("P152")]]
+tDiffAct = tActualAct - tPerceivedAct
+## add these variables to the dataframe
+postDf$tActualAct=tActualAct
+postDf$tPerceivedAct=tPerceivedAct
+postDf$tDiffAct=tDiffAct
+
+## 0-19 minutes | 20-39 minutes | 40-59 minutes | 60-79 minutes | 
+## 80-99 minutes | 100-120 minutes | more than 2 hours
+tValsPush = c(10,30,50,70,90,110,130)
+##values for pushing
+tActualPush = tValsPush[postDf[,c("P023")]]
+tPerceivedPush = tValsPush[postDf[,c("P153")]]
+tDiffPush = tActualPush - tPerceivedPush
+## add these variables to the dataframe
+postDf$tActualPush=tActualPush
+postDf$tPerceivedPush=tPerceivedPush
+postDf$tDiffPush=tDiffPush
+
+save(postDf,descPostDf,postNumVarNames,file="rdata/postData.RData")

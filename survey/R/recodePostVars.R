@@ -115,4 +115,46 @@ head(postDf[,revPostNames])
 ## you'll have to run the code to remake the dataframe
 save(postDf,descPostDf,postNumVarNames,file="rdata/postData.RData")
 
+#########################################################################
+## now that all the varialbes go in the same direction, reverse them
+## so that higher is always better
+#########################################################################
+# two-level scales
+twoLevelVars=c("P051","P054")
+sixLevelVars=c("P053","P055","P154","P155","P156")
+eightLevelVars=c("P056")
+timeVars=c("P152","P153")
+(1:ncol(postDf))[names(postDf) %in% c("P048","P156")]
+# (1:ncol(postDf))[names(postDf) %in% c("P048","P156")]
+# [1]  49 157
+changeDirVars=names(postDf)[49:157]
+fiveLevelVars=changeDirVars[!(changeDirVars %in% c(twoLevelVars,
+							sixLevelVars,eightLevelVars,timeVars))]
+fiveLevelVars
+# fiveLevelVars
+#  [1] "P048" "P049" "P050" "P052" "P057" "P058" "P059" "P060" "P061" "P062"
+# [11] "P063" "P064" "P065" "P066" "P067" "P068" "P069" "P070" "P071" "P072"
+# [21] "P073" "P074" "P075" "P076" "P077" "P078" "P079" "P080" "P081" "P082"
+# [31] "P083" "P084" "P085" "P086" "P087" "P088" "P089" "P090" "P091" "P092"
+# [41] "P093" "P094" "P095" "P096" "P097" "P098" "P099" "P100" "P101" "P102"
+# [51] "P103" "P104" "P105" "P106" "P107" "P108" "P109" "P110" "P111" "P112"
+# [61] "P113" "P114" "P115" "P116" "P117" "P118" "P119" "P120" "P121" "P122"
+# [71] "P123" "P124" "P125" "P126" "P127" "P128" "P129" "P130" "P131" "P132"
+# [81] "P133" "P134" "P135" "P136" "P137" "P138" "P139" "P140" "P141" "P142"
+# [91] "P143" "P144" "P145" "P146" "P147" "P148" "P149" "P150" "P151"
 
+## now actually change the directions (but not for timeVars)
+for (i in twoLevelVars){
+	postDf[,i]=2-postDf[,i]+1
+}
+for (i in sixLevelVars){
+	postDf[,i]=6-postDf[,i]+1
+}
+for (i in eightLevelVars){
+	postDf[,i]=8-postDf[,i]+1
+}
+for (i in fiveLevelVars){
+	postDf[,i]=5-postDf[,i]+1
+}
+
+save(postDf,descPostDf,postNumVarNames,file="rdata/postData.RData")

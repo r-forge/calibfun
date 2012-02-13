@@ -53,18 +53,15 @@ head(sumPostDf)
 
 pdf("plots/scales.pdf")
 #########################################################################
-## create a rating of how fully each woman entered laborland
+## plots and correlations within and among themes
 #########################################################################
 ## plot laborLand score v. physEnv
 ggplot(groupsDf,aes(x=physEnv, y=laborLand))+geom_point()+
 		geom_smooth(method=lm)
 
-#########################################################################
-## group questions into themes and create composite score
-#########################################################################
 
 #########################################################################
-## create plots of actual-perceived scores
+## create plots of actual-perceived scores & different themes
 #########################################################################
 ggplot(data=postDf,aes(x=tActualAct,y=tPerceivedAct))+geom_point()+
 		geom_abline(intercept=0, slope=1)

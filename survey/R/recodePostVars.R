@@ -13,11 +13,13 @@ load("rdata/postData.RData")
 ## correct the ones that are scored in reverse
 #####################################################################################
 ## this is the list of variables based on old names that need to be reverse
-## this is for the list of variables that are 1-5
-revPostOldNames = c("Q37.1","Q47_3","Q47_9","Q48_3","Q48_6","Q48_8",
-		"Q48_9","Q50_3","Q51_6","Q51_8","Q52_5","Q52_6","Q52_9",
-		"Q52_10","Q53_3","Q53_6","Q53_8","Q53_10","Q54_3","Q54_5",
-		"Q54_6","Q54_9","Q55_4","Q55_8","Q56_1","Q56_7","Q57.1")
+## this is for the list of variables that are 1-5 (includes PANAS)
+revPostOldNames = c("Q61_2","Q61_4","Q61_6","Q61_7","Q61_8","Q61_11",
+		"Q61_13","Q61_15","Q61_18","Q61_20","Q37.1","Q47_3","Q47_9",
+		"Q48_3","Q48_6","Q48_8","Q48_9","Q50_3","Q51_6","Q51_8","Q52_5",
+		"Q52_6","Q52_9","Q52_10","Q53_3","Q53_6","Q53_8","Q53_10",
+		"Q54_3","Q54_5","Q54_6","Q54_9","Q55_4","Q55_8","Q56_1",
+		"Q56_7","Q57.1")
 ## check to be sure they are all actually legal names
 all(revPostOldNames %in% descPostDf$oldName)
 # all(revPostOldNames %in% descPostDf$oldName)
@@ -126,7 +128,7 @@ eightLevelVars=c("P056")
 timeVars=c("P152","P153")
 (1:ncol(postDf))[names(postDf) %in% c("P048","P156")]
 # (1:ncol(postDf))[names(postDf) %in% c("P048","P156")]
-# [1]  49 157
+# [1]  29 157
 changeDirVars=names(postDf)[49:157]
 fiveLevelVars=changeDirVars[!(changeDirVars %in% c(twoLevelVars,
 							sixLevelVars,eightLevelVars,timeVars))]

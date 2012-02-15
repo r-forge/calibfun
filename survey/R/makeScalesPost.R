@@ -6,46 +6,12 @@
 ## Author: Haaland
 ###############################################################################
 load("rdata/postData.RData")
-## complex example
-#scaleNames1 = c("P011","P012","P020","P035","P067")
-#sDf1 = postDf[,scaleNames1]
-#describe(sDf1)
-#key.list <- list(all = c(1,2,3,4,5), first=c(1,2,3))
-#keys <- make.keys(5,key.list,item.labels = colnames(sDf1))
-#keys
-#scores <- score.items(keys,sDf1)
-#scores
-#summary(scores)
-#
-#data(bfi)
-#keys.list <- list(agree=c(-1,2:5),conscientious=c(6:8,-9,-10),extraversion=c(-11,-12,13:15),neuroticism=c(16:20),openness = c(21,-22,23,24,-25))
-#keys <- make.keys(25,keys.list,item.labels=colnames(bfi)[1:25])
-#scores <- score.items(keys,bfi[,1:25])
-#summary(scores)
 
-
-
-physEnvNames = c("P048","P049","P051","P083","P102","P110","P118")
-physEnvDf = postDf[,physEnvNames]
-physEnvDf_scale = scale(physEnvDf)
-describe(physEnvDf_scale)
-physEnv = apply(physEnvDf_scale,1,sum)
-physEnvDf_scale = data.frame(physEnvDf_scale, physEnv = physEnv)
-physEnvDf_scale
-cor(physEnvDf_scale)
-postDf$physEnv=physEnv
-
-#emotEnvNames = c("P036","P041","P101","P111","P029")
-#emotEnvDf = postDf[,emotEnvNames]
-#emotEnvDf = scale(emotEnvDf)
-#describe(emotEnvDf)
-#emotEnv = apply(emotEnvDf,1,sum)
-#emotEnvDf = data.frame(emotEnvDf, emotEnv = emotEnv)
-#emotEnvDf
-#cor(emotEnvDf)
-
+#########################################################################
+## make laborLand score
+#########################################################################
 laborLandNames = c("P071","P072","P073","P079","P080","P085","P086",
-		"P089","P093","P094","P096","P108","P115","P132","P146")
+		"P089","P093","P094","P108","P115","P132","P146")
 laborLandDf = postDf[,laborLandNames]
 laborLandDf_scale = scale(laborLandDf)
 describe(laborLandDf_scale)
@@ -54,8 +20,113 @@ laborLandDf_scale = data.frame(laborLandDf_scale, laborLand = laborLand)
 laborLandDf_scale
 cor(laborLandDf_scale)
 postDf$laborLand=laborLand
+#########################################################################
+## make intuitive movements score (theme 1)
+#########################################################################
+intuitMovNames = c("P057","P078","P086","P087","P089","P093","P094"
+				,"P099","P100","P101","P103","P106","P107","P108",
+				"P112","P115","P121","P127","P130","P136")
+intuitMovDf = postDf[,intuitMovNames]
+intuitMovDf_scale = scale(intuitMovDf)
+describe(intuitMovDf_scale)
+intuitMov = apply(intuitMovDf_scale,1,sum)
+intuitMovDf_scale = data.frame(intuitMovDf_scale, intuitMov = intuitMov)
+intuitMovDf_scale
+cor(intuitMovDf_scale)
+postDf$intuitMov=intuitMov
+#########################################################################
+## make physical environment score (theme 2)
+#########################################################################
+physEnvNames = c("P048","P049","P051","P053","P054","P055","P056",
+				"P083","P102","P110")
+physEnvDf = postDf[,physEnvNames]
+physEnvDf_scale = scale(physEnvDf)
+describe(physEnvDf_scale)
+physEnv = apply(physEnvDf_scale,1,sum)
+physEnvDf_scale = data.frame(physEnvDf_scale, physEnv = physEnv)
+physEnvDf_scale
+cor(physEnvDf_scale)
+postDf$physEnv=physEnv
+#########################################################################
+## make emotional environment score (theme 3)
+#########################################################################
+emotEnvNames = c("P052","P062","P063","P064","P070","P074",
+				"P075","P076","P090","P092","P095","P097","P098",
+				"P109","P111","P113","P114","P117","P118","P123",
+				"P138")
+emotEnvDf = postDf[,emotEnvNames]
+emotEnvDf_scale = scale(emotEnvDf)
+describe(emotEnvDf_scale)
+emotEnv = apply(emotEnvDf_scale,1,sum)
+emotEnvDf_scale = data.frame(emotEnvDf_scale, emotEnv = emotEnv)
+emotEnvDf_scale
+cor(emotEnvDf_scale)
+postDf$emotEnv=emotEnv
+#########################################################################
+## make fluid reality score (theme 4)
+#########################################################################
+fluidRealNames = c()
+fluidRealDf = postDf[,fluidRealNames]
+fluidRealDf_scale = scale(fluidRealDf)
+describe(fluidRealDf_scale)
+fluidReal = apply(fluidRealDf_scale,1,sum)
+fluidRealDf_scale = data.frame(fluidRealDf_scale, fluidReal = fluidReal)
+fluidRealDf_scale
+cor(fluidRealDf_scale)
+postDf$fluidReal=fluidReal
+#########################################################################
+## make intense presence score (theme 5)
+#########################################################################
+intensePresNames = c()
+intensePresDf = postDf[,intensePresNames]
+intensePresDf_scale = scale(intensePresDf)
+describe(intensePresDf_scale)
+intensePres = apply(intensePresDf_scale,1,sum)
+intensePresDf_scale = data.frame(intensePresDf_scale, intensePres = intensePres)
+intensePresDf_scale
+cor(intensePresDf_scale)
+postDf$intensePres=intensePres
+#########################################################################
+## make pain experience score (theme 6)
+#########################################################################
+painExpNames = c()
+painExpDf = postDf[,painExpNames]
+painExpDf_scale = scale(painExpDf)
+describe(painExpDf_scale)
+painExp = apply(painExpDf_scale,1,sum)
+painExpDf_scale = data.frame(painExpDf_scale, painExp = painExp)
+painExpDf_scale
+cor(painExpDf_scale)
+postDf$painExp=painExp
+#########################################################################
+## make expectations score (theme 7)
+#########################################################################
+expectationsNames = c()
+expectationsDf = postDf[,expectationsNames]
+expectationsDf_scale = scale(expectationsDf)
+describe(expectationsDf_scale)
+expectations = apply(expectationsDf_scale,1,sum)
+expectationsDf_scale = data.frame(expectationsDf_scale, expectations = expectations)
+expectationsDf_scale
+cor(expectationsDf_scale)
+postDf$expectations=expectations
+#########################################################################
+## make outcome measures score (theme 8)
+#########################################################################
+outcomeMeasuresNames = c()
+outcomeMeasuresDf = postDf[,outcomeMeasuresNames]
+outcomeMeasuresDf_scale = scale(outcomeMeasuresDf)
+describe(outcomeMeasuresDf_scale)
+outcomeMeasures = apply(outcomeMeasuresDf_scale,1,sum)
+outcomeMeasuresDf_scale = data.frame(outcomeMeasuresDf_scale, outcomeMeasures = outcomeMeasures)
+outcomeMeasuresDf_scale
+cor(outcomeMeasuresDf_scale)
+postDf$outcomeMeasures=outcomeMeasures
 
 
+#########################################################################
+## plot correlations (move to individualAnalyses?)
+#########################################################################
 groupsDf = data.frame(physEnv = physEnv, laborLand = laborLand)
 cor(groupsDf)
 library(ggplot2)

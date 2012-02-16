@@ -372,9 +372,12 @@ grpcres
 
 library(ggplot2)
 pdf("plots/scaleCorrelations.pdf")
+#########################################################################
+## First, compare each theme to laborLand
+#########################################################################
 ## intuitMov
 adf = grpcres[rownames(grpcres)=="intuitMov",]
-adf$x = -10
+adf$x = -15
 adf$y = 10
 adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
 		"\np-adjusted=",adf$'p-adjusted')
@@ -382,7 +385,24 @@ ggplot(groupsDf,aes(x=intuitMov, y=laborLand))+geom_point()+
 		geom_smooth(method=lm)+
 		geom_text(aes(x=x, y=y, label=label),data=adf)
 ## physEnv
-
+adf = grpcres[rownames(grpcres)=="physEnv",]
+adf$x = -6
+adf$y = 10
+adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
+		"\np-adjusted=",adf$'p-adjusted')
+ggplot(groupsDf,aes(x=physEnv, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)+
+		geom_text(aes(x=x, y=y, label=label),data=adf)
+## emotEnv
+adf = grpcres[rownames(grpcres)=="emotEnv",]
+adf$x = -20
+adf$y = 10
+adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
+		"\np-adjusted=",adf$'p-adjusted')
+ggplot(groupsDf,aes(x=emotEnv, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)+
+		geom_text(aes(x=x, y=y, label=label),data=adf)
+## fluidReal
 adf = grpcres[rownames(grpcres)=="fluidReal",]
 adf$x = -10
 adf$y = 10
@@ -391,7 +411,109 @@ adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
 ggplot(groupsDf,aes(x=fluidReal, y=laborLand))+geom_point()+
 		geom_smooth(method=lm)+
 		geom_text(aes(x=x, y=y, label=label),data=adf)
+## intensePres
+adf = grpcres[rownames(grpcres)=="intensePres",]
+adf$x = -10
+adf$y = 10
+adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
+		"\np-adjusted=",adf$'p-adjusted')
+ggplot(groupsDf,aes(x=intensePres, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)+
+		geom_text(aes(x=x, y=y, label=label),data=adf)
+## painExp
+adf = grpcres[rownames(grpcres)=="painExp",]
+adf$x = -10
+adf$y = 10
+adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
+		"\np-adjusted=",adf$'p-adjusted')
+ggplot(groupsDf,aes(x=painExp, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)+
+		geom_text(aes(x=x, y=y, label=label),data=adf)
+## expectations
+adf = grpcres[rownames(grpcres)=="expectations",]
+adf$x = -3
+adf$y = 10
+adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
+		"\np-adjusted=",adf$'p-adjusted')
+ggplot(groupsDf,aes(x=expectations, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)+
+		geom_text(aes(x=x, y=y, label=label),data=adf)
+## outcomeMeasures
+adf = grpcres[rownames(grpcres)=="outcomeMeasures",]
+adf$x = -10
+adf$y = 10
+adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
+		"\np-adjusted=",adf$'p-adjusted')
+ggplot(groupsDf,aes(x=outcomeMeasures, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)+
+		geom_text(aes(x=x, y=y, label=label),data=adf)
 
+#########################################################################
+## Now compare each theme to outcome measures
+#########################################################################
+## intuitMov
+adf = grpcres[rownames(grpcres)=="intuitMov",]
+adf$x = -10
+adf$y = 6
+adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
+		"\np-adjusted=",adf$'p-adjusted')
+ggplot(groupsDf,aes(x=intuitMov, y=outcomeMeasures))+geom_point()+
+		geom_smooth(method=lm)+
+		geom_text(aes(x=x, y=y, label=label),data=adf)
+## physEnv
+adf = grpcres[rownames(grpcres)=="physEnv",]
+adf$x = -6
+adf$y = 6
+adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
+		"\np-adjusted=",adf$'p-adjusted')
+ggplot(groupsDf,aes(x=physEnv, y=outcomeMeasures))+geom_point()+
+		geom_smooth(method=lm)+
+		geom_text(aes(x=x, y=y, label=label),data=adf)
+## emotEnv
+adf = grpcres[rownames(grpcres)=="emotEnv",]
+adf$x = -20
+adf$y = 6
+adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
+		"\np-adjusted=",adf$'p-adjusted')
+ggplot(groupsDf,aes(x=emotEnv, y=outcomeMeasures))+geom_point()+
+		geom_smooth(method=lm)+
+		geom_text(aes(x=x, y=y, label=label),data=adf)
+## fluidReal
+adf = grpcres[rownames(grpcres)=="fluidReal",]
+adf$x = -10
+adf$y = 6
+adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
+		"\np-adjusted=",adf$'p-adjusted')
+ggplot(groupsDf,aes(x=fluidReal, y=outcomeMeasures))+geom_point()+
+		geom_smooth(method=lm)+
+		geom_text(aes(x=x, y=y, label=label),data=adf)
+## intensePres
+adf = grpcres[rownames(grpcres)=="intensePres",]
+adf$x = -10
+adf$y = 6
+adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
+		"\np-adjusted=",adf$'p-adjusted')
+ggplot(groupsDf,aes(x=intensePres, y=outcomeMeasures))+geom_point()+
+		geom_smooth(method=lm)+
+		geom_text(aes(x=x, y=y, label=label),data=adf)
+## painExp
+adf = grpcres[rownames(grpcres)=="painExp",]
+adf$x = -10
+adf$y = 6
+adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
+		"\np-adjusted=",adf$'p-adjusted')
+ggplot(groupsDf,aes(x=painExp, y=outcomeMeasures))+geom_point()+
+		geom_smooth(method=lm)+
+		geom_text(aes(x=x, y=y, label=label),data=adf)
+## expectations
+adf = grpcres[rownames(grpcres)=="expectations",]
+adf$x = -3
+adf$y = 6
+adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
+		"\np-adjusted=",adf$'p-adjusted')
+ggplot(groupsDf,aes(x=expectations, y=outcomeMeasures))+geom_point()+
+		geom_smooth(method=lm)+
+		geom_text(aes(x=x, y=y, label=label),data=adf)
 
 dev.off()
 #########################################################################

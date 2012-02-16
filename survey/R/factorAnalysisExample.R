@@ -54,14 +54,64 @@ head(fa1$scores)
 ## I'm not going to do this permanently right now
 fadf = cbind(postDf,fa1$scores)
 dim(fadf)
-# [1]  23 167
+# [1]  31 167
 names(fadf)
 
-quartz()
-ggplot(fadf,aes(x=MR1,y=laborLand)) + geom_point()
-## this shows that one of the factors is "somewhat" correlated with laborLand
-ggplot(fadf,aes(x=MR2,y=laborLand)) + geom_point() + geom_smooth(method=lm)
+#########################################################################
+## create correlation graphs between laborLand and each factor(MR1-11)
+#########################################################################
+library(ggplot2)
+pdf("plots/faCorrelations.pdf")
+#quartz()
+## *** DAD, I couldn't figure out how to get the correlations between
+## MR1 - MR11 and laborLand (and outcomeMeasures)...I want to include
+## this information on the graphs
+## this is what I want to do except it doesn't recognize MR1
+# create the correlations
+llFaGroupsDf = data.frame(MR1 = MR1, MR2 = MR2, MR3 = MR3, MR4 = MR4,
+		MR5 = MR5, MR6 = MR6, MR7 = MR7, MR8 = MR8, MR9 = MR9,
+		MR10 = MR10, MR11 = MR11, laborLand = laborLand)
+llFaGrpcorrtest = corr.test(llFaGroupsDf)
+# correlations, unadjusted p and adjusted p
+llFaGrpcres = data.frame(round(llFaGrpcorrtest$r[,12],3),
+		round(llFaGrpcorrtest$p[12,],4),
+		round(llFaGrpcorrtest$p[,12],4))
+names(llFaGrpcres) = c("cor.","p-raw","p-adjusted")
+llFaGrpcres
+# now plot it
+adf = llFaGrpcres[rownames(llFaGrpcres)=="MR1",]
+adf$x = -10
+adf$y = 10
+adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
+		"\np-adjusted=",adf$'p-adjusted')
+ggplot(llFaGroupsDf,aes(x=MR1, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)+
+		geom_text(aes(x=x, y=y, label=label),data=adf)
 
+## this is what I've done instead (without correlations)
+ggplot(fadf,aes(x=MR1, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)
+ggplot(fadf,aes(x=MR2, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)
+ggplot(fadf,aes(x=MR3, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)
+ggplot(fadf,aes(x=MR4, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)
+ggplot(fadf,aes(x=MR5, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)
+ggplot(fadf,aes(x=MR6, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)
+ggplot(fadf,aes(x=MR7, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)
+ggplot(fadf,aes(x=MR8, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)
+ggplot(fadf,aes(x=MR9, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)
+ggplot(fadf,aes(x=MR10, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)
+ggplot(fadf,aes(x=MR11, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)
+dev.off()
 ## what does the factor represent?
 ## pick the variables that have the largest absolute values
 ## MR2 represents, e.g., P030, P032, P036, P037, ...

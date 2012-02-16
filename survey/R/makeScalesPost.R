@@ -12,6 +12,7 @@ load("rdata/postData.RData")
 #########################################################################
 laborLandNames = c("P071","P072","P073","P079","P080","P085","P086",
 		"P089","P093","P094","P108","P115","P132","P146")
+# 11 of these 14 overlap with other themes
 laborLandDf = postDf[,laborLandNames]
 laborLandDf_scale = scale(laborLandDf)
 describe(laborLandDf_scale)
@@ -26,6 +27,7 @@ postDf$laborLand=laborLand
 intuitMovNames = c("P057","P078","P086","P087","P089","P093","P094"
 				,"P099","P100","P101","P103","P106","P107","P108",
 				"P112","P115","P121","P127","P130","P136")
+# P086,P089,P093,P094,P108, and P115 overlap with laborLand score
 intuitMovDf = postDf[,intuitMovNames]
 intuitMovDf_scale = scale(intuitMovDf)
 describe(intuitMovDf_scale)
@@ -65,7 +67,9 @@ postDf$emotEnv=emotEnv
 #########################################################################
 ## make fluid reality score (theme 4)
 #########################################################################
-fluidRealNames = c()
+fluidRealNames = c("P077","P104","P125","P126","P128","P132","P134",
+					"P135","P137","P140","P141","P143","P144","P146")
+# P132 and P146 overlap with laborLand score
 fluidRealDf = postDf[,fluidRealNames]
 fluidRealDf_scale = scale(fluidRealDf)
 describe(fluidRealDf_scale)
@@ -77,7 +81,10 @@ postDf$fluidReal=fluidReal
 #########################################################################
 ## make intense presence score (theme 5)
 #########################################################################
-intensePresNames = c()
+intensePresNames = c("P058","P059","P060","P061","P068","P069","P071",
+					"P072","P073","P082","P096","P105","P116","P119",
+					"P120","P139","P147")
+# P071,P072,and P073 overlap with laborLand score
 intensePresDf = postDf[,intensePresNames]
 intensePresDf_scale = scale(intensePresDf)
 describe(intensePresDf_scale)
@@ -89,7 +96,8 @@ postDf$intensePres=intensePres
 #########################################################################
 ## make pain experience score (theme 6)
 #########################################################################
-painExpNames = c()
+painExpNames = c("P050","P124","P129","P131","P133","P142","P145",
+				"P148","P154","P155","P156")
 painExpDf = postDf[,painExpNames]
 painExpDf_scale = scale(painExpDf)
 describe(painExpDf_scale)
@@ -101,7 +109,7 @@ postDf$painExp=painExp
 #########################################################################
 ## make expectations score (theme 7)
 #########################################################################
-expectationsNames = c()
+expectationsNames = c("P067","P081","P084","P088","P091")
 expectationsDf = postDf[,expectationsNames]
 expectationsDf_scale = scale(expectationsDf)
 describe(expectationsDf_scale)
@@ -113,7 +121,7 @@ postDf$expectations=expectations
 #########################################################################
 ## make outcome measures score (theme 8)
 #########################################################################
-outcomeMeasuresNames = c()
+outcomeMeasuresNames = c("P065","P066","P122","P149","P150","P151")
 outcomeMeasuresDf = postDf[,outcomeMeasuresNames]
 outcomeMeasuresDf_scale = scale(outcomeMeasuresDf)
 describe(outcomeMeasuresDf_scale)

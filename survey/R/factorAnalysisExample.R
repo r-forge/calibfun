@@ -7,6 +7,7 @@
 ###############################################################################
 library(ggplot2)
 library(psych)
+library(GPArotation)
 load("rdata/postData.RData")
 
 names(postDf)

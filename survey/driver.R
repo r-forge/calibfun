@@ -44,7 +44,7 @@ source("R/recodePreVars.R")
 #####################################################################################
 ## Note: when you save the data, you should always modify the name so it 
 ## shows the date, then correct the next line accordingly
-postfile = "data/Postpartum_Survey20120206.csv"
+postfile = "data/Postpartum_Survey20120215.csv"
 source("R/readPostpartumData.R")
 ## check to be sure you have the number of responses you are expecting
 dim(postDf)

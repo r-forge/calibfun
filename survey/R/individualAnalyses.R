@@ -16,7 +16,8 @@ numPreDf <- preDf[,preNumVarNames]
 sumFun = function(x) {
 	data.frame(Mean=round(mean(x),2),
 			SD = round(sd(x),2), 
-			SE = round(sd(x)/sqrt(length(x)),2))
+			SE = round(sd(x)/sqrt(length(x)),2),
+			n = length(x))
 }
 
 
@@ -25,13 +26,13 @@ head(sumPreDf)
 sumPreDf = t(sumPreDf)
 head(sumPreDf)
 # head(sumPreDf)
-#      Mean SD   SE  
-# N001 1.67 0.78 0.22
-# N003 1    0    0   
-# N004 3    1.04 0.3 
-# N006 5    1.6  0.46
-# N007 1    0    0   
-# N008 4.83 3.88 1.12
+#      Mean SD   SE   n 
+# N001 1.67 0.78 0.22 12
+# N003 1    0    0    12
+# N004 3    1.04 0.3  12
+# N006 5    1.6  0.46 12
+# N007 1    0    0    12
+# N008 4.83 3.88 1.12 12
 
 # first, create a data.frame with only numeric responses
 numPostDf <- postDf[,postNumVarNames]
@@ -39,13 +40,13 @@ numPostDf <- postDf[,postNumVarNames]
 sumPostDf = t(sapply(numPostDf,sumFun))
 head(sumPostDf)
 # head(sumPostDf)
-#      Mean SD   SE  
-# P001 2.09 1.38 0.29
-# P003 1    0    0   
-# P004 2.48 0.9  0.19
-# P006 4.7  1.33 0.28
-# P007 1    0    0   
-# P008 5.61 3.63 0.76
+#      Mean SD   SE   n 
+# P001 2.09 1.38 0.29 23
+# P003 1    0    0    23
+# P004 2.48 0.9  0.19 23
+# P006 4.7  1.33 0.28 23
+# P007 1    0    0    23
+# P008 5.61 3.63 0.76 23
 
 ## look at the data and determine the questions that have no 
 ## standard deviation

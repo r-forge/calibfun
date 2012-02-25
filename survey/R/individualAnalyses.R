@@ -53,13 +53,6 @@ head(sumPostDf)
 # P003, P007, P024
 
 pdf("plots/scales.pdf")
-#########################################################################
-## plots and correlations within and among themes
-#########################################################################
-## plot laborLand score v. physEnv
-ggplot(groupsDf,aes(x=physEnv, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)
-
 
 #########################################################################
 ## create plots of actual-perceived scores & different themes
@@ -69,13 +62,30 @@ ggplot(data=postDf,aes(x=tActualAct,y=tPerceivedAct))+geom_point()+
 ggplot(data=postDf,aes(x=tActualPush,y=tPerceivedPush))+geom_point()+
 		geom_abline(intercept=0, slope=1)
 
-ggplot(data=postDf,aes(x=laborLand,y=tDiffAct,color=physEnv))+geom_point()
-ggplot(data=postDf,aes(x=physEnv,y=tDiffAct,color=laborLand))+geom_point()
+## example of how to add color: ggplot(data=postDf,aes(x=laborLand,y=tDiffAct,color=physEnv))+geom_point()
+ggplot(data=postDf,aes(x=laborLand,y=tDiffAct))+geom_point()
+ggplot(data=postDf,aes(x=intuitMov,y=tDiffAct))+geom_point()
+ggplot(data=postDf,aes(x=physEnv,y=tDiffAct))+geom_point()
+ggplot(data=postDf,aes(x=emotEnv,y=tDiffAct))+geom_point()
+ggplot(data=postDf,aes(x=fluidReal,y=tDiffAct))+geom_point()
+ggplot(data=postDf,aes(x=intensePres,y=tDiffAct))+geom_point()
+ggplot(data=postDf,aes(x=painExp,y=tDiffAct))+geom_point()
+ggplot(data=postDf,aes(x=expectations,y=tDiffAct))+geom_point()
+ggplot(data=postDf,aes(x=outcomeMeasures,y=tDiffAct))+geom_point()
 
-ggplot(data=postDf,aes(x=laborLand,y=tDiffPush,color=physEnv))+geom_point()
-ggplot(data=postDf,aes(x=physEnv,y=tDiffPush,color=laborLand))+geom_point()
+
+ggplot(data=postDf,aes(x=laborLand,y=tDiffPush))+geom_point()
+ggplot(data=postDf,aes(x=intuitMov,y=tDiffPush))+geom_point()
+ggplot(data=postDf,aes(x=physEnv,y=tDiffPush))+geom_point()
+ggplot(data=postDf,aes(x=emotEnv,y=tDiffPush))+geom_point()
+ggplot(data=postDf,aes(x=fluidReal,y=tDiffPush))+geom_point()
+ggplot(data=postDf,aes(x=intensePres,y=tDiffPush))+geom_point()
+ggplot(data=postDf,aes(x=painExp,y=tDiffPush))+geom_point()
+ggplot(data=postDf,aes(x=expectations,y=tDiffPush))+geom_point()
+ggplot(data=postDf,aes(x=outcomeMeasures,y=tDiffPush))+geom_point()
 
 dev.off()
+
 #########################################################################
-## create
+## create affect score from PANAS questions
 #########################################################################

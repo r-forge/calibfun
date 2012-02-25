@@ -21,12 +21,12 @@ library(psych)
 #####################################################################################
 ## Note: when you save the data, you should always modify the name so it 
 ## shows the date, then correct the next line accordingly
-prefile = "data/Prenatal_Survey20120127.csv"
+prefile = "data/Prenatal_Survey_Final.csv"
 source("R/readPrenatalData.R")
 ## check to be sure you have the number of responses you are expecting
 dim(preDf)
 # dim(preDf)
-# [1]  12 102
+# [1]  13 102
 dim(descPreDf)
 # dim(descPreDf)
 # [1] 101   3
@@ -44,12 +44,12 @@ source("R/recodePreVars.R")
 #####################################################################################
 ## Note: when you save the data, you should always modify the name so it 
 ## shows the date, then correct the next line accordingly
-postfile = "data/Postpartum_Survey20120215.csv"
+postfile = "data/Postpartum_Survey_Final.csv"
 source("R/readPostpartumData.R")
 ## check to be sure you have the number of responses you are expecting
 dim(postDf)
 # dim(postDf)
-# [1]  31 157
+# [1]  35 157
 dim(descPostDf)
 # dim(descPostDf)
 # [1] 156   3
@@ -62,7 +62,8 @@ source("R/recodePostVars.R")
 
 
 #####################################################################################
-## make some histograms of the data 
+## make some histograms of the data - creates both pre and post
+## histograms. Will need to redo once prenatal data is recoded.
 #####################################################################################
 source("R/plotHistograms.R")
 

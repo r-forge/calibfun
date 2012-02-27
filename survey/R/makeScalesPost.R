@@ -389,7 +389,74 @@ sqcres
 # stateQs  1.000 0.0000     0.0000
 
 
+#########################################################################
+## create composite score of PANAS questions
+#########################################################################
+panasNames = paste("P0",28:47,sep="")
+# get rid of these questions b/c there's not enough variation
+panasdrop = c("P035","P040","P045","P047")
+panasNames = setdiff(panasNames,panasdrop)
+panasNames
+# panasNames
+#  [1] "P028" "P029" "P030" "P031" "P032" "P033" "P034" "P036" "P037" "P038"
+# [11] "P039" "P041" "P042" "P043" "P044" "P046"
+panasDf = postDf[,panasNames]
+panasDf_scale = scale(panasDf)
+describe(panasDf_scale)
+panas = apply(panasDf_scale,1,sum)
+panasDf_scale = data.frame(panasDf_scale, panas = panas)
+panasDf_scale
+panascorrtest = corr.test(panasDf_scale)
+# correlations, unadjusted p and adjusted p
+panascres = data.frame(round(panascorrtest$r[,17],3),
+		round(panascorrtest$p[17,],4),
+		round(panascorrtest$p[,17],4))
+names(panascres) = c("cor.","p-raw","p-adjusted")
+panascres
+# panascres
+#        cor.  p-raw p-adjusted
+# P028  0.619 0.0001     0.0088
+# P029  0.530 0.0011     0.1112
+# P030  0.754 0.0000     0.0000
+# P031  0.569 0.0004     0.0404
+# P032  0.685 0.0000     0.0007
+# P033  0.536 0.0009     0.0952
+# P034  0.474 0.0040     0.3830
+# P036  0.817 0.0000     0.0000
+# P037  0.678 0.0000     0.0010
+# P038  0.263 0.1276     1.0000
+# P039  0.586 0.0002     0.0248
+# P041  0.775 0.0000     0.0000
+# P042  0.354 0.0372     1.0000
+# P043  0.553 0.0006     0.0610
+# P044  0.521 0.0013     0.1376
+# P046  0.717 0.0000     0.0002
+# panas 1.000 0.0000     0.0000
 
+## old panas correlations (all questions)
+# panascres
+#        cor.  p-raw p-adjusted
+# P028  0.530 0.0011     0.1838
+# P029  0.577 0.0003     0.0506
+# P030  0.693 0.0000     0.0008
+# P031  0.614 0.0001     0.0167
+# P032  0.653 0.0000     0.0042
+# P033  0.559 0.0005     0.0863
+# P034  0.578 0.0003     0.0494
+# P035  0.617 0.0001     0.0153
+# P036  0.764 0.0000     0.0000
+# P037  0.637 0.0000     0.0075
+# P038  0.298 0.0817     1.0000
+# P039  0.522 0.0013     0.2233
+# P040  0.603 0.0001     0.0236
+# P041  0.723 0.0000     0.0002
+# P042  0.442 0.0078     1.0000
+# P043  0.471 0.0043     0.6843
+# P044  0.510 0.0017     0.2914
+# P045  0.368 0.0294     1.0000
+# P046  0.655 0.0000     0.0039
+# P047  0.238 0.1682     1.0000
+# panas 1.000 0.0000     0.0000
 
 
 

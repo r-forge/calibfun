@@ -388,7 +388,7 @@ sqcres
 # P147     0.592 0.0002     0.5115
 # stateQs  1.000 0.0000     0.0000
 
-
+postDf$stateQs=stateQs
 #########################################################################
 ## create composite score of PANAS questions
 #########################################################################
@@ -458,63 +458,61 @@ panascres
 # P047  0.238 0.1682     1.0000
 # panas 1.000 0.0000     0.0000
 
-
-
-
-
-
-
-
+postDf$panas=panas
 
 #########################################################################
 ## plot correlations (move to individualAnalyses?)
 #########################################################################
 groupsDf = data.frame(intuitMov = intuitMov, physEnv = physEnv,
 		emotEnv = emotEnv, fluidReal = fluidReal, intensePres = intensePres,
-		painExp = painExp, expectations = expectations, outcomeMeasures = outcomeMeasures,
+		painExp = painExp, expectations = expectations, 
+		outcomeMeasures = outcomeMeasures, panas = panas,
 		laborLand = laborLand)
 grpcorrtest = corr.test(groupsDf)
 # correlations, unadjusted p and adjusted p
-grpcres = data.frame(round(grpcorrtest$r[,9],3),
-		round(grpcorrtest$p[9,],4),
-		round(grpcorrtest$p[,9],4))
+grpcres = data.frame(round(grpcorrtest$r[,10],3),
+		round(grpcorrtest$p[10,],4),
+		round(grpcorrtest$p[,10],4))
 names(grpcres) = c("cor.","p-raw","p-adjusted")
 grpcres
 # grpcres
 #                  cor.  p-raw p-adjusted
 # intuitMov       0.736 0.0000     0.0000
-# physEnv         0.177 0.3102     1.0000
-# emotEnv         0.582 0.0002     0.0062
-# fluidReal       0.421 0.0118     0.1414
-# intensePres     0.580 0.0003     0.0063
-# painExp         0.536 0.0009     0.0183
-# expectations    0.382 0.0237     0.2373
-# outcomeMeasures 0.607 0.0001     0.0031
+# physEnv         0.224 0.1958     0.7008
+# emotEnv         0.582 0.0002     0.0082
+# fluidReal       0.421 0.0118     0.2003
+# intensePres     0.580 0.0003     0.0084
+# painExp         0.536 0.0009     0.0247
+# expectations    0.382 0.0237     0.2848
+# outcomeMeasures 0.607 0.0001     0.0041
+# panas           0.342 0.0441     0.3807
 # laborLand       1.000 0.0000     0.0000
 
-# to get the whole correlation matrix
+## to get the whole correlation matrix
 grpcorrtest$r
 # grpcorrtest$r
-#                 intuitMov   physEnv   emotEnv fluidReal intensePres   painExp
-# intuitMov       1.0000000 0.2048264 0.6824775 0.3729995   0.4460095 0.5881909
-# physEnv         0.2048264 1.0000000 0.2364817 0.2884915   0.0658481 0.2027949
-# emotEnv         0.6824775 0.2364817 1.0000000 0.6689764   0.4582295 0.6554013
-# fluidReal       0.3729995 0.2884915 0.6689764 1.0000000   0.3609485 0.5124390
-# intensePres     0.4460095 0.0658481 0.4582295 0.3609485   1.0000000 0.5556691
-# painExp         0.5881909 0.2027949 0.6554013 0.5124390   0.5556691 1.0000000
-# expectations    0.5265144 0.4683503 0.6313744 0.3948105   0.4832478 0.5627930
-# outcomeMeasures 0.7200597 0.0545819 0.7534936 0.5057130   0.5573094 0.7602627
-# laborLand       0.7358440 0.1765905 0.5816486 0.4210276   0.5796943 0.5356285
-#                 expectations outcomeMeasures laborLand
-# intuitMov          0.5265144       0.7200597 0.7358440
-# physEnv            0.4683503       0.0545819 0.1765905
-# emotEnv            0.6313744       0.7534936 0.5816486
-# fluidReal          0.3948105       0.5057130 0.4210276
-# intensePres        0.4832478       0.5573094 0.5796943
-# painExp            0.5627930       0.7602627 0.5356285
-# expectations       1.0000000       0.5880393 0.3815260
-# outcomeMeasures    0.5880393       1.0000000 0.6069820
-# laborLand          0.3815260       0.6069820 1.0000000
+#                 intuitMov   physEnv   emotEnv  fluidReal intensePres   painExp
+# intuitMov       1.0000000 0.3451254 0.6824775 0.37299954   0.4460095 0.5881909
+# physEnv         0.3451254 1.0000000 0.5975637 0.51913543   0.2404237 0.4293421
+# emotEnv         0.6824775 0.5975637 1.0000000 0.66897639   0.4582295 0.6554013
+# fluidReal       0.3729995 0.5191354 0.6689764 1.00000000   0.3609485 0.5124390
+# intensePres     0.4460095 0.2404237 0.4582295 0.36094851   1.0000000 0.5556691
+# painExp         0.5881909 0.4293421 0.6554013 0.51243903   0.5556691 1.0000000
+# expectations    0.5265144 0.5793594 0.6313744 0.39481053   0.4832478 0.5627930
+# outcomeMeasures 0.7200597 0.5152935 0.7534936 0.50571296   0.5573094 0.7602627
+# panas           0.4129443 0.2222202 0.3908986 0.06843493   0.2544647 0.3367425
+# laborLand       0.7358440 0.2240105 0.5816486 0.42102764   0.5796943 0.5356285
+#                 expectations outcomeMeasures      panas laborLand
+# intuitMov          0.5265144       0.7200597 0.41294433 0.7358440
+# physEnv            0.5793594       0.5152935 0.22222019 0.2240105
+# emotEnv            0.6313744       0.7534936 0.39089864 0.5816486
+# fluidReal          0.3948105       0.5057130 0.06843493 0.4210276
+# intensePres        0.4832478       0.5573094 0.25446468 0.5796943
+# painExp            0.5627930       0.7602627 0.33674250 0.5356285
+# expectations       1.0000000       0.5880393 0.33426585 0.3815260
+# outcomeMeasures    0.5880393       1.0000000 0.40628292 0.6069820
+# panas              0.3342658       0.4062829 1.00000000 0.3423835
+# laborLand          0.3815260       0.6069820 0.34238347 1.0000000
 
 
 library(ggplot2)
@@ -594,6 +592,15 @@ adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
 ggplot(groupsDf,aes(x=outcomeMeasures, y=laborLand))+geom_point()+
 		geom_smooth(method=lm)+
 		geom_text(aes(x=x, y=y, label=label),data=adf)
+## panas
+adf = grpcres[rownames(grpcres)=="panas",]
+adf$x = -10
+adf$y = 10
+adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
+		"\np-adjusted=",adf$'p-adjusted')
+ggplot(groupsDf,aes(x=panas, y=laborLand))+geom_point()+
+		geom_smooth(method=lm)+
+		geom_text(aes(x=x, y=y, label=label),data=adf)
 
 #########################################################################
 ## Now compare each theme to outcome measures
@@ -661,8 +668,18 @@ adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
 ggplot(groupsDf,aes(x=expectations, y=outcomeMeasures))+geom_point()+
 		geom_smooth(method=lm)+
 		geom_text(aes(x=x, y=y, label=label),data=adf)
+## panas
+adf = grpcres[rownames(grpcres)=="panas",]
+adf$x = -3
+adf$y = 6
+adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
+		"\np-adjusted=",adf$'p-adjusted')
+ggplot(groupsDf,aes(x=panas, y=outcomeMeasures))+geom_point()+
+		geom_smooth(method=lm)+
+		geom_text(aes(x=x, y=y, label=label),data=adf)
 
 dev.off()
+
 #########################################################################
 ## creating difference scores for actual vs. perceived time in active
 ## labor and pushing

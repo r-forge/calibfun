@@ -20,11 +20,14 @@ postDf$laborLand[llindex]
 postDf$mslaborLand = "low"
 postDf$mslaborLand[llindex] = "high"
 postDf$mslaborLand = factor(postDf$mslaborLand,levels = c("low","high"))
+# this plot checks to make sure they were divided evenly
 ggplot(postDf,aes(x=mslaborLand))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high laborLand
 ggplot(postDf,aes(x=mslaborLand, y=outcomeMeasures))+geom_boxplot()
 #########################################################################
 ## analysis of variance based on categories of mslaborLand
 #########################################################################
+# IV: mslaborLand; DV: outcomeMeasures
 aov1 = aov(outcomeMeasures~mslaborLand,data=postDf)
 summary(aov1)
 # summary(aov1)
@@ -33,8 +36,11 @@ summary(aov1)
 # Residuals   33  450.2   13.64                     
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+# this plot isn't very helpful - don't need to do it
 plot(aov1)
 
+# this code block plots om v. ll with error bars [CI] added
 g1=ggplot(postDf,aes(x=mslaborLand, y=outcomeMeasures))
 stat_sum_df <- function(fun, geom="crossbar", ...) { 
   stat_summary(fun.data=fun, colour="red", geom=geom, width=0.2, ...) 

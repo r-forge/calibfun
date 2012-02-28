@@ -59,13 +59,16 @@ panasbreaks = c(min(panas)-.5,quantile(panas, probs = c(.33,.67)),
 panasbreaks
 lmhpanas = cut(panas, breaks=panasbreaks,labels=c("low","medium","high"))
 table(lmhpanas)
-# table(panaslmh)
+# table(lmhpanas)
 # panaslmh
 #    low medium   high 
 #     12     11     12 
 postDf$lmhpanas = lmhpanas
+# histogram confirms that it's been split properly
 ggplot(postDf,aes(x=lmhpanas))+geom_histogram()
+# boxplot of laborLand v panas
 ggplot(postDf,aes(x=lmhpanas, y=laborLand))+geom_boxplot()
+# show histogram of how many ppl were low v. high ll based on panas
 ggplot(postDf,aes(x=lmhpanas, color=mslaborLand))+geom_histogram()
 
 #########################################################################
@@ -82,6 +85,7 @@ summary(aov2)
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
+## this plot isn't very helpful - don't need to do it each time
 plot(aov2)
 
 pdf("plots/2x3anova.pdf")
@@ -99,19 +103,38 @@ summary(aov3)
 # lmhpanas     2  187.1   93.57    1.77  0.187
 # Residuals   32 1692.1   52.88               
 
+## this says that panas scores do not create a significant difference
+## in laborLand scores
+
 #########################################################################
-## find the respondent with the worst outcome
+## looking at other relationships
 #########################################################################
-# this graph plots om v ll with P015 as color (red color = cesarean)
-ggplot(postDf,aes(x=laborLand, y=outcomeMeasures, color=P015))+geom_point()
-subset(postDf,outcomeMeasures==min(outcomeMeasures))
-
-ggplot(postDf,aes(x=painExp, y=outcomeMeasures, color=P015))+geom_point()
-
-ggplot(postDf,aes(x=painExp, y=outcomeMeasures, color=mslaborLand))+geom_point()
-
+# shows that painExp is much higher for high ll women
 ggplot(postDf,aes(x=mslaborLand, y=painExp)) + 
 		stat_summary(fun.data = "mean_cl_boot") 
+# show that this is a significant difference
+aov4 = aov(painExp~mslaborLand,data=postDf)
+summary(aov4)
+# summary(aov4)
+#             Df Sum Sq Mean Sq F value Pr(>F)  
+# mslaborLand  1  197.5  197.46   7.056 0.0121 *
+# Residuals   33  923.6   27.99                 
 
+
+# this shows that high ll is clustered in the corner of best
+# painExp and best outcomeMeasures; but low ll is spread all 
+# along the axis (but still w/ a correlation)
+ggplot(postDf,aes(x=painExp, y=outcomeMeasures, color=mslaborLand))+geom_point()
+
+# this plot is really interesting - shows that laborLand & painExp
+# aren't really interacting for medium panas; but they are for
+# low and high panas; means that if you're high panas, laborLand 
+# really helps you, and that even if you are low panas, if you
+# manage to get into laborLand, you can still reap its benefits
 ggplot(postDf,aes(x=lmhpanas, y=painExp, color=mslaborLand)) + 
 		stat_summary(fun.data = "mean_cl_boot") 
+
+
+
+
+save(postDf,descPostDf,postNumVarNames,file="rdata/postData.RData")

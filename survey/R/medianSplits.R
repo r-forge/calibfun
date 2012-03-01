@@ -32,8 +32,8 @@ aov1 = aov(outcomeMeasures~mslaborLand,data=postDf)
 summary(aov1)
 # summary(aov1)
 #             Df Sum Sq Mean Sq F value   Pr(>F)    
-# mslaborLand  1  203.5  203.49   14.92 0.000496 ***
-# Residuals   33  450.2   13.64                     
+# mslaborLand  1  228.6  228.55   17.74 0.000184 ***
+# Residuals   33  425.1   12.88                     
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
@@ -78,12 +78,13 @@ aov2 = aov(outcomeMeasures~mslaborLand*lmhpanas,data=postDf)
 summary(aov2)
 # summary(aov2)
 #                      Df Sum Sq Mean Sq F value   Pr(>F)    
-# mslaborLand           1 203.49  203.49  19.234 0.000139 ***
-# lmhpanas              2  58.25   29.12   2.753 0.080430 .  
-# mslaborLand:lmhpanas  2  85.09   42.55   4.021 0.028745 *  
-# Residuals            29 306.82   10.58                     
+# mslaborLand           1 228.55  228.55  21.864 6.24e-05 ***
+# lmhpanas              2  55.62   27.81   2.660   0.0869 .  
+# mslaborLand:lmhpanas  2  66.34   33.17   3.173   0.0567 .  
+# Residuals            29 303.14   10.45                     
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
 
 ## this plot isn't very helpful - don't need to do it each time
 plot(aov2)
@@ -98,10 +99,11 @@ dev.off()
 #########################################################################
 aov3 = aov(laborLand~lmhpanas,data=postDf)
 summary(aov3)
-# > summary(aov3)
+# summary(aov3)
 #             Df Sum Sq Mean Sq F value Pr(>F)
-# lmhpanas     2  187.1   93.57    1.77  0.187
-# Residuals   32 1692.1   52.88               
+# lmhpanas     2    128    63.9   0.631  0.539
+# Residuals   32   3242   101.3               
+           
 
 ## this says that panas scores do not create a significant difference
 ## in laborLand scores
@@ -116,9 +118,11 @@ ggplot(postDf,aes(x=mslaborLand, y=painExp)) +
 aov4 = aov(painExp~mslaborLand,data=postDf)
 summary(aov4)
 # summary(aov4)
-#             Df Sum Sq Mean Sq F value Pr(>F)  
-# mslaborLand  1  197.5  197.46   7.056 0.0121 *
-# Residuals   33  923.6   27.99                 
+#             Df Sum Sq Mean Sq F value  Pr(>F)   
+# mslaborLand  1  248.3  248.26   9.387 0.00433 **
+# Residuals   33  872.8   26.45                   
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1                 
 
 
 # this shows that high ll is clustered in the corner of best
@@ -130,7 +134,8 @@ ggplot(postDf,aes(x=painExp, y=outcomeMeasures, color=mslaborLand))+geom_point()
 # aren't really interacting for medium panas; but they are for
 # low and high panas; means that if you're high panas, laborLand 
 # really helps you, and that even if you are low panas, if you
-# manage to get into laborLand, you can still reap its benefits
+# manage to get into laborLand, you can still reap its benefits 
+# (same as for outcome measures)
 ggplot(postDf,aes(x=lmhpanas, y=painExp, color=mslaborLand)) + 
 		stat_summary(fun.data = "mean_cl_boot") 
 

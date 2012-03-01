@@ -49,114 +49,102 @@ llcres
 # laborLand 1.000 0.0000     0.0000
 postDf$laborLand=laborLand
 
-
-#########################################################################
-## make Intimacy-Trust-Security (intimateSec) composite score
-#########################################################################
-intimateSecNames = c("P048","P063","P068","P076","P083","P090",
-		"P092","P095","P098","P102","P118")
-intimateSecDf = postDf[,intimateSecNames]
-intimateSecDf_scale = scale(intimateSecDf)
-describe(intimateSecDf_scale)
-intimateSec = apply(intimateSecDf_scale,1,sum)
-intimateSecDf_scale = data.frame(intimateSecDf_scale, intimateSec = intimateSec)
-intimateSecDf_scale
-iscorrtest = corr.test(intimateSecDf_scale)
+## Keep this original laborLand score for comparison!
+laborLandOrigNames = c("P071","P080","P085","P086","P089","P093","P094",
+		"P108","P115","P132","P146")
+laborLandOrigDf = postDf[,laborLandOrigNames]
+laborLandOrigDf_scale = scale(laborLandOrigDf)
+describe(laborLandOrigDf_scale)
+laborLandOrig = apply(laborLandOrigDf_scale,1,sum)
+laborLandOrigDf_scale = data.frame(laborLandOrigDf_scale, laborLandOrig = laborLandOrig)
+laborLandOrigDf_scale
+llorigcorrtest = corr.test(laborLandOrigDf_scale)
 # correlations, unadjusted p and adjusted p
-iscres = data.frame(round(iscorrtest$r[,12],3),
-		round(iscorrtest$p[12,],4),
-		round(iscorrtest$p[,12],4))
-names(iscres) = c("cor.","p-raw","p-adjusted")
-iscres
-# iscres
-#              cor.  p-raw p-adjusted
-# P048        0.550 0.0006     0.0329
-# P063        0.587 0.0002     0.0119
-# P068        0.145 0.4050     1.0000
-# P076        0.659 0.0000     0.0011
-# P083        0.644 0.0000     0.0018
-# P090        0.489 0.0029     0.1372
-# P092        0.736 0.0000     0.0000
-# P095        0.725 0.0000     0.0001
-# P098        0.621 0.0001     0.0041
-# P102        0.749 0.0000     0.0000
-# P118        0.320 0.0608     1.0000
-# intimateSec 1.000 0.0000     0.0000
+llorigcres = data.frame(round(llorigcorrtest$r[,12],3),
+		round(llorigcorrtest$p[12,],4),
+		round(llorigcorrtest$p[,12],4))
+names(llorigcres) = c("cor.","p-raw","p-adjusted")
+llorigcres
+# llorigcres
+#                cor. p-raw p-adjusted
+# P071          0.694 0e+00     0.0002
+# P080          0.561 5e-04     0.0210
+# P085          0.764 0e+00     0.0000
+# P086          0.697 0e+00     0.0002
+# P089          0.792 0e+00     0.0000
+# P093          0.681 0e+00     0.0004
+# P094          0.846 0e+00     0.0000
+# P108          0.662 0e+00     0.0008
+# P115          0.564 4e-04     0.0198
+# P132          0.636 0e+00     0.0022
+# P146          0.537 9e-04     0.0366
+# laborLandOrig 1.000 0e+00     0.0000
 
 
-postDf$intimateSec=intimateSec
-
+postDf$laborLandOrig=laborLandOrig
 
 #########################################################################
-## make rhythm-relaxation-ritual (RRR) composite score (theme 1)
+## make intuitive movements composite score (theme 1)
 #########################################################################
-RRRNames = c("P050","P057","P058","P059","P060","P061","P071",
-		"P072","P073","P096","P103","P105","P113","P116","P119",
-		"P120","P139","P147")
-RRRDf = postDf[,RRRNames]
-RRRDf_scale = scale(RRRDf)
-describe(RRRDf_scale)
-RRR = apply(RRRDf_scale,1,sum)
-RRRDf_scale = data.frame(RRRDf_scale, RRR = RRR)
-RRRDf_scale
-rrrcorrtest = corr.test(RRRDf_scale)
+intuitMovNames = c("P087","P100","P101","P107","P121","P127","P130",
+		"P136")
+intuitMovDf = postDf[,intuitMovNames]
+intuitMovDf_scale = scale(intuitMovDf)
+describe(intuitMovDf_scale)
+intuitMov = apply(intuitMovDf_scale,1,sum)
+intuitMovDf_scale = data.frame(intuitMovDf_scale, intuitMov = intuitMov)
+intuitMovDf_scale
+imcorrtest = corr.test(intuitMovDf_scale)
 # correlations, unadjusted p and adjusted p
-rrrcres = data.frame(round(rrrcorrtest$r[,19],3),
-		round(rrrcorrtest$p[19,],4),
-		round(rrrcorrtest$p[,19],4))
-names(rrrcres) = c("cor.","p-raw","p-adjusted")
-rrrcres
-# rrrcres
-#       cor.  p-raw p-adjusted
-# P050 0.432 0.0095     1.0000
-# P057 0.397 0.0184     1.0000
-# P058 0.497 0.0024     0.3713
-# P059 0.095 0.5859     1.0000
-# P060 0.224 0.1949     1.0000
-# P061 0.542 0.0008     0.1258
-# P071 0.573 0.0003     0.0537
-# P072 0.600 0.0001     0.0232
-# P073 0.314 0.0666     1.0000
-# P096 0.485 0.0032     0.4927
-# P103 0.419 0.0123     1.0000
-# P105 0.566 0.0004     0.0660
-# P113 0.442 0.0078     1.0000
-# P116 0.504 0.0020     0.3242
-# P119 0.539 0.0008     0.1372
-# P120 0.513 0.0016     0.2628
-# P139 0.658 0.0000     0.0030
-# P147 0.498 0.0023     0.3707
-# RRR  1.000 0.0000     0.0000
+imcres = data.frame(round(imcorrtest$r[,9],3),
+		round(imcorrtest$p[9,],4),
+		round(imcorrtest$p[,9],4))
+names(imcres) = c("cor.","p-raw","p-adjusted")
+imcres
+# imcres
+#            cor. p-raw p-adjusted
+# P087      0.715 0e+00     0.0000
+# P100      0.661 0e+00     0.0005
+# P101      0.799 0e+00     0.0000
+# P107      0.621 1e-04     0.0021
+# P121      0.536 9e-04     0.0228
+# P127      0.619 1e-04     0.0022
+# P130      0.712 0e+00     0.0001
+# P136      0.773 0e+00     0.0000
+# intuitMov 1.000 0e+00     0.0000
 
-postDf$RRR=RRR
 
+postDf$intuitMov=intuitMov
 #########################################################################
-## make Space and Time (spaceTime) composite score (theme 4)
+## make physical environment composite score (theme 2)
 #########################################################################
-spaceTimeNames = c()
-spaceTimeDf = postDf[,spaceTimeNames]
-spaceTimeDf_scale = scale(spaceTimeDf)
-describe(spaceTimeDf_scale)
-spaceTime = apply(spaceTimeDf_scale,1,sum)
-spaceTimeDf_scale = data.frame(spaceTimeDf_scale, spaceTime = spaceTime)
-spaceTimeDf_scale
-stcorrtest = corr.test(spaceTimeDf_scale)
+physEnvNames = c("P048","P083","P102")
+physEnvDf = postDf[,physEnvNames]
+physEnvDf_scale = scale(physEnvDf)
+describe(physEnvDf_scale)
+physEnv = apply(physEnvDf_scale,1,sum)
+physEnvDf_scale = data.frame(physEnvDf_scale, physEnv = physEnv)
+physEnvDf_scale
+pecorrtest = corr.test(physEnvDf_scale)
 # correlations, unadjusted p and adjusted p
-stcres = data.frame(round(stcorrtest$r[,7],3),
-		round(stcorrtest$p[7,],4),
-		round(stcorrtest$p[,7],4))
-names(stcres) = c("cor.","p-raw","p-adjusted")
-stcres
+pecres = data.frame(round(pecorrtest$r[,4],3),
+		round(pecorrtest$p[4,],4),
+		round(pecorrtest$p[,4],4))
+names(pecres) = c("cor.","p-raw","p-adjusted")
+pecres
+# pecres
+#          cor. p-raw p-adjusted
+# P048    0.751     0          0
+# P083    0.806     0          0
+# P102    0.860     0          0
+# physEnv 1.000     0          0
 
-
-
-postDf$spaceTime=spaceTime
-
-
+postDf$physEnv=physEnv
 #########################################################################
 ## make emotional environment composite score (theme 3)
 #########################################################################
-emotEnvNames = c()
+emotEnvNames = c("P063","P076","P092","P095","P097","P098","P109",
+		"P113","P114","P123","P138")
 emotEnvDf = postDf[,emotEnvNames]
 emotEnvDf_scale = scale(emotEnvDf)
 describe(emotEnvDf_scale)
@@ -170,14 +158,59 @@ eecres = data.frame(round(eecorrtest$r[,12],3),
 		round(eecorrtest$p[,12],4))
 names(eecres) = c("cor.","p-raw","p-adjusted")
 eecres
+# eecres
+#          cor. p-raw p-adjusted
+# P063    0.569 4e-04     0.0207
+# P076    0.560 5e-04     0.0250
+# P092    0.549 6e-04     0.0341
+# P095    0.717 0e+00     0.0001
+# P097    0.654 0e+00     0.0013
+# P098    0.626 1e-04     0.0034
+# P109    0.755 0e+00     0.0000
+# P113    0.726 0e+00     0.0001
+# P114    0.564 4e-04     0.0232
+# P123    0.538 9e-04     0.0443
+# P138    0.641 0e+00     0.0020
+# emotEnv 1.000 0e+00     0.0000
 
 
 postDf$emotEnv=emotEnv
+#########################################################################
+## make fluid reality composite score (theme 4)
+#########################################################################
+fluidRealNames = c("P125","P126","P135","P141","P143","P144")
+# P132 and P146 overlap with laborLand score
+fluidRealDf = postDf[,fluidRealNames]
+fluidRealDf_scale = scale(fluidRealDf)
+describe(fluidRealDf_scale)
+fluidReal = apply(fluidRealDf_scale,1,sum)
+fluidRealDf_scale = data.frame(fluidRealDf_scale, fluidReal = fluidReal)
+fluidRealDf_scale
+frcorrtest = corr.test(fluidRealDf_scale)
+# correlations, unadjusted p and adjusted p
+frcres = data.frame(round(frcorrtest$r[,7],3),
+		round(frcorrtest$p[7,],4),
+		round(frcorrtest$p[,7],4))
+names(frcres) = c("cor.","p-raw","p-adjusted")
+frcres
+# frcres
+#            cor. p-raw p-adjusted
+# P125      0.650 0e+00     0.0004
+# P126      0.680 0e+00     0.0001
+# P135      0.757 0e+00     0.0000
+# P141      0.620 1e-04     0.0012
+# P143      0.750 0e+00     0.0000
+# P144      0.565 4e-04     0.0060
+# fluidReal 1.000 0e+00     0.0000
 
+
+postDf$fluidReal=fluidReal
 #########################################################################
-## make surrender??? composite score (theme 5)
+## make intense presence composite score (theme 5)
 #########################################################################
-intensePresNames = c()
+intensePresNames = c("P058",
+		"P072","P105","P116","P119",
+		"P139","P147")
 intensePresDf = postDf[,intensePresNames]
 intensePresDf_scale = scale(intensePresDf)
 describe(intensePresDf_scale)
@@ -191,10 +224,19 @@ ipcres = data.frame(round(ipcorrtest$r[,8],3),
 		round(ipcorrtest$p[,8],4))
 names(ipcres) = c("cor.","p-raw","p-adjusted")
 ipcres
+# ipcres
+#              cor.  p-raw p-adjusted
+# P058        0.497 0.0024     0.0455
+# P072        0.561 0.0005     0.0097
+# P105        0.725 0.0000     0.0000
+# P116        0.686 0.0000     0.0001
+# P119        0.614 0.0001     0.0020
+# P139        0.771 0.0000     0.0000
+# P147        0.749 0.0000     0.0000
+# intensePres 1.000 0.0000     0.0000
 
 
 postDf$intensePres=intensePres
-
 #########################################################################
 ## make pain experience composite score (theme 6)
 #########################################################################
@@ -462,7 +504,7 @@ postDf$panas=panas
 ## plot correlations (move to individualAnalyses?)
 #########################################################################
 groupsDf = data.frame(intuitMov = intuitMov, physEnv = physEnv,
-		emotEnv = emotEnv, fluidReal = spaceTime, intensePres = intensePres,
+		emotEnv = emotEnv, fluidReal = fluidReal, intensePres = intensePres,
 		painExp = painExp, expectations = expectations, 
 		outcomeMeasures = outcomeMeasures, panas = panas,
 		laborLand = laborLand)
@@ -551,7 +593,7 @@ adf$x = -10
 adf$y = 10
 adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
 		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=spaceTime, y=laborLand))+geom_point()+
+ggplot(groupsDf,aes(x=fluidReal, y=laborLand))+geom_point()+
 		geom_smooth(method=lm)+
 		geom_text(aes(x=x, y=y, label=label),data=adf)
 ## intensePres
@@ -636,7 +678,7 @@ adf$x = -10
 adf$y = 6
 adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
 		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=spaceTime, y=outcomeMeasures))+geom_point()+
+ggplot(groupsDf,aes(x=fluidReal, y=outcomeMeasures))+geom_point()+
 		geom_smooth(method=lm)+
 		geom_text(aes(x=x, y=y, label=label),data=adf)
 ## intensePres

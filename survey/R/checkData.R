@@ -12,6 +12,15 @@ library(Hmisc)
 load("rdata/postData.RData")
 
 #########################################################################
+## Who might need to be removed:
+## Cesareans - 4
+## Medications - 4 additional (8 total)
+## Long pp interval women - 6 (maybe only longest 2?)
+#########################################################################
+
+
+
+#########################################################################
 ## are cesarean women outliers? looking at P015 against all themes
 #########################################################################
 # fine
@@ -77,6 +86,65 @@ summary(aovCheck3)
 
 
 #########################################################################
+## check for any effects of pain medications/hospital birth
+#########################################################################
+ggplot(postDf,aes(x=P016, y=laborLand, color=P016))+geom_point()
+# who is this woman with the worst laborLand score (had epidural)
+# low laborLand, intuitMov, emotEnv, painExp, outcomeMeasures, panas
+subset(postDf,laborLand==min(laborLand))
+
+ggplot(postDf,aes(x=P016, y=painExp, color=P016))+geom_point()
+ggplot(postDf,aes(x=P016, y=outcomeMeasures, color=P016))+geom_point()
+
+ggplot(postDf,aes(x=laborLand, y=painExp, color=P016))+geom_point()
+
+# find four women who had cesareans
+subset(postDf,P015==2)
+# find 8 women who used pain medication
+subset(postDf,P016!=1)
+# R_dnfNFyZENCZUYHa had very negative scores on all measures?
+# had vaginal birth w/ epidural; in hospital, but did not intend 
+# to be there
+
+# how many hospital births were intended to be hospital births?
+# only 5 (of 13) planned hospital births; 4 of these 5 had no drugs;
+# of transfers, 4 due to cesarean; 3 more were to receive drugs; 1
+# transfered but did not receive drugs (possibly got pitocin)
+subset(postDf,P017==3,select=c(P015,P016,P017,P018))
+
+
+
+
+
+#########################################################################
+## Test for w/ or w/o doula --> no sig. difference
+#########################################################################
+ggplot(postDf,aes(x=P026, y=laborLand))+geom_point()
+ggplot(postDf,aes(x=laborLand, y=outcomeMeasures, color=P026))+geom_point()
+aovCheck4 = aov(laborLand~P026,data=postDf)
+summary(aovCheck4)
+# summary(aovCheck4)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# P026         1    171  171.44   1.769  0.193
+# Residuals   33   3198   96.91               
+       
+
+#########################################################################
+## Test for w/ or w/o birth plan --> no sig. difference
+#########################################################################
+ggplot(postDf,aes(x=P027, y=laborLand))+geom_point()
+ggplot(postDf,aes(x=laborLand, y=outcomeMeasures, color=P027))+geom_point()
+aovCheck5 = aov(laborLand~P027,data=postDf)
+summary(aovCheck5)
+# summary(aovCheck5)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# P027         1      0     0.0       0      1
+# Residuals   33   3370   102.1               
+ 
+
+
+
+#########################################################################
 ## check for any effects of postpartum length
 #########################################################################
 postDf$P002
@@ -86,12 +154,7 @@ postDf$P002
 # split participants into two groups (shortpp and longpp)
 # ?????
 
-
-
-#########################################################################
-## check for any effects of pain medications
-#########################################################################
-
+ggplot(postDf,aes(x=laborLand, y=P002, color=P002))+geom_point()
 
 
 

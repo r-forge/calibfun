@@ -6,13 +6,15 @@
 ## Author: Haaland
 ###############################################################################
 load("rdata/postData.RData")
-
+# I'm going to save this b/c I'm going to experiment and I want to 
+# be able to get this back
+# newpostDf = postDf
+# postDf = origPostDf
 #########################################################################
 ## make laborLand composite score
 #########################################################################
-laborLandNames = c("P049","P069","P080","P085","P086","P089",
-		"P093","P094","P101","P107","P108","P115","P123","P127",
-		"P130","P136")
+laborLandNames = c("P085","P086","P087","P089","P093","P094","P101",
+		"P103","P107","P108","P115","P123","P127","P130","P136")
 # this new score messes up my other themes. I should go back and
 # redo all theme grouping around this laborLand score
 laborLandDf = postDf[,laborLandNames]
@@ -23,38 +25,37 @@ laborLandDf_scale = data.frame(laborLandDf_scale, laborLand = laborLand)
 laborLandDf_scale
 llcorrtest = corr.test(laborLandDf_scale)
 # correlations, unadjusted p and adjusted p
-llcres = data.frame(round(llcorrtest$r[,17],3),
-		round(llcorrtest$p[17,],4),
-		round(llcorrtest$p[,17],4))
+llcres = data.frame(round(llcorrtest$r[,16],3),
+		round(llcorrtest$p[16,],4),
+		round(llcorrtest$p[,16],4))
 names(llcres) = c("cor.","p-raw","p-adjusted")
 llcres
 # llcres
 #            cor.  p-raw p-adjusted
-# P049      0.252 0.1443     1.0000
-# P069      0.448 0.0070     0.6165
-# P080      0.561 0.0005     0.0501
-# P085      0.697 0.0000     0.0004
-# P086      0.691 0.0000     0.0006
-# P089      0.767 0.0000     0.0000
-# P093      0.709 0.0000     0.0002
-# P094      0.867 0.0000     0.0000
-# P101      0.768 0.0000     0.0000
-# P107      0.636 0.0000     0.0049
-# P108      0.641 0.0000     0.0041
-# P115      0.520 0.0014     0.1449
-# P123      0.568 0.0004     0.0414
-# P127      0.620 0.0001     0.0086
-# P130      0.640 0.0000     0.0044
-# P136      0.569 0.0004     0.0411
+# P085      0.765 0.0000     0.0006
+# P086      0.670 0.0002     0.0188
+# P087      0.666 0.0002     0.0215
+# P089      0.843 0.0000     0.0000
+# P093      0.793 0.0000     0.0002
+# P094      0.904 0.0000     0.0000
+# P101      0.728 0.0000     0.0028
+# P103      0.358 0.0724     1.0000
+# P107      0.642 0.0004     0.0404
+# P108      0.573 0.0022     0.1964
+# P115      0.520 0.0064     0.4936
+# P123      0.555 0.0033     0.2765
+# P127      0.640 0.0004     0.0429
+# P130      0.702 0.0001     0.0071
+# P136      0.674 0.0002     0.0171
 # laborLand 1.000 0.0000     0.0000
-postDf$laborLand=laborLand
 
+postDf$laborLand=laborLand
 
 #########################################################################
 ## make Intimacy-Trust-Security (intimateSec) composite score
 #########################################################################
-intimateSecNames = c("P048","P063","P068","P076","P083","P090",
-		"P092","P095","P098","P102","P118")
+intimateSecNames = c("P048","P063","P076",
+		"P090","P092","P095","P098","P102")
 intimateSecDf = postDf[,intimateSecNames]
 intimateSecDf_scale = scale(intimateSecDf)
 describe(intimateSecDf_scale)
@@ -63,36 +64,30 @@ intimateSecDf_scale = data.frame(intimateSecDf_scale, intimateSec = intimateSec)
 intimateSecDf_scale
 iscorrtest = corr.test(intimateSecDf_scale)
 # correlations, unadjusted p and adjusted p
-iscres = data.frame(round(iscorrtest$r[,12],3),
-		round(iscorrtest$p[12,],4),
-		round(iscorrtest$p[,12],4))
+iscres = data.frame(round(iscorrtest$r[,9],3),
+		round(iscorrtest$p[9,],4),
+		round(iscorrtest$p[,9],4))
 names(iscres) = c("cor.","p-raw","p-adjusted")
 iscres
 # iscres
-#              cor.  p-raw p-adjusted
-# P048        0.550 0.0006     0.0329
-# P063        0.587 0.0002     0.0119
-# P068        0.145 0.4050     1.0000
-# P076        0.659 0.0000     0.0011
-# P083        0.644 0.0000     0.0018
-# P090        0.489 0.0029     0.1372
-# P092        0.736 0.0000     0.0000
-# P095        0.725 0.0000     0.0001
-# P098        0.621 0.0001     0.0041
-# P102        0.749 0.0000     0.0000
-# P118        0.320 0.0608     1.0000
-# intimateSec 1.000 0.0000     0.0000
-
+#              cor. p-raw p-adjusted
+# P048        0.705 1e-04     0.0018
+# P063        0.651 3e-04     0.0089
+# P076        0.629 6e-04     0.0151
+# P090        0.652 3e-04     0.0089
+# P092        0.733 0e+00     0.0007
+# P095        0.737 0e+00     0.0006
+# P098        0.710 0e+00     0.0015
+# P102        0.753 0e+00     0.0003
+# intimateSec 1.000 0e+00     0.0000
 
 postDf$intimateSec=intimateSec
-
 
 #########################################################################
 ## make rhythm-relaxation-ritual (RRR) composite score (theme 1)
 #########################################################################
-RRRNames = c("P050","P057","P058","P059","P060","P061","P071",
-		"P072","P073","P096","P103","P105","P113","P116","P119",
-		"P120","P139","P147")
+RRRNames = c("P050","P071","P072","P096","P105","P116","P119",
+		"P139","P147")
 RRRDf = postDf[,RRRNames]
 RRRDf_scale = scale(RRRDf)
 describe(RRRDf_scale)
@@ -101,39 +96,31 @@ RRRDf_scale = data.frame(RRRDf_scale, RRR = RRR)
 RRRDf_scale
 rrrcorrtest = corr.test(RRRDf_scale)
 # correlations, unadjusted p and adjusted p
-rrrcres = data.frame(round(rrrcorrtest$r[,19],3),
-		round(rrrcorrtest$p[19,],4),
-		round(rrrcorrtest$p[,19],4))
+rrrcres = data.frame(round(rrrcorrtest$r[,10],3),
+		round(rrrcorrtest$p[10,],4),
+		round(rrrcorrtest$p[,10],4))
 names(rrrcres) = c("cor.","p-raw","p-adjusted")
 rrrcres
 # rrrcres
-#       cor.  p-raw p-adjusted
-# P050 0.432 0.0095     1.0000
-# P057 0.397 0.0184     1.0000
-# P058 0.497 0.0024     0.3713
-# P059 0.095 0.5859     1.0000
-# P060 0.224 0.1949     1.0000
-# P061 0.542 0.0008     0.1258
-# P071 0.573 0.0003     0.0537
-# P072 0.600 0.0001     0.0232
-# P073 0.314 0.0666     1.0000
-# P096 0.485 0.0032     0.4927
-# P103 0.419 0.0123     1.0000
-# P105 0.566 0.0004     0.0660
-# P113 0.442 0.0078     1.0000
-# P116 0.504 0.0020     0.3242
-# P119 0.539 0.0008     0.1372
-# P120 0.513 0.0016     0.2628
-# P139 0.658 0.0000     0.0030
-# P147 0.498 0.0023     0.3707
-# RRR  1.000 0.0000     0.0000
+#       cor. p-raw p-adjusted
+# P050 0.696 1e-04     0.0033
+# P071 0.610 9e-04     0.0347
+# P072 0.661 2e-04     0.0094
+# P096 0.606 1e-03     0.0376
+# P105 0.712 0e+00     0.0019
+# P116 0.733 0e+00     0.0009
+# P119 0.629 6e-04     0.0228
+# P139 0.769 0e+00     0.0002
+# P147 0.685 1e-04     0.0046
+# RRR  1.000 0e+00     0.0000
 
 postDf$RRR=RRR
 
 #########################################################################
 ## make Space and Time (spaceTime) composite score (theme 4)
 #########################################################################
-spaceTimeNames = c()
+spaceTimeNames = c("P070","P077",
+		"P126","P132","P135","P143","P144","P146")
 spaceTimeDf = postDf[,spaceTimeNames]
 spaceTimeDf_scale = scale(spaceTimeDf)
 describe(spaceTimeDf_scale)
@@ -142,21 +129,30 @@ spaceTimeDf_scale = data.frame(spaceTimeDf_scale, spaceTime = spaceTime)
 spaceTimeDf_scale
 stcorrtest = corr.test(spaceTimeDf_scale)
 # correlations, unadjusted p and adjusted p
-stcres = data.frame(round(stcorrtest$r[,7],3),
-		round(stcorrtest$p[7,],4),
-		round(stcorrtest$p[,7],4))
+stcres = data.frame(round(stcorrtest$r[,9],3),
+		round(stcorrtest$p[9,],4),
+		round(stcorrtest$p[,9],4))
 names(stcres) = c("cor.","p-raw","p-adjusted")
 stcres
-
-
+# stcres
+#            cor.  p-raw p-adjusted
+# P070      0.666 0.0002     0.0063
+# P077      0.683 0.0001     0.0038
+# P126      0.604 0.0011     0.0293
+# P132      0.707 0.0001     0.0018
+# P135      0.721 0.0000     0.0011
+# P143      0.784 0.0000     0.0001
+# P144      0.567 0.0025     0.0602
+# P146      0.743 0.0000     0.0005
+# spaceTime 1.000 0.0000     0.0000
 
 postDf$spaceTime=spaceTime
-
 
 #########################################################################
 ## make emotional environment composite score (theme 3)
 #########################################################################
-emotEnvNames = c()
+emotEnvNames = c("P097","P100","P109","P110","P111","P114","P138",
+		"P141")
 emotEnvDf = postDf[,emotEnvNames]
 emotEnvDf_scale = scale(emotEnvDf)
 describe(emotEnvDf_scale)
@@ -165,41 +161,107 @@ emotEnvDf_scale = data.frame(emotEnvDf_scale, emotEnv = emotEnv)
 emotEnvDf_scale
 eecorrtest = corr.test(emotEnvDf_scale)
 # correlations, unadjusted p and adjusted p
-eecres = data.frame(round(eecorrtest$r[,12],3),
-		round(eecorrtest$p[12,],4),
-		round(eecorrtest$p[,12],4))
+eecres = data.frame(round(eecorrtest$r[,9],3),
+		round(eecorrtest$p[9,],4),
+		round(eecorrtest$p[,9],4))
 names(eecres) = c("cor.","p-raw","p-adjusted")
 eecres
-
+# eecres
+#          cor.  p-raw p-adjusted
+# P097    0.817 0.0000     0.0000
+# P100    0.668 0.0002     0.0050
+# P109    0.819 0.0000     0.0000
+# P110    0.603 0.0011     0.0270
+# P111    0.690 0.0001     0.0028
+# P114    0.770 0.0000     0.0001
+# P138    0.689 0.0001     0.0028
+# P141    0.773 0.0000     0.0001
+# emotEnv 1.000 0.0000     0.0000
 
 postDf$emotEnv=emotEnv
 
 #########################################################################
-## make surrender??? composite score (theme 5)
+## make surrender composite score (theme 5)
 #########################################################################
-intensePresNames = c()
-intensePresDf = postDf[,intensePresNames]
-intensePresDf_scale = scale(intensePresDf)
-describe(intensePresDf_scale)
-intensePres = apply(intensePresDf_scale,1,sum)
-intensePresDf_scale = data.frame(intensePresDf_scale, intensePres = intensePres)
-intensePresDf_scale
-ipcorrtest = corr.test(intensePresDf_scale)
+surrenderNames = c("P064","P079","P099","P106","P117")
+surrenderDf = postDf[,surrenderNames]
+surrenderDf_scale = scale(surrenderDf)
+describe(surrenderDf_scale)
+surrender = apply(surrenderDf_scale,1,sum)
+surrenderDf_scale = data.frame(surrenderDf_scale, surrender = surrender)
+surrenderDf_scale
+surcorrtest = corr.test(surrenderDf_scale)
 # correlations, unadjusted p and adjusted p
-ipcres = data.frame(round(ipcorrtest$r[,8],3),
-		round(ipcorrtest$p[8,],4),
-		round(ipcorrtest$p[,8],4))
-names(ipcres) = c("cor.","p-raw","p-adjusted")
-ipcres
+surcres = data.frame(round(surcorrtest$r[,6],3),
+		round(surcorrtest$p[6,],4),
+		round(surcorrtest$p[,6],4))
+names(surcres) = c("cor.","p-raw","p-adjusted")
+surcres
+# surcres
+#            cor. p-raw p-adjusted
+# P064      0.619 8e-04     0.0076
+# P079      0.632 5e-04     0.0058
+# P099      0.757 0e+00     0.0001
+# P106      0.731 0e+00     0.0003
+# P117      0.669 2e-04     0.0023
+# surrender 1.000 0e+00     0.0000
+
+postDf$surrender=surrender
+
+#########################################################################
+## make Sensory Orientation (sensOr) composite score
+#########################################################################
+sensOrNames = c("P058","P078","P112")
+sensOrDf = postDf[,sensOrNames]
+sensOrDf_scale = scale(sensOrDf)
+describe(sensOrDf_scale)
+sensOr = apply(sensOrDf_scale,1,sum)
+sensOrDf_scale = data.frame(sensOrDf_scale, sensOr = sensOr)
+sensOrDf_scale
+socorrtest = corr.test(sensOrDf_scale)
+# correlations, unadjusted p and adjusted p
+socres = data.frame(round(socorrtest$r[,4],3),
+		round(socorrtest$p[4,],4),
+		round(socorrtest$p[,4],4))
+names(socres) = c("cor.","p-raw","p-adjusted")
+socres
+# socres
+#         cor. p-raw p-adjusted
+# P058   0.634 5e-04      0.002
+# P078   0.816 0e+00      0.000
+# P112   0.779 0e+00      0.000
+# sensOr 1.000 0e+00      0.000
 
 
-postDf$intensePres=intensePres
+sensOrNames = c("P082","P104","P137")
+sensOrDf = postDf[,sensOrNames]
+sensOrDf_scale = scale(sensOrDf)
+describe(sensOrDf_scale)
+sensOr = apply(sensOrDf_scale,1,sum)
+sensOrDf_scale = data.frame(sensOrDf_scale, sensOr = sensOr)
+sensOrDf_scale
+socorrtest = corr.test(sensOrDf_scale)
+# correlations, unadjusted p and adjusted p
+socres = data.frame(round(socorrtest$r[,4],3),
+		round(socorrtest$p[4,],4),
+		round(socorrtest$p[,4],4))
+names(socres) = c("cor.","p-raw","p-adjusted")
+socres
+# socres
+#         cor. p-raw p-adjusted
+# P082   0.699 1e-04      3e-04
+# P104   0.787 0e+00      0e+00
+# P137   0.769 0e+00      0e+00
+# sensOr 1.000 0e+00      0e+00
+
+## haven't decided on this theme yet --> haven't added it yet
+# postDf$sensOr=sensOr
 
 #########################################################################
 ## make pain experience composite score (theme 6)
 #########################################################################
-painExpNames = c("P124","P131","P133","P142","P145","P148","P155",
-		"P156")
+painExpNames = c("P124","P131","P133","P142","P145","P148",
+		"P155","P156")
 painExpDf = postDf[,painExpNames]
 painExpDf_scale = scale(painExpDf)
 describe(painExpDf_scale)
@@ -215,18 +277,19 @@ names(pexcres) = c("cor.","p-raw","p-adjusted")
 pexcres
 # pexcres
 #          cor.  p-raw p-adjusted
-# P124    0.880 0.0000     0.0000
-# P131    0.492 0.0027     0.0433
-# P133    0.889 0.0000     0.0000
-# P142    0.751 0.0000     0.0000
-# P145    0.663 0.0000     0.0004
-# P148    0.769 0.0000     0.0000
-# P155    0.602 0.0001     0.0030
-# P156    0.696 0.0000     0.0001
+# P124    0.827 0.0000     0.0000
+# P131    0.545 0.0040     0.0962
+# P133    0.859 0.0000     0.0000
+# P142    0.681 0.0001     0.0042
+# P145    0.567 0.0025     0.0707
+# P148    0.678 0.0001     0.0044
+# P155    0.478 0.0134     0.2817
+# P156    0.661 0.0002     0.0071
 # painExp 1.000 0.0000     0.0000
 
-
 postDf$painExp=painExp
+# left P155 in because it's so important to the theme
+
 #########################################################################
 ## make expectations composite score (theme 7)
 #########################################################################
@@ -246,13 +309,40 @@ names(excres) = c("cor.","p-raw","p-adjusted")
 excres
 # excres
 #               cor. p-raw p-adjusted
-# P067         0.888     0          0
-# P084         0.815     0          0
-# P088         0.774     0          0
-# expectations 1.000     0          0
-
+# P067         0.847     0      0e+00
+# P084         0.737     0      1e-04
+# P088         0.845     0      0e+00
+# expectations 1.000     0      0e+00
 
 postDf$expectations=expectations
+
+#########################################################################
+## make memory composite score (theme 7)
+#########################################################################
+memoryNames = c("P125","P128","P134","P140")
+memoryDf = postDf[,memoryNames]
+memoryDf_scale = scale(memoryDf)
+describe(memoryDf_scale)
+memory = apply(memoryDf_scale,1,sum)
+memoryDf_scale = data.frame(memoryDf_scale, memory = memory)
+memoryDf_scale
+mecorrtest = corr.test(memoryDf_scale)
+# correlations, unadjusted p and adjusted p
+mecres = data.frame(round(mecorrtest$r[,5],3),
+		round(mecorrtest$p[5,],4),
+		round(mecorrtest$p[,5],4))
+names(mecres) = c("cor.","p-raw","p-adjusted")
+mecres
+# mecres
+#         cor. p-raw p-adjusted
+# P125   0.639 4e-04     0.0027
+# P128   0.772 0e+00     0.0000
+# P134   0.874 0e+00     0.0000
+# P140   0.844 0e+00     0.0000
+# memory 1.000 0e+00     0.0000
+
+postDf$memory=memory
+
 #########################################################################
 ## make outcome measures composite score (theme 8)
 #########################################################################
@@ -272,15 +362,69 @@ names(omcres) = c("cor.","p-raw","p-adjusted")
 omcres
 # omcres
 #                  cor. p-raw p-adjusted
-# P065            0.737 0e+00     0.0000
-# P066            0.602 1e-04     0.0016
-# P122            0.683 0e+00     0.0001
-# P149            0.869 0e+00     0.0000
-# P150            0.798 0e+00     0.0000
-# P151            0.695 0e+00     0.0001
+# P065            0.795 0e+00     0.0000
+# P066            0.666 2e-04     0.0022
+# P122            0.783 0e+00     0.0000
+# P149            0.893 0e+00     0.0000
+# P150            0.791 0e+00     0.0000
+# P151            0.806 0e+00     0.0000
 # outcomeMeasures 1.000 0e+00     0.0000
 
 postDf$outcomeMeasures=outcomeMeasures
+
+#########################################################################
+## make unassigned composite score
+#########################################################################
+unassignedNames = c("P049","P057","P058","P062",
+		"P068","P069","P073","P074","P075","P078","P080","P081","P082",
+		"P083","P091","P104","P112","P113","P118","P120","P121","P129",
+		"P131","P137")
+# not including P059,P060,P061
+unassignedDf = postDf[,unassignedNames]
+unassignedDf_scale = scale(unassignedDf)
+describe(unassignedDf_scale)
+unassigned = apply(unassignedDf_scale,1,sum)
+unassignedDf_scale = data.frame(unassignedDf_scale, unassigned = unassigned)
+unassignedDf_scale
+uncorrtest = corr.test(unassignedDf_scale)
+# correlations, unadjusted p and adjusted p
+uncres = data.frame(round(uncorrtest$r[,25],3),
+		round(uncorrtest$p[25,],4),
+		round(uncorrtest$p[,25],4))
+names(uncres) = c("cor.","p-raw","p-adjusted")
+uncres
+# uncres
+#              cor.  p-raw p-adjusted
+# P049        0.083 0.6859          1
+# P057        0.364 0.0673          1
+# P058        0.222 0.2759          1
+# P062        0.427 0.0298          1
+# P068        0.293 0.1467          1
+# P069        0.312 0.1211          1
+# P073       -0.219 0.2831          1
+# P074       -0.016 0.9383          1
+# P075        0.124 0.5448          1
+# P078        0.168 0.4130          1
+# P080        0.160 0.4337          1
+# P081       -0.216 0.2886          1
+# P082        0.322 0.1083          1
+# P083        0.332 0.0977          1
+# P091        0.162 0.4291          1
+# P104        0.281 0.1646          1
+# P112        0.191 0.3496          1
+# P113        0.489 0.0112          1
+# P118       -0.071 0.7294          1
+# P120        0.195 0.3408          1
+# P121        0.138 0.5018          1
+# P129        0.508 0.0081          1
+# P131        0.418 0.0336          1
+# P137        0.354 0.0762          1
+# unassigned  1.000 0.0000          0
+
+postDf$unassigned=unassigned
+
+
+
 #########################################################################
 ## take all 'state' questions and see how well they correlate
 #########################################################################
@@ -309,95 +453,96 @@ names(sqcres) = c("cor.","p-raw","p-adjusted")
 sqcres
 # sqcres
 #           cor.  p-raw p-adjusted
-# P048     0.338 0.0471     1.0000
-# P049    -0.075 0.6679     1.0000
-# P050     0.324 0.0573     1.0000
-# P057     0.054 0.7598     1.0000
-# P058     0.311 0.0687     1.0000
-# P059    -0.170 0.3291     1.0000
-# P060    -0.032 0.8540     1.0000
-# P061     0.491 0.0027     1.0000
-# P062     0.414 0.0133     1.0000
-# P063     0.487 0.0030     1.0000
-# P064     0.162 0.3525     1.0000
-# P068     0.098 0.5766     1.0000
-# P069     0.312 0.0682     1.0000
-# P070     0.430 0.0099     1.0000
-# P071     0.528 0.0011     1.0000
-# P072     0.208 0.2311     1.0000
-# P073    -0.049 0.7791     1.0000
-# P074     0.263 0.1271     1.0000
-# P075    -0.085 0.6283     1.0000
-# P076     0.540 0.0008     1.0000
-# P077     0.483 0.0033     1.0000
-# P078    -0.025 0.8880     1.0000
-# P079    -0.104 0.5533     1.0000
-# P080     0.265 0.1244     1.0000
-# P082     0.394 0.0192     1.0000
-# P083     0.521 0.0013     1.0000
-# P085     0.580 0.0003     0.7248
-# P086     0.450 0.0067     1.0000
-# P087     0.638 0.0000     0.1043
-# P089     0.612 0.0001     0.2637
-# P090     0.238 0.1690     1.0000
-# P092     0.569 0.0004     0.9988
-# P093     0.643 0.0000     0.0892
-# P094     0.703 0.0000     0.0070
-# P095     0.671 0.0000     0.0294
-# P096     0.197 0.2569     1.0000
-# P097     0.486 0.0031     1.0000
-# P098     0.506 0.0019     1.0000
-# P099     0.128 0.4627     1.0000
-# P101     0.708 0.0000     0.0056
-# P102     0.547 0.0007     1.0000
-# P103     0.294 0.0862     1.0000
-# P104    -0.048 0.7853     1.0000
-# P105     0.448 0.0070     1.0000
-# P106     0.343 0.0438     1.0000
-# P107     0.560 0.0005     1.0000
-# P108     0.545 0.0007     1.0000
-# P109     0.769 0.0000     0.0002
-# P110     0.367 0.0302     1.0000
-# P111     0.302 0.0782     1.0000
-# P112     0.235 0.1745     1.0000
-# P113     0.630 0.0001     0.1414
-# P114     0.545 0.0007     1.0000
-# P115     0.441 0.0081     1.0000
-# P116     0.336 0.0488     1.0000
-# P117     0.214 0.2161     1.0000
-# P118     0.192 0.2697     1.0000
-# P119     0.475 0.0040     1.0000
-# P120     0.315 0.0656     1.0000
-# P121     0.529 0.0011     1.0000
-# P123     0.401 0.0171     1.0000
-# P126     0.391 0.0203     1.0000
-# P127     0.398 0.0178     1.0000
-# P130     0.500 0.0022     1.0000
-# P132     0.702 0.0000     0.0073
-# P135     0.540 0.0008     1.0000
-# P136     0.534 0.0010     1.0000
-# P137     0.218 0.2080     1.0000
-# P138     0.588 0.0002     0.5680
-# P139     0.669 0.0000     0.0311
-# P141     0.575 0.0003     0.8552
-# P143     0.378 0.0253     1.0000
-# P144     0.351 0.0387     1.0000
-# P146     0.455 0.0061     1.0000
-# P147     0.592 0.0002     0.5115
+# P048     0.467 0.0162     1.0000
+# P049    -0.183 0.3697     1.0000
+# P050     0.449 0.0213     1.0000
+# P057     0.146 0.4778     1.0000
+# P058     0.095 0.6446     1.0000
+# P059    -0.128 0.5321     1.0000
+# P060     0.160 0.4360     1.0000
+# P061     0.421 0.0322     1.0000
+# P062     0.419 0.0333     1.0000
+# P063     0.554 0.0033     1.0000
+# P064     0.079 0.6999     1.0000
+# P068     0.195 0.3398     1.0000
+# P069     0.336 0.0934     1.0000
+# P070     0.453 0.0201     1.0000
+# P071     0.434 0.0267     1.0000
+# P072     0.280 0.1662     1.0000
+# P073    -0.114 0.5790     1.0000
+# P074     0.132 0.5218     1.0000
+# P075     0.000 0.9985     1.0000
+# P076     0.482 0.0126     1.0000
+# P077     0.414 0.0355     1.0000
+# P078     0.019 0.9278     1.0000
+# P079     0.027 0.8961     1.0000
+# P080     0.172 0.4012     1.0000
+# P082     0.252 0.2134     1.0000
+# P083     0.268 0.1850     1.0000
+# P085     0.495 0.0101     1.0000
+# P086     0.340 0.0893     1.0000
+# P087     0.635 0.0005     1.0000
+# P089     0.713 0.0000     0.1246
+# P090     0.343 0.0867     1.0000
+# P092     0.596 0.0013     1.0000
+# P093     0.696 0.0001     0.2195
+# P094     0.661 0.0002     0.6685
+# P095     0.671 0.0002     0.4914
+# P096     0.458 0.0186     1.0000
+# P097     0.527 0.0057     1.0000
+# P098     0.490 0.0110     1.0000
+# P099     0.256 0.2072     1.0000
+# P101     0.655 0.0003     0.7916
+# P102     0.461 0.0179     1.0000
+# P103     0.372 0.0613     1.0000
+# P104     0.008 0.9694     1.0000
+# P105     0.419 0.0333     1.0000
+# P106     0.384 0.0530     1.0000
+# P107     0.451 0.0209     1.0000
+# P108     0.464 0.0169     1.0000
+# P109     0.676 0.0002     0.4285
+# P110     0.368 0.0644     1.0000
+# P111     0.397 0.0444     1.0000
+# P112     0.192 0.3464     1.0000
+# P113     0.618 0.0008     1.0000
+# P114     0.574 0.0022     1.0000
+# P115     0.387 0.0506     1.0000
+# P116     0.369 0.0637     1.0000
+# P117     0.231 0.2569     1.0000
+# P118     0.078 0.7051     1.0000
+# P119     0.498 0.0096     1.0000
+# P120    -0.058 0.7770     1.0000
+# P121     0.473 0.0147     1.0000
+# P123     0.338 0.0909     1.0000
+# P126     0.411 0.0372     1.0000
+# P127     0.402 0.0416     1.0000
+# P130     0.597 0.0013     1.0000
+# P132     0.676 0.0002     0.4247
+# P135     0.536 0.0048     1.0000
+# P136     0.593 0.0014     1.0000
+# P137     0.070 0.7326     1.0000
+# P138     0.658 0.0003     0.7289
+# P139     0.619 0.0007     1.0000
+# P141     0.620 0.0007     1.0000
+# P143     0.358 0.0723     1.0000
+# P144     0.313 0.1196     1.0000
+# P146     0.424 0.0311     1.0000
+# P147     0.658 0.0003     0.7370
 # stateQs  1.000 0.0000     0.0000
 
 postDf$stateQs=stateQs
+
 #########################################################################
 ## create composite score of PANAS questions
 #########################################################################
 panasNames = paste("P0",28:47,sep="")
 # get rid of these questions b/c there's not enough variation
-panasdrop = c("P035","P040","P045","P047")
+panasdrop = c("P035","P040","P045")
 panasNames = setdiff(panasNames,panasdrop)
 panasNames
 # panasNames
 #  [1] "P028" "P029" "P030" "P031" "P032" "P033" "P034" "P036" "P037" "P038"
-# [11] "P039" "P041" "P042" "P043" "P044" "P046"
+# [11] "P039" "P041" "P042" "P043" "P044" "P046" "P047"
 panasDf = postDf[,panasNames]
 panasDf_scale = scale(panasDf)
 describe(panasDf_scale)
@@ -406,305 +551,33 @@ panasDf_scale = data.frame(panasDf_scale, panas = panas)
 panasDf_scale
 panascorrtest = corr.test(panasDf_scale)
 # correlations, unadjusted p and adjusted p
-panascres = data.frame(round(panascorrtest$r[,17],3),
-		round(panascorrtest$p[17,],4),
-		round(panascorrtest$p[,17],4))
+panascres = data.frame(round(panascorrtest$r[,18],3),
+		round(panascorrtest$p[18,],4),
+		round(panascorrtest$p[,18],4))
 names(panascres) = c("cor.","p-raw","p-adjusted")
 panascres
 # panascres
 #        cor.  p-raw p-adjusted
-# P028  0.619 0.0001     0.0088
-# P029  0.530 0.0011     0.1112
-# P030  0.754 0.0000     0.0000
-# P031  0.569 0.0004     0.0404
-# P032  0.685 0.0000     0.0007
-# P033  0.536 0.0009     0.0952
-# P034  0.474 0.0040     0.3830
-# P036  0.817 0.0000     0.0000
-# P037  0.678 0.0000     0.0010
-# P038  0.263 0.1276     1.0000
-# P039  0.586 0.0002     0.0248
-# P041  0.775 0.0000     0.0000
-# P042  0.354 0.0372     1.0000
-# P043  0.553 0.0006     0.0610
-# P044  0.521 0.0013     0.1376
-# P046  0.717 0.0000     0.0002
-# panas 1.000 0.0000     0.0000
-
-## old panas correlations (all questions)
-# panascres
-#        cor.  p-raw p-adjusted
-# P028  0.530 0.0011     0.1838
-# P029  0.577 0.0003     0.0506
-# P030  0.693 0.0000     0.0008
-# P031  0.614 0.0001     0.0167
-# P032  0.653 0.0000     0.0042
-# P033  0.559 0.0005     0.0863
-# P034  0.578 0.0003     0.0494
-# P035  0.617 0.0001     0.0153
-# P036  0.764 0.0000     0.0000
-# P037  0.637 0.0000     0.0075
-# P038  0.298 0.0817     1.0000
-# P039  0.522 0.0013     0.2233
-# P040  0.603 0.0001     0.0236
-# P041  0.723 0.0000     0.0002
-# P042  0.442 0.0078     1.0000
-# P043  0.471 0.0043     0.6843
-# P044  0.510 0.0017     0.2914
-# P045  0.368 0.0294     1.0000
-# P046  0.655 0.0000     0.0039
-# P047  0.238 0.1682     1.0000
+# P028  0.577 0.0020     0.2514
+# P029  0.369 0.0636     1.0000
+# P030  0.713 0.0000     0.0064
+# P031  0.525 0.0059     0.6879
+# P032  0.638 0.0005     0.0598
+# P033  0.518 0.0068     0.7637
+# P034  0.470 0.0155     1.0000
+# P036  0.824 0.0000     0.0000
+# P037  0.668 0.0002     0.0273
+# P038  0.547 0.0038     0.4623
+# P039  0.728 0.0000     0.0037
+# P041  0.872 0.0000     0.0000
+# P042  0.296 0.1423     1.0000
+# P043  0.402 0.0420     1.0000
+# P044  0.542 0.0042     0.5045
+# P046  0.614 0.0008     0.1079
+# P047  0.231 0.2554     1.0000
 # panas 1.000 0.0000     0.0000
 
 postDf$panas=panas
 
-#########################################################################
-## plot correlations (move to individualAnalyses?)
-#########################################################################
-groupsDf = data.frame(intuitMov = intuitMov, physEnv = physEnv,
-		emotEnv = emotEnv, fluidReal = spaceTime, intensePres = intensePres,
-		painExp = painExp, expectations = expectations, 
-		outcomeMeasures = outcomeMeasures, panas = panas,
-		laborLand = laborLand)
-grpcorrtest = corr.test(groupsDf)
-# correlations, unadjusted p and adjusted p
-grpcres = data.frame(round(grpcorrtest$r[,10],3),
-		round(grpcorrtest$p[10,],4),
-		round(grpcorrtest$p[,10],4))
-names(grpcres) = c("cor.","p-raw","p-adjusted")
-grpcres
-# grpcres
-#                  cor.  p-raw p-adjusted
-# intuitMov       0.736 0.0000     0.0000
-# physEnv         0.224 0.1958     0.7008
-# emotEnv         0.582 0.0002     0.0082
-# fluidReal       0.421 0.0118     0.2003
-# intensePres     0.580 0.0003     0.0084
-# painExp         0.536 0.0009     0.0247
-# expectations    0.382 0.0237     0.2848
-# outcomeMeasures 0.607 0.0001     0.0041
-# panas           0.342 0.0441     0.3807
-# laborLand       1.000 0.0000     0.0000
 
-## to get the whole correlation matrix
-grpcorrtest$r
-# grpcorrtest$r
-#                 intuitMov   physEnv   emotEnv  fluidReal intensePres   painExp
-# intuitMov       1.0000000 0.3451254 0.6824775 0.37299954   0.4460095 0.5881909
-# physEnv         0.3451254 1.0000000 0.5975637 0.51913543   0.2404237 0.4293421
-# emotEnv         0.6824775 0.5975637 1.0000000 0.66897639   0.4582295 0.6554013
-# fluidReal       0.3729995 0.5191354 0.6689764 1.00000000   0.3609485 0.5124390
-# intensePres     0.4460095 0.2404237 0.4582295 0.36094851   1.0000000 0.5556691
-# painExp         0.5881909 0.4293421 0.6554013 0.51243903   0.5556691 1.0000000
-# expectations    0.5265144 0.5793594 0.6313744 0.39481053   0.4832478 0.5627930
-# outcomeMeasures 0.7200597 0.5152935 0.7534936 0.50571296   0.5573094 0.7602627
-# panas           0.4129443 0.2222202 0.3908986 0.06843493   0.2544647 0.3367425
-# laborLand       0.7358440 0.2240105 0.5816486 0.42102764   0.5796943 0.5356285
-#                 expectations outcomeMeasures      panas laborLand
-# intuitMov          0.5265144       0.7200597 0.41294433 0.7358440
-# physEnv            0.5793594       0.5152935 0.22222019 0.2240105
-# emotEnv            0.6313744       0.7534936 0.39089864 0.5816486
-# fluidReal          0.3948105       0.5057130 0.06843493 0.4210276
-# intensePres        0.4832478       0.5573094 0.25446468 0.5796943
-# painExp            0.5627930       0.7602627 0.33674250 0.5356285
-# expectations       1.0000000       0.5880393 0.33426585 0.3815260
-# outcomeMeasures    0.5880393       1.0000000 0.40628292 0.6069820
-# panas              0.3342658       0.4062829 1.00000000 0.3423835
-# laborLand          0.3815260       0.6069820 0.34238347 1.0000000
-
-
-library(ggplot2)
-pdf("plots/scaleCorrelations.pdf")
-#########################################################################
-## First, compare each theme to laborLand
-#########################################################################
-## intuitMov
-adf = grpcres[rownames(grpcres)=="intuitMov",]
-adf$x = -15
-adf$y = 10
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=intuitMov, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-## physEnv
-adf = grpcres[rownames(grpcres)=="physEnv",]
-adf$x = -6
-adf$y = 10
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=physEnv, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-## emotEnv
-adf = grpcres[rownames(grpcres)=="emotEnv",]
-adf$x = -20
-adf$y = 10
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=emotEnv, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-## fluidReal
-adf = grpcres[rownames(grpcres)=="fluidReal",]
-adf$x = -10
-adf$y = 10
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=spaceTime, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-## intensePres
-adf = grpcres[rownames(grpcres)=="intensePres",]
-adf$x = -10
-adf$y = 10
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=intensePres, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-## painExp
-adf = grpcres[rownames(grpcres)=="painExp",]
-adf$x = -10
-adf$y = 10
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=painExp, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-## expectations
-adf = grpcres[rownames(grpcres)=="expectations",]
-adf$x = -3
-adf$y = 10
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=expectations, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-## outcomeMeasures
-adf = grpcres[rownames(grpcres)=="outcomeMeasures",]
-adf$x = -10
-adf$y = 10
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=outcomeMeasures, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-## panas
-adf = grpcres[rownames(grpcres)=="panas",]
-adf$x = -10
-adf$y = 10
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=panas, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-
-#########################################################################
-## Now compare each theme to outcome measures
-#########################################################################
-## intuitMov
-adf = grpcres[rownames(grpcres)=="intuitMov",]
-adf$x = -10
-adf$y = 6
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=intuitMov, y=outcomeMeasures))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-## physEnv
-adf = grpcres[rownames(grpcres)=="physEnv",]
-adf$x = -6
-adf$y = 6
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=physEnv, y=outcomeMeasures))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-## emotEnv
-adf = grpcres[rownames(grpcres)=="emotEnv",]
-adf$x = -20
-adf$y = 6
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=emotEnv, y=outcomeMeasures))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-## fluidReal
-adf = grpcres[rownames(grpcres)=="fluidReal",]
-adf$x = -10
-adf$y = 6
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=spaceTime, y=outcomeMeasures))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-## intensePres
-adf = grpcres[rownames(grpcres)=="intensePres",]
-adf$x = -10
-adf$y = 6
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=intensePres, y=outcomeMeasures))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-## painExp
-adf = grpcres[rownames(grpcres)=="painExp",]
-adf$x = -10
-adf$y = 6
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=painExp, y=outcomeMeasures))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-## expectations
-adf = grpcres[rownames(grpcres)=="expectations",]
-adf$x = -3
-adf$y = 6
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=expectations, y=outcomeMeasures))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-## panas
-adf = grpcres[rownames(grpcres)=="panas",]
-adf$x = -3
-adf$y = 6
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(groupsDf,aes(x=panas, y=outcomeMeasures))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-
-dev.off()
-
-#########################################################################
-## creating difference scores for actual vs. perceived time in active
-## labor and pushing
-#########################################################################
-
-## 0-2 hours | 2-4 hours | 4-6 hours | 6-8 hours | 8-10 hours | 
-## 10-12 hours | More than 12 hours
-tValsAct = c(1,3,5,7,9,11,13)
-## values for active labor
-tActualAct = tValsAct[postDf[,c("P022")]]
-tPerceivedAct = tValsAct[postDf[,c("P152")]]
-tDiffAct = tActualAct - tPerceivedAct
-## add these variables to the dataframe
-postDf$tActualAct=tActualAct
-postDf$tPerceivedAct=tPerceivedAct
-postDf$tDiffAct=tDiffAct
-
-## 0-19 minutes | 20-39 minutes | 40-59 minutes | 60-79 minutes | 
-## 80-99 minutes | 100-120 minutes | more than 2 hours
-tValsPush = c(10,30,50,70,90,110,130)
-##values for pushing
-tActualPush = tValsPush[postDf[,c("P023")]]
-tPerceivedPush = tValsPush[postDf[,c("P153")]]
-tDiffPush = tActualPush - tPerceivedPush
-## add these variables to the dataframe
-postDf$tActualPush=tActualPush
-postDf$tPerceivedPush=tPerceivedPush
-postDf$tDiffPush=tDiffPush
-
-save(postDf,descPostDf,postNumVarNames,file="rdata/postData.RData")
+save(postDf,newpostDf,origPostDf,descPostDf,postNumVarNames,file="rdata/postData.RData")

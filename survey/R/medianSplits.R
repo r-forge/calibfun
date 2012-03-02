@@ -142,4 +142,4 @@ ggplot(postDf,aes(x=lmhpanas, y=painExp, color=mslaborLand)) +
 
 
 
-save(postDf,descPostDf,postNumVarNames,file="rdata/postData.RData")
+save(postDf,newpostDf,origPostDf,descPostDf,postNumVarNames,file="rdata/postData.RData")

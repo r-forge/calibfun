@@ -28,7 +28,17 @@ all(revPostOldNames %in% descPostDf$oldName)
 selNames = descPostDf$oldName %in% revPostOldNames
 descPostDf[selNames,c("varName","oldName")]
 # descPostDf[selNames,c("varName","oldName")]
-# 		varName oldName
+#      varName oldName
+# P029    P029   Q61_2
+# P031    P031   Q61_4
+# P033    P033   Q61_6
+# P034    P034   Q61_7
+# P035    P035   Q61_8
+# P038    P038  Q61_11
+# P040    P040  Q61_13
+# P042    P042  Q61_15
+# P045    P045  Q61_18
+# P047    P047  Q61_20
 # P052    P052   Q37.1
 # P064    P064   Q47_3
 # P070    P070   Q47_9
@@ -51,8 +61,10 @@ descPostDf[selNames,c("varName","oldName")]
 # P126    P126   Q54_5
 # P127    P127   Q54_6
 # P130    P130   Q54_9
+# P134    P134   Q55_3
 # P135    P135   Q55_4
 # P139    P139   Q55_8
+# P140    P140   Q55_9
 # P142    P142   Q56_1
 # P148    P148   Q56_7
 # P149    P149   Q57.1
@@ -60,9 +72,10 @@ descPostDf[selNames,c("varName","oldName")]
 revPostNames = as.character(descPostDf$varName[selNames])
 revPostNames
 # revPostNames
-#  [1] "P052" "P064" "P070" "P074" "P077" "P079" "P080" "P084" "P097" "P099"
-# [11] "P106" "P107" "P110" "P111" "P114" "P117" "P119" "P121" "P124" "P126"
-# [21] "P127" "P130" "P135" "P139" "P142" "P148" "P149"
+#  [1] "P029" "P031" "P033" "P034" "P035" "P038" "P040" "P042" "P045" "P047"
+# [11] "P052" "P064" "P070" "P074" "P077" "P079" "P080" "P084" "P097" "P099"
+# [21] "P106" "P107" "P110" "P111" "P114" "P117" "P119" "P121" "P124" "P126"
+# [31] "P127" "P130" "P134" "P135" "P139" "P140" "P142" "P148" "P149"
 
 
 ## keep this just in case you need it
@@ -77,37 +90,52 @@ for(i in revPostNames) {
 ## just check to be sure this makes sense
 head(adf[,revPostNames])
 # head(adf[,revPostNames])
-#   P052 P064 P070 P074 P077 P079 P080 P084 P097 P099 P106 P107 P110 P111 P114
-# 2    5    4    5    2    4    2    3    5    5    4    5    4    4    4    5
-# 3    5    1    5    3    5    1    3    3    5    3    2    3    3    4    5
-# 4    5    3    3    4    4    3    3    2    4    4    3    4    4    5    4
-# 5    5    2    5    2    5    1    2    4    4    3    4    4    4    4    3
-# 6    5    1    4    3    5    4    4    3    5    5    4    3    5    5    5
-# 7    5    1    5    2    5    1    3    1    3    2    1    4    2    2    1
-#   P117 P119 P121 P124 P126 P127 P130 P135 P139 P142 P148 P149
-# 2    3    4    4    4    3    2    3    4    4    5    3    4
-# 3    5    5    3    4    5    4    2    4    2    4    3    3
-# 4    2    2    3    2    4    2    2    5    2    3    2    3
-# 5    2    3    4    1    4    2    2    4    2    3    2    3
-# 6    4    4    5    4    5    3    3    5    4    4    3    4
-# 7    1    1    1    2    4    2    2    2    1    1    2    1
+#   P029 P031 P033 P034 P035 P038 P040 P042 P045 P047 P052 P064 P070 P074 P077
+# 2    2    2    1    2    1    3    1    4    2    1    5    4    5    2    4
+# 3    2    1    1    1    1    2    1    1    1    1    5    1    5    3    5
+# 4    2    2    1    1    1    2    1    2    1    1    5    3    3    4    4
+# 5    1    1    1    3    1    1    1    2    1    4    5    2    5    2    5
+# 6    2    2    1    2    1    2    1    2    1    1    5    1    4    3    5
+# 7    3    2    3    3    2    3    2    4    3    3    5    1    5    2    5
+#   P079 P080 P084 P097 P099 P106 P107 P110 P111 P114 P117 P119 P121 P124 P126
+# 2    2    3    5    5    4    5    4    4    4    5    3    4    4    4    3
+# 3    1    3    3    5    3    2    3    3    4    5    5    5    3    4    5
+# 4    3    3    2    4    4    3    4    4    5    4    2    2    3    2    4
+# 5    1    2    4    4    3    4    4    4    4    3    2    3    4    1    4
+# 6    4    4    3    5    5    4    3    5    5    5    4    4    5    4    5
+# 7    1    3    1    3    2    1    4    2    2    1    1    1    1    2    4
+#   P127 P130 P134 P135 P139 P140 P142 P148 P149
+# 2    2    3    1    4    4    2    5    3    4
+# 3    4    2    2    4    2    3    4    3    3
+# 4    2    2    4    5    2    4    3    2    3
+# 5    2    2    4    4    2    4    3    2    3
+# 6    3    3    1    5    4    1    4    3    4
+# 7    2    2    2    2    1    2    1    2    1
+
 
 head(postDf[,revPostNames])
 # head(postDf[,revPostNames])
-#   P052 P064 P070 P074 P077 P079 P080 P084 P097 P099 P106 P107 P110 P111 P114
-# 2    1    2    1    4    2    4    3    1    1    2    1    2    2    2    1
-# 3    1    5    1    3    1    5    3    3    1    3    4    3    3    2    1
-# 4    1    3    3    2    2    3    3    4    2    2    3    2    2    1    2
-# 5    1    4    1    4    1    5    4    2    2    3    2    2    2    2    3
-# 6    1    5    2    3    1    2    2    3    1    1    2    3    1    1    1
-# 7    1    5    1    4    1    5    3    5    3    4    5    2    4    4    5
-#   P117 P119 P121 P124 P126 P127 P130 P135 P139 P142 P148 P149
-# 2    3    2    2    2    3    4    3    2    2    1    3    2
-# 3    1    1    3    2    1    2    4    2    4    2    3    3
-# 4    4    4    3    4    2    4    4    1    4    3    4    3
-# 5    4    3    2    5    2    4    4    2    4    3    4    3
-# 6    2    2    1    2    1    3    3    1    2    2    3    2
-# 7    5    5    5    4    2    4    4    4    5    5    4    5
+#   P029 P031 P033 P034 P035 P038 P040 P042 P045 P047 P052 P064 P070 P074 P077
+# 2    4    4    5    4    5    3    5    2    4    5    1    2    1    4    2
+# 3    4    5    5    5    5    4    5    5    5    5    1    5    1    3    1
+# 4    4    4    5    5    5    4    5    4    5    5    1    3    3    2    2
+# 5    5    5    5    3    5    5    5    4    5    2    1    4    1    4    1
+# 6    4    4    5    4    5    4    5    4    5    5    1    5    2    3    1
+# 7    3    4    3    3    4    3    4    2    3    3    1    5    1    4    1
+#   P079 P080 P084 P097 P099 P106 P107 P110 P111 P114 P117 P119 P121 P124 P126
+# 2    4    3    1    1    2    1    2    2    2    1    3    2    2    2    3
+# 3    5    3    3    1    3    4    3    3    2    1    1    1    3    2    1
+# 4    3    3    4    2    2    3    2    2    1    2    4    4    3    4    2
+# 5    5    4    2    2    3    2    2    2    2    3    4    3    2    5    2
+# 6    2    2    3    1    1    2    3    1    1    1    2    2    1    2    1
+# 7    5    3    5    3    4    5    2    4    4    5    5    5    5    4    2
+#   P127 P130 P134 P135 P139 P140 P142 P148 P149
+# 2    4    3    5    2    2    4    1    3    2
+# 3    2    4    4    2    4    3    2    3    3
+# 4    4    4    2    1    4    2    3    4    3
+# 5    4    4    2    2    4    2    3    4    3
+# 6    3    3    5    1    2    5    2    3    2
+# 7    4    4    4    4    5    4    5    4    5
 
 
 #########################################################################
@@ -128,7 +156,7 @@ eightLevelVars=c("P056")
 timeVars=c("P152","P153")
 (1:ncol(postDf))[names(postDf) %in% c("P048","P156")]
 # (1:ncol(postDf))[names(postDf) %in% c("P048","P156")]
-# [1]  29 157
+# [1]  49 157
 changeDirVars=names(postDf)[49:157]
 fiveLevelVars=changeDirVars[!(changeDirVars %in% c(twoLevelVars,
 							sixLevelVars,eightLevelVars,timeVars))]
@@ -145,6 +173,7 @@ fiveLevelVars
 # [81] "P133" "P134" "P135" "P136" "P137" "P138" "P139" "P140" "P141" "P142"
 # [91] "P143" "P144" "P145" "P146" "P147" "P148" "P149" "P150" "P151"
 
+
 ## now actually change the directions (but not for timeVars)
 for (i in twoLevelVars){
 	postDf[,i]=2-postDf[,i]+1
@@ -159,4 +188,21 @@ for (i in fiveLevelVars){
 	postDf[,i]=5-postDf[,i]+1
 }
 
-save(postDf,descPostDf,postNumVarNames,file="rdata/postData.RData")
+
+#########################################################################
+## Now, delete any participants
+#########################################################################
+newpostDf = postDf
+# deletes "9/23/10" due date
+newpostDf = newpostDf[-29,]
+# delete women with drugs
+newpostDf = newpostDf[-c(10,16,23,26,28,29,32,33),]
+
+# if I mess up, this will reset dataframe
+# postDf = origPostDf
+
+#########################################################################
+## save what we have just done (including deleting participants)
+#########################################################################
+
+save(postDf,newpostDf,origPostDf,descPostDf,postNumVarNames,file="rdata/postData.RData")

@@ -37,9 +37,9 @@ faStateQs5
 # The degrees of freedom for the null model are  2775  and the objective function was  413.3 with Chi Square of  3375.31
 # The degrees of freedom for the model are 2410  and the objective function was  79 
 #
-# The root mean square of the residuals is  0.07 
+# The root mean square of the residuals is  0.08 
 # The df corrected root mean square of the residuals is  0.11 
-# The number of observations was  35  with Chi Square =  381.84  with prob <  1 
+# The number of observations was  26  with Chi Square =  0  with prob <  1 
 names(faStateQs5)
 # names(faStateQs)
 #  [1] "residual"     "dof"          "fit"          "fit.off"      "sd"          
@@ -51,20 +51,21 @@ names(faStateQs5)
 # [31] "fm"           "scores"       "fn"          
 ## these are the new factors
 head(faStateQs5$scores)
-# head(faStateQs$scores)
-#          MR1         MR4       MR5        MR3        MR2
-# 2   4.148855   2.3152170  3.786710   1.177365  3.2361204
-# 3   6.983633   3.9714199  7.235053  -7.172253 -2.7008853
-# 4  -9.869244  -7.1631393 -8.880756  -2.937839 -4.2135603
-# 5  -2.346034 -10.3019015 -1.357387  -6.892012  3.7141169
-# 6   6.662303  -0.7461599  1.646485   3.667921 -6.7970963
-# 7 -21.816834  -9.7411846 -1.027380 -18.021899  0.9545925
+# head(faStateQs5$scores)
+#          MR4        MR3        MR5        MR2        MR1
+# 2   1.636189   2.304578   2.609391  4.2781150   1.514141
+# 3   4.065924  -6.608126   7.038655 -0.5406977   8.769526
+# 4 -10.875009  -9.370953 -10.882372 -5.9698676  -4.715227
+# 5 -11.811480  -7.187901  -2.861329  6.1051425   3.281700
+# 6  -1.772833   4.802828   2.542439 -6.9914593   5.325620
+# 7 -14.324523 -30.949387  -3.886985  3.1017261 -11.037747
 
 ## add the new factors to the original matrix,
 ## I'm not going to do this permanently right now
 faStateQs5Df = cbind(postDf,faStateQs5$scores)
 dim(faStateQs5Df)
-# [1]  35 177
+# dim(faStateQs5Df)
+# [1]  26 162
 names(faStateQs5Df)
 
 ## what does the factor represent?
@@ -73,14 +74,24 @@ names(faStateQs5Df)
 ## then you make up a story and a name
 faStateQs5$loadings
 # faStateQs5$loadings
-#                  MR1   MR4   MR5   MR3   MR2
-# SS loadings    8.324 8.314 7.785 5.694 5.662
-# Proportion Var 0.111 0.111 0.104 0.076 0.075
-# Cumulative Var 0.111 0.222 0.326 0.402 0.477
+#                  MR4   MR3   MR5   MR2   MR1
+# SS loadings    9.705 8.334 8.119 7.590 6.299
+# Proportion Var 0.129 0.111 0.108 0.101 0.084
+# Cumulative Var 0.129 0.241 0.349 0.450 0.534
 
 ## this is another way to look at it, you could extract just these 
 ## variables and look at them more closely
 head(factor2cluster(faStateQs5$loadings))
+# head(factor2cluster(faStateQs5$loadings))
+#      MR4 MR3 MR5 MR2 MR1
+# P048   0   0   1   0   0
+# P049   0  -1   0   0   0
+# P050   0   0   0   0   1
+# P057   0   0   0   1   0
+# P058   0   0   0   0   1
+# P059   0   0   0   1   0
+
+# old clusters
 # head(factor2cluster(faStateQs5$loadings))
 #      MR1 MR4 MR5 MR3 MR2
 # P048   0   0   1   0   0
@@ -103,7 +114,6 @@ MR5 = factor2cluster(faStateQs5$loadings)[,"MR5",drop=FALSE]
 ## sQFa5GroupsDf should stay accurate as long as I don't re-run it
 sQFa5GroupsDf = data.frame(MR1 = MR1, MR2 = MR2, MR3 = MR3, MR4 = MR4,
 		MR5 = MR5)
-sQFa5Grpcorrtest = corr.test(sQFa5GroupsDf)
 
 #########################################################################
 ## now try fa with 6 factors
@@ -115,7 +125,7 @@ faStateQs6
 #
 # The root mean square of the residuals is  0.07 
 # The df corrected root mean square of the residuals is  0.1 
-# The number of observations was  35  with Chi Square =  279.72  with prob <  1 
+# The number of observations was  26  with Chi Square =  0  with prob <  1 
 names(faStateQs6)
 # names(faStateQs6)
 #  [1] "residual"     "dof"          "fit"          "fit.off"      "sd"          
@@ -128,19 +138,20 @@ names(faStateQs6)
 ## these are the new factors
 head(faStateQs6$scores)
 # head(faStateQs6$scores)
-#          MR1         MR4        MR5       MR2         MR3       MR6
-# 2   4.759563   1.4572372  2.9978325  3.060919   0.9251789  2.219500
-# 3   7.062124   3.5921521  5.6967794 -2.756604  -8.2264124  3.397968
-# 4 -10.860087  -5.0953262 -7.9104285 -3.796041  -2.8770285 -5.360392
-# 5  -5.062189 -12.1119253 -1.0634362  1.153672  -3.2285698  5.385615
-# 6   8.175139   0.9423418 -0.1061676 -5.986957   0.7053006 -4.167337
-# 7 -22.248990  -9.1459807  0.1245105  2.373401 -17.5387235 -3.779521
+#          MR1        MR5         MR4       MR2        MR3       MR6
+# 2   3.254352   2.460821   0.6084983  3.429098   1.136420  2.392158
+# 3   3.499817   8.179618  -2.3502857 -4.597317  -7.437335  7.771551
+# 4 -11.597996 -10.725473  -7.9651391 -3.710908  -4.908971 -5.634302
+# 5  -1.551279  -3.679030 -12.2895602  6.002191  -6.461578 -1.900194
+# 6   5.914185   2.161215  -1.6382865 -6.447516   2.731517 -5.924113
+# 7 -22.457680  -4.948335  -9.9493146  7.127682 -24.445879 -6.519786
 
 ## add the new factors to the original matrix,
 ## I'm not going to do this permanently right now
 faStateQs6Df = cbind(postDf,faStateQs6$scores)
 dim(faStateQs6Df)
-# [1]  35 178
+# dim(faStateQs6Df)
+# [1]  26 163
 names(faStateQs6Df)
 
 ## what does the factor represent?
@@ -149,22 +160,21 @@ names(faStateQs6Df)
 ## then you make up a story and a name
 faStateQs6$loadings
 # faStateQs6$loadings
-#                  MR1   MR4   MR5   MR2   MR3   MR6
-# SS loadings    9.283 7.515 7.109 5.631 4.985 4.695
-# Proportion Var 0.124 0.100 0.095 0.075 0.066 0.063
-# Cumulative Var 0.124 0.224 0.319 0.394 0.460 0.523
-
+#                  MR1   MR5   MR4   MR2   MR3   MR6
+# SS loadings    8.383 8.075 8.019 7.660 6.771 5.082
+# Proportion Var 0.112 0.108 0.107 0.102 0.090 0.068
+# Cumulative Var 0.112 0.219 0.326 0.429 0.519 0.587
 
 ## this is another way to look at it, you could extract just these 
 ## variables and look at them more closely
 head(factor2cluster(faStateQs6$loadings))
 # head(factor2cluster(faStateQs6$loadings))
-#      MR1 MR4 MR5 MR2 MR3 MR6
-# P048   0   0   1   0   0   0
-# P049   0   1   0   0   0   0
+#      MR1 MR5 MR4 MR2 MR3 MR6
+# P048   0   1   0   0   0   0
+# P049   0   0   0   0  -1   0
 # P050   1   0   0   0   0   0
 # P057   0   0   0   0   0   1
-# P058   0   0   0   0   0   1
+# P058   1   0   0   0   0   0
 # P059   0   0   0   1   0   0
 
 MR1 = factor2cluster(faStateQs6$loadings)[,"MR1",drop=FALSE]
@@ -178,9 +188,9 @@ MR6 = factor2cluster(faStateQs6$loadings)[,"MR6",drop=FALSE]
 ## sQFa6GroupsDf should stay accurate as long as I don't re-run it
 sQFa6GroupsDf = data.frame(MR1 = MR1, MR2 = MR2, MR3 = MR3, MR4 = MR4,
 		MR5 = MR5, MR6 = MR6)
-sQFa6Grpcorrtest = corr.test(sQFa6GroupsDf)
 
 #########################################################################
+## Following code is mostly likely obsolete - keep it just in case
 ## create correlation graphs between laborLand and each factor(MR1-11)
 #########################################################################
 library(ggplot2)

@@ -10,6 +10,7 @@ library(psych)
 library(GPArotation)
 library(Hmisc)
 load("rdata/postData.RData")
+load("rdata/origPostData.RData")
 
 #########################################################################
 ## Who might need to be removed:
@@ -112,8 +113,40 @@ subset(postDf,P016!=1)
 # transfered but did not receive drugs (possibly got pitocin)
 subset(postDf,P017==3,select=c(P015,P016,P017,P018))
 
+#split participants in to drugs v. no drugs
+drugsindex = origPostDf$P016!=1
+# selects TRUE values
+origPostDf$P016[drugsindex]
+origPostDf$drugsplit = "nodrugs"
+origPostDf$drugsplit[drugsindex] = "drugs"
+origPostDf$drugsplit = factor(origPostDf$drugsplit,levels = c("nodrugs","drugs"))
+# this plot checks to make sure they were divided correctly
+ggplot(origPostDf,aes(x=drugsplit))+geom_histogram()
 
+# boxplot of laborLand based on drugs v. no drugs
+ggplot(origPostDf,aes(x=drugsplit, y=laborLand))+geom_boxplot()
+aovCheck6 = aov(laborLand~drugsplit,data=origpPostDf)
+summary(aovCheck6)
+# summary(aovCheck6)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# drugsplit    1     56   56.29   0.544  0.466
+# Residuals   32   3311  103.48                           
 
+ggplot(postDf,aes(x=drugsplit, y=outcomeMeasures))+geom_boxplot()
+aovCheck7 = aov(outcomeMeasures~drugsplit,data=postDf)
+summary(aovCheck7)
+# summary(aovCheck7)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# drugsplit    1   51.4   51.40   2.769  0.106
+# Residuals   32  594.0   18.56               
+
+ggplot(postDf,aes(x=drugsplit, y=painExp))+geom_boxplot()
+aovCheck8 = aov(painExp~drugsplit,data=postDf)
+summary(aovCheck8)
+# summary(aovCheck8)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# drugsplit    1   55.1   55.12   1.665  0.206
+# Residuals   32 1059.6   33.11               
 
 
 #########################################################################
@@ -167,6 +200,7 @@ ggplot(postDf,aes(x=laborLand, y=outcomeMeasures, color=P015))+geom_point()
 subset(postDf,outcomeMeasures==min(outcomeMeasures))
 # finding that women on this graph, she also has almost worst painExp
 ggplot(postDf,aes(x=painExp, y=outcomeMeasures, color=P015))+geom_point()
+ggplot(postDf,aes(x=laborLand, y=painExp, color=P015))+geom_point()
 
 
 

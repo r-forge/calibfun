@@ -220,11 +220,28 @@ descPostDf = data.frame(varName=newPostNames,oldName=oldPostNames,varDesc=postde
 
 head(descPostDf)
 
+#origPostDf = postDf
+
+## save this data.frame as the original data set
+#save(origPostDf,descPostDf,postNumVarNames,file="rdata/origPostData.RData")
+
 #########################################################################
-## save what we have just done
+## Now, delete any participants
+#########################################################################
+newpostDf = postDf
+# deletes "9/23/10" due date
+newpostDf = newpostDf[-29,]
+# delete women with drugs
+newpostDf = newpostDf[-c(10,16,23,26,28,29,32,33),]
+
+# if I mess up, this will reset dataframe
+# postDf = origPostDf
+
+#########################################################################
+## save what we have just done (including deleting participants)
 #########################################################################
 
-save(postDf,descPostDf,postNumVarNames,file="rdata/postData.RData")
+save(postDf,newpostDf,origPostDf,descPostDf,postNumVarNames,file="rdata/postData.RData")
 
 #########################################################################
 ## save a csv file with the mappings of questions

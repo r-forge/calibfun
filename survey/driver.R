@@ -49,7 +49,7 @@ source("R/readPostpartumData.R")
 ## check to be sure you have the number of responses you are expecting
 dim(postDf)
 # dim(postDf)
-# [1]  35 157
+# [1]  26 157
 dim(descPostDf)
 # dim(descPostDf)
 # [1] 156   3
@@ -68,9 +68,19 @@ source("R/recodePostVars.R")
 source("R/plotHistograms.R")
 
 #########################################################################
+## run stateQs factor analsis code - do line by line -
+#########################################################################
+source("R/factorAnalysisStateQuestions.R")
+
+#########################################################################
 ## make laborLand and theme scales - do line by line -
 #########################################################################
-#source("R/makeScalesPost.R")
+# source("R/makeScalesPost.R")
+
+#########################################################################
+## plot scale correlations
+#########################################################################
+source("R/plotScalesPost.R")
 
 #########################################################################
 ## run individual analyses

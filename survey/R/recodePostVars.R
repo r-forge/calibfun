@@ -143,7 +143,7 @@ head(postDf[,revPostNames])
 #########################################################################
 ## this overwrites the original, so if you make a big mistake
 ## you'll have to run the code to remake the dataframe
-save(postDf,descPostDf,postNumVarNames,file="rdata/postData.RData")
+save(postDf,newpostDf,origPostDf,descPostDf,postNumVarNames,file="rdata/postData.RData")
 
 #########################################################################
 ## now that all the varialbes go in the same direction, reverse them
@@ -192,6 +192,9 @@ for (i in fiveLevelVars){
 #########################################################################
 ## Now, delete any participants
 #########################################################################
+# I just did recoding for the working postDf file; I will update
+# the newpostDf file so that it will have participants deleted and
+# will be recoded. origPostDf is not recoded.
 newpostDf = postDf
 # deletes "9/23/10" due date
 newpostDf = newpostDf[-29,]

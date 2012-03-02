@@ -37,9 +37,9 @@ faStateQs5
 # The degrees of freedom for the null model are  2775  and the objective function was  413.3 with Chi Square of  3375.31
 # The degrees of freedom for the model are 2410  and the objective function was  79 
 #
-# The root mean square of the residuals is  0.08 
+# The root mean square of the residuals is  0.07 
 # The df corrected root mean square of the residuals is  0.11 
-# The number of observations was  26  with Chi Square =  0  with prob <  1 
+# The number of observations was  35  with Chi Square =  381.84  with prob <  1 
 names(faStateQs5)
 # names(faStateQs)
 #  [1] "residual"     "dof"          "fit"          "fit.off"      "sd"          
@@ -52,20 +52,20 @@ names(faStateQs5)
 ## these are the new factors
 head(faStateQs5$scores)
 # head(faStateQs5$scores)
-#          MR4        MR3        MR5        MR2        MR1
-# 2   1.636189   2.304578   2.609391  4.2781150   1.514141
-# 3   4.065924  -6.608126   7.038655 -0.5406977   8.769526
-# 4 -10.875009  -9.370953 -10.882372 -5.9698676  -4.715227
-# 5 -11.811480  -7.187901  -2.861329  6.1051425   3.281700
-# 6  -1.772833   4.802828   2.542439 -6.9914593   5.325620
-# 7 -14.324523 -30.949387  -3.886985  3.1017261 -11.037747
+#          MR1         MR4       MR5        MR3        MR2
+# 2   4.148855   2.3152170  3.786710   1.177365  3.2361204
+# 3   6.983633   3.9714199  7.235053  -7.172253 -2.7008853
+# 4  -9.869244  -7.1631393 -8.880756  -2.937839 -4.2135603
+# 5  -2.346034 -10.3019015 -1.357387  -6.892012  3.7141169
+# 6   6.662303  -0.7461599  1.646485   3.667921 -6.7970963
+# 7 -21.816834  -9.7411846 -1.027380 -18.021899  0.9545925
 
 ## add the new factors to the original matrix,
 ## I'm not going to do this permanently right now
 faStateQs5Df = cbind(postDf,faStateQs5$scores)
 dim(faStateQs5Df)
 # dim(faStateQs5Df)
-# [1]  26 162
+# [1]  35 162
 names(faStateQs5Df)
 
 ## what does the factor represent?
@@ -74,24 +74,14 @@ names(faStateQs5Df)
 ## then you make up a story and a name
 faStateQs5$loadings
 # faStateQs5$loadings
-#                  MR4   MR3   MR5   MR2   MR1
-# SS loadings    9.705 8.334 8.119 7.590 6.299
-# Proportion Var 0.129 0.111 0.108 0.101 0.084
-# Cumulative Var 0.129 0.241 0.349 0.450 0.534
+#                  MR1   MR4   MR5   MR3   MR2
+# SS loadings    8.324 8.314 7.785 5.694 5.662
+# Proportion Var 0.111 0.111 0.104 0.076 0.075
+# Cumulative Var 0.111 0.222 0.326 0.402 0.477
 
 ## this is another way to look at it, you could extract just these 
 ## variables and look at them more closely
 head(factor2cluster(faStateQs5$loadings))
-# head(factor2cluster(faStateQs5$loadings))
-#      MR4 MR3 MR5 MR2 MR1
-# P048   0   0   1   0   0
-# P049   0  -1   0   0   0
-# P050   0   0   0   0   1
-# P057   0   0   0   1   0
-# P058   0   0   0   0   1
-# P059   0   0   0   1   0
-
-# old clusters
 # head(factor2cluster(faStateQs5$loadings))
 #      MR1 MR4 MR5 MR3 MR2
 # P048   0   0   1   0   0
@@ -114,6 +104,10 @@ MR5 = factor2cluster(faStateQs5$loadings)[,"MR5",drop=FALSE]
 ## sQFa5GroupsDf should stay accurate as long as I don't re-run it
 sQFa5GroupsDf = data.frame(MR1 = MR1, MR2 = MR2, MR3 = MR3, MR4 = MR4,
 		MR5 = MR5)
+sQFa5GroupsDf
+
+
+## ignore below this line - not using the 6 factor analysis
 
 #########################################################################
 ## now try fa with 6 factors
@@ -188,65 +182,4 @@ MR6 = factor2cluster(faStateQs6$loadings)[,"MR6",drop=FALSE]
 ## sQFa6GroupsDf should stay accurate as long as I don't re-run it
 sQFa6GroupsDf = data.frame(MR1 = MR1, MR2 = MR2, MR3 = MR3, MR4 = MR4,
 		MR5 = MR5, MR6 = MR6)
-
-#########################################################################
-## Following code is mostly likely obsolete - keep it just in case
-## create correlation graphs between laborLand and each factor(MR1-11)
-#########################################################################
-library(ggplot2)
-pdf("plots/faCorrelations.pdf")
-#quartz()
-## *** DAD, I couldn't figure out how to get the correlations between
-## MR1 - MR11 and laborLand (and outcomeMeasures)...I want to include
-## this information on the graphs
-## this is what I want to do except it doesn't recognize MR1
-# create the correlations
-sQFa6GroupsDf = data.frame(MR1 = MR1, MR2 = MR2, MR3 = MR3, MR4 = MR4,
-		MR5 = MR5, MR6 = MR6)
-sQFa6Grpcorrtest = corr.test(sQFa6GroupsDf)
-## this is obvious - the factors are chosen to correlated the least
-## with one another, so doing this test doesn't tell me anything
-
-------
-
-# correlations, unadjusted p and adjusted p
-llFaGrpcres = data.frame(round(llFaGrpcorrtest$r[,12],3),
-		round(llFaGrpcorrtest$p[12,],4),
-		round(llFaGrpcorrtest$p[,12],4))
-names(llFaGrpcres) = c("cor.","p-raw","p-adjusted")
-llFaGrpcres
-# now plot it
-adf = llFaGrpcres[rownames(llFaGrpcres)=="MR1",]
-adf$x = -10
-adf$y = 10
-adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
-		"\np-adjusted=",adf$'p-adjusted')
-ggplot(llFaGroupsDf,aes(x=MR1, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)+
-		geom_text(aes(x=x, y=y, label=label),data=adf)
-
-## this is what I've done instead (without correlations)
-ggplot(fadf,aes(x=MR1, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)
-ggplot(fadf,aes(x=MR2, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)
-ggplot(fadf,aes(x=MR3, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)
-ggplot(fadf,aes(x=MR4, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)
-ggplot(fadf,aes(x=MR5, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)
-ggplot(fadf,aes(x=MR6, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)
-ggplot(fadf,aes(x=MR7, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)
-ggplot(fadf,aes(x=MR8, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)
-ggplot(fadf,aes(x=MR9, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)
-ggplot(fadf,aes(x=MR10, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)
-ggplot(fadf,aes(x=MR11, y=laborLand))+geom_point()+
-		geom_smooth(method=lm)
-dev.off()
 

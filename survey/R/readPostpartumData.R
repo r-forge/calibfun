@@ -220,14 +220,14 @@ descPostDf = data.frame(varName=newPostNames,oldName=oldPostNames,varDesc=postde
 
 head(descPostDf)
 
-#origPostDf = postDf
-
-## save this data.frame as the original data set
-#save(origPostDf,descPostDf,postNumVarNames,file="rdata/origPostData.RData")
+# origPostDf will be the full data set before any recoding questions
+origPostDf = postDf
 
 #########################################################################
 ## Now, delete any participants
 #########################################################################
+# newpostDf will be the data set with participants deleted (will get
+# recoded in next file); postDf will be my working file
 newpostDf = postDf
 # deletes "9/23/10" due date
 newpostDf = newpostDf[-29,]

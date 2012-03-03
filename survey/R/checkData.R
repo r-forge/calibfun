@@ -98,6 +98,7 @@ ggplot(postDf,aes(x=P016, y=painExp, color=P016))+geom_point()
 ggplot(postDf,aes(x=P016, y=outcomeMeasures, color=P016))+geom_point()
 
 ggplot(postDf,aes(x=laborLand, y=painExp, color=P016))+geom_point()
+ggplot(postDf,aes(x=drugsplit, y=laborLand))+geom_point()
 
 # find four women who had cesareans
 subset(postDf,P015==2)
@@ -124,8 +125,8 @@ origPostDf$drugsplit = factor(origPostDf$drugsplit,levels = c("nodrugs","drugs")
 ggplot(origPostDf,aes(x=drugsplit))+geom_histogram()
 
 # boxplot of laborLand based on drugs v. no drugs
-ggplot(origPostDf,aes(x=drugsplit, y=laborLand))+geom_boxplot()
-aovCheck6 = aov(laborLand~drugsplit,data=origpPostDf)
+ggplot(postDf,aes(x=drugsplit, y=laborLand))+geom_boxplot()
+aovCheck6 = aov(laborLand~drugsplit,data=postDf)
 summary(aovCheck6)
 # summary(aovCheck6)
 #             Df Sum Sq Mean Sq F value Pr(>F)

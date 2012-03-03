@@ -55,7 +55,7 @@ drugsindex = postDf$P016!=1
 postDf$P016[drugsindex]
 postDf$drugsplit = "nodrugs"
 postDf$drugsplit[drugsindex] = "drugs"
-postDf$drugsplit = factor(postDf$drugsplit,levels = c("nodrugs","drugs"))
+postDf$drugsplit = factor(postDf$drugsplit,levels = c("drugs","nodrugs"))
 # this plot checks to make sure they were divided correctly
 ggplot(postDf,aes(x=drugsplit))+geom_histogram()
 

@@ -13,7 +13,7 @@ load("rdata/postData.RData")
 #########################################################################
 ## make laborLand composite score
 #########################################################################
-laborLandNames = c("P049","P069","P080","P085","P086","P089","P093",
+laborLandNames = c("P080","P085","P086","P089","P093",
 		"P094","P101","P107","P108","P115","P123","P127","P130",
 		"P136")
 # should I include (inverse of) P073?
@@ -27,30 +27,28 @@ laborLandDf_scale = data.frame(laborLandDf_scale, laborLand = laborLand)
 laborLandDf_scale
 llcorrtest = corr.test(laborLandDf_scale)
 # correlations, unadjusted p and adjusted p
-llcres = data.frame(round(llcorrtest$r[,17],3),
-		round(llcorrtest$p[17,],4),
-		round(llcorrtest$p[,17],4))
+llcres = data.frame(round(llcorrtest$r[,15],3),
+		round(llcorrtest$p[15,],4),
+		round(llcorrtest$p[,15],4))
 names(llcres) = c("cor.","p-raw","p-adjusted")
 llcres
 # llcres
-#            cor.  p-raw p-adjusted
-# P049      0.252 0.1443     1.0000
-# P069      0.448 0.0070     0.6165
-# P080      0.561 0.0005     0.0501
-# P085      0.697 0.0000     0.0004
-# P086      0.691 0.0000     0.0006
-# P089      0.767 0.0000     0.0000
-# P093      0.709 0.0000     0.0002
-# P094      0.867 0.0000     0.0000
-# P101      0.768 0.0000     0.0000
-# P107      0.636 0.0000     0.0049
-# P108      0.641 0.0000     0.0041
-# P115      0.520 0.0014     0.1449
-# P123      0.568 0.0004     0.0414
-# P127      0.620 0.0001     0.0086
-# P130      0.640 0.0000     0.0044
-# P136      0.569 0.0004     0.0411
-# laborLand 1.000 0.0000     0.0000
+#            cor. p-raw p-adjusted
+# P080      0.536 9e-04     0.0686
+# P085      0.706 0e+00     0.0002
+# P086      0.683 0e+00     0.0006
+# P089      0.787 0e+00     0.0000
+# P093      0.724 0e+00     0.0001
+# P094      0.889 0e+00     0.0000
+# P101      0.766 0e+00     0.0000
+# P107      0.650 0e+00     0.0022
+# P108      0.622 1e-04     0.0060
+# P115      0.548 7e-04     0.0504
+# P123      0.557 5e-04     0.0397
+# P127      0.624 1e-04     0.0055
+# P130      0.648 0e+00     0.0024
+# P136      0.609 1e-04     0.0090
+# laborLand 1.000 0e+00     0.0000
 
 postDf$laborLand=laborLand
 

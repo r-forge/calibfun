@@ -1,5 +1,5 @@
 ###############################################################################
-## makeScalesPost.R
+## makeScalesPostOld.R
 ##
 ## make attribute scales
 ## 

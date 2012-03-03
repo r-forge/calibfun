@@ -15,11 +15,11 @@ load("rdata/postData.RData")
 # but I'm interested if they're correlated with outcomeMeasures
 # BUT, still want to check painExp,expectations,panas,outcomeMeasures
 # against laborLand
-groups1Df = data.frame(intuitMov = intuitMov, physEnv = physEnv,
-		emotEnv = emotEnv, fluidReal = fluidReal, intensePres = intensePres,
-		painExp = painExp, expectations = expectations,
-		vocals = vocals, panas = panas, laborLand = laborLand, 
-		outcomeMeasures = outcomeMeasures)
+groups1Df = data.frame(intuitMov = postDf$intuitMov, physEnv = postDf$physEnv,
+		emotEnv = postDf$emotEnv, fluidReal = postDf$fluidReal, intensePres = postDf$intensePres,
+		painExp = postDf$painExp, expectations = postDf$expectations,
+		vocals = postDf$vocals, panas = postDf$panas, laborLand = postDf$laborLand, 
+		outcomeMeasures = postDf$outcomeMeasures)
 grp1corrtest = corr.test(groups1Df)
 # correlations, unadjusted p and adjusted p
 grp1cres = data.frame(round(grp1corrtest$r[,11],3),
@@ -30,24 +30,23 @@ grp1cres
 # grp1cres
 #                  cor.  p-raw p-adjusted
 # intuitMov       0.696 0.0000     0.0002
-# physEnv         0.552 0.0006     0.0216
+# physEnv         0.552 0.0006     0.0211
 # emotEnv         0.733 0.0000     0.0000
-# fluidReal       0.554 0.0006     0.0209
-# intensePres     0.543 0.0007     0.0260
+# fluidReal       0.554 0.0006     0.0204
+# intensePres     0.543 0.0007     0.0252
 # painExp         0.760 0.0000     0.0000
 # expectations    0.588 0.0002     0.0089
 # vocals          0.028 0.8753     1.0000
-# panas           0.423 0.0114     0.2965
-# laborLand       0.602 0.0001     0.0059
+# panas           0.423 0.0114     0.2947
+# laborLand       0.627 0.0001     0.0026
 # outcomeMeasures 1.000 0.0000     0.0000
-
 
 ## to get the whole correlation matrix
 # grp1corrtest$r
 
-groups2Df = data.frame(painExp = painExp, expectations = expectations,
-		panas = panas, outcomeMeasures = outcomeMeasures,
-		laborLand = laborLand)
+groups2Df = data.frame(painExp = postDf$painExp, expectations = postDf$expectations,
+		panas = postDf$panas, outcomeMeasures = postDf$outcomeMeasures,
+		laborLand = postDf$laborLand)
 grp2corrtest = corr.test(groups2Df)
 # correlations, unadjusted p and adjusted p
 grp2cres = data.frame(round(grp2corrtest$r[,5],3),
@@ -57,13 +56,11 @@ names(grp2cres) = c("cor.","p-raw","p-adjusted")
 grp2cres
 # grp2cres
 #                  cor.  p-raw p-adjusted
-# painExp         0.515 0.0016     0.0093
-# expectations    0.340 0.0454     0.1510
-# panas           0.344 0.0431     0.1510
-# outcomeMeasures 0.602 0.0001     0.0012
+# painExp         0.515 0.0015     0.0092
+# expectations    0.384 0.0228     0.0911
+# panas           0.384 0.0229     0.0911
+# outcomeMeasures 0.627 0.0001     0.0005
 # laborLand       1.000 0.0000     0.0000
-
-
 
 
 library(ggplot2)

@@ -146,7 +146,7 @@ head(postDf[,revPostNames])
 save(postDf,newpostDf,origPostDf,descPostDf,postNumVarNames,file="rdata/postData.RData")
 
 #########################################################################
-## now that all the varialbes go in the same direction, reverse them
+## now that all the variables go in the same direction, reverse them
 ## so that higher is always better
 #########################################################################
 # two-level scales

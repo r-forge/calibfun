@@ -26,7 +26,7 @@ source("R/readPrenatalData.R")
 ## check to be sure you have the number of responses you are expecting
 dim(preDf)
 # dim(preDf)
-# [1]  13 102
+# [1]  8 102
 dim(descPreDf)
 # dim(descPreDf)
 # [1] 101   3
@@ -88,7 +88,7 @@ source("R/plotScalesPost.R")
 source("R/medianSplits.R")
 
 #########################################################################
-## run individual analyses
+## run analyses
 #########################################################################
-source("R/individualAnalyses.R")
-
+source("R/basicAnalyses.R")
+source("R/msANOVAs.R")

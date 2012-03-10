@@ -289,4 +289,242 @@ for (i in 1:length(loopvars)){
 ## processes (especially regarding interventions))
 
 
+#########################################################################
+## check multip v. primip against factors
+ggplot(postDf,aes(x=primipsplit, y=outcomeMeasures)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+aov16 = aov(outcomeMeasures~primipsplit,data=postDf)
+summary(aov16)
+# summary(aov16)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# primipsplit  1    0.6   0.628   0.032   0.86
+# Residuals   33  653.0  19.789               
+
+ggplot(postDf,aes(x=primipsplit, y=laborLand)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+aov17 = aov(laborLand~primipsplit,data=postDf)
+summary(aov17)
+# summary(aov17)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# primipsplit  1   50.4   50.43    0.57  0.456
+# Residuals   33 2921.5   88.53       
+
+ggplot(postDf,aes(x=primipsplit, y=vocals)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+aov22 = aov(vocals~primipsplit,data=postDf)
+summary(aov22)
+# summary(aov22)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# primipsplit  1   2.17   2.167   0.516  0.478
+# Residuals   33 138.66   4.202               
+
+
+#########################################################################
+## check age v. factors
+ggplot(postDf,aes(x=agesplit, y=laborLand)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+aov18 = aov(laborLand~agesplit,data=postDf)
+summary(aov18)
+# summary(aov18)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# agesplit     1   41.7   41.74    0.47  0.498
+# Residuals   33 2930.2   88.79               
+
+ggplot(postDf,aes(x=agesplit, y=outcomeMeasures)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+aov19 = aov(outcomeMeasures~agesplit,data=postDf)
+summary(aov19)
+# summary(aov19)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# agesplit     1   11.0   11.04   0.567  0.457
+# Residuals   33  642.6   19.47               
+
+ggplot(postDf,aes(x=mslaborLand, y=outcomeMeasures, color=agesplit)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+aov20 = aov(outcomeMeasures~mslaborLand*agesplit,data=postDf)
+summary(aov20)
+# summary(aov20)
+#                      Df Sum Sq Mean Sq F value   Pr(>F)    
+# mslaborLand           1  209.5  209.51  16.161 0.000345 ***
+# agesplit              1   40.1   40.13   3.096 0.088375 .  
+# mslaborLand:agesplit  1    2.1    2.15   0.166 0.686833    
+# Residuals            31  401.9   12.96                     
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+ggplot(postDf,aes(x=agesplit, y=vocals)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+aov21 = aov(vocals~agesplit,data=postDf)
+summary(aov21)
+# summary(aov21)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# agesplit     1   0.47   0.468    0.11  0.742
+# Residuals   33 140.36   4.253               
+
+ggplot(postDf,aes(x=agesplit, y=tActualPush)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+aov23 = aov(tActualPush~agesplit,data=postDf)
+summary(aov23)
+# summary(aov23)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# agesplit     1   3474    3474   1.392  0.246
+# Residuals   33  82354    2496               
+
+ggplot(postDf,aes(x=agesplit, y=tActualAct)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+aov24 = aov(tActualAct~agesplit,data=postDf)
+summary(aov24)
+# summary(aov24)
+#             Df Sum Sq Mean Sq F value Pr(>F)  
+# agesplit     1   69.4   69.38   4.443 0.0427 *
+# Residuals   33  515.3   15.62                 
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+ggplot(postDf,aes(x=primipsplit, y=tActualAct)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+aov25 = aov(tActualAct~primipsplit,data=postDf)
+summary(aov25)
+# summary(aov25)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# primipsplit  1   22.2   22.20   1.302  0.262
+# Residuals   33  562.5   17.05               
+
+ggplot(postDf,aes(x=primipsplit, y=tActualAct, color=agesplit)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+aov26 = aov(tActualAct~agesplit*primipsplit,data=postDf)
+summary(aov26)
+# summary(aov26)
+#                      Df Sum Sq Mean Sq F value Pr(>F)  
+# agesplit              1   69.4   69.38   4.438 0.0433 *
+# primipsplit           1    7.1    7.13   0.456 0.5044  
+# agesplit:primipsplit  1   23.6   23.59   1.509 0.2286  
+# Residuals            31  484.6   15.63                 
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+
+
+#########################################################################
+# look at the role of vocalizing
+ggplot(postDf,aes(x=mslaborLand, y=vocals)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+aov27 = aov(vocals~mslaborLand,data=postDf)
+summary(aov27)
+# summary(aov27)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# mslaborLand  1   5.93   5.928    1.45  0.237
+# Residuals   33 134.90   4.088               
+
+ggplot(postDf,aes(x=vocalsplit, y=outcomeMeasures)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+loopvars = c("laborLand","outcomeMeasures","painExp","memory",
+		"fluidReal","intensePres","physEnv","emotEnv","expectations")
+for (i in 1:length(loopvars)){
+	cat("i=",i," var=",loopvars[i],"\n")
+	df=postDf[,c(loopvars[i],"vocalsplit")]
+	names(df)[1]="y"
+	aov28=aov(y~vocalsplit,data=df)
+	print(summary(aov28))
+}
+# none are significant (or come close)
+
+#########################################################################
+# look at location of birth,P017,(interaction w/ planned location?P018)
+
+ggplot(postDf,aes(x=P017, y=laborLand)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+aov29 = aov(laborLand~P017,data=postDf)
+summary(aov29)
+# summary(aov29)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# P017         1  197.4  197.45   2.348  0.135
+# Residuals   33 2774.5   84.07               
+
+ggplot(postDf,aes(x=P017, y=outcomeMeasures)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+aov30 = aov(outcomeMeasures~P017,data=postDf)
+summary(aov30)
+# summary(aov30)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# P017         1   23.7   23.66   1.239  0.274
+# Residuals   33  630.0   19.09               
+
+
+ggplot(postDf,aes(x=P017, y=outcomeMeasures)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+aov31 = aov(outcomeMeasures~P017*P018,data=postDf)
+summary(aov31)
+# summary(aov31)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# P017         1   23.7   23.66   1.226  0.276
+# P018         1   12.7   12.66   0.656  0.424
+# Residuals   32  617.3   19.29               
+## ????????????????
+
+loopvars = c("laborLand","outcomeMeasures","painExp","memory","intuitMov",
+		"fluidReal","intensePres","physEnv","emotEnv","expectations")
+for (i in 1:length(loopvars)){
+	cat("i=",i," var=",loopvars[i],"\n")
+	df=postDf[,c(loopvars[i],"P017")]
+	names(df)[1]="y"
+	aov32=aov(y~P017,data=df)
+	print(summary(aov32))
+}
+ggplot(postDf,aes(x=P017, y=physEnv)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+# i= 8  var= physEnv 
+# Df Sum Sq Mean Sq F value Pr(>F)  
+# P017         1  61.51   61.51   7.318 0.0107 *
+# 		Residuals   33 277.39    8.41                 
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+ggplot(postDf,aes(x=P017, y=expectations)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+ggplot(postDf,aes(x=msexpectations, y=P017)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+# i= 10  var= expectations 
+# Df Sum Sq Mean Sq F value  Pr(>F)   
+# P017         1  50.81   50.81   10.63 0.00259 **
+# 		Residuals   33 157.74    4.78                   
+# ---
+# 		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+ggplot(postDf,aes(x=P018, y=laborLand)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+ggplot(postDf,aes(x=P018, y=outcomeMeasures)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+loopvars = c("laborLand","outcomeMeasures","painExp","memory","intuitMov",
+		"fluidReal","intensePres","physEnv","emotEnv","expectations")
+for (i in 1:length(loopvars)){
+	cat("i=",i," var=",loopvars[i],"\n")
+	df=postDf[,c(loopvars[i],"P018")]
+	names(df)[1]="y"
+	aov33=aov(y~P018,data=df)
+	print(summary(aov33))
+}
+ggplot(postDf,aes(x=P018, y=physEnv)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+# i= 8  var= physEnv 
+# Df Sum Sq Mean Sq F value  Pr(>F)   
+# P018         1   65.8   65.80   7.951 0.00807 **
+# 		Residuals   33  273.1    8.28                   
+# ---
+# 		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+ggplot(postDf,aes(x=P018, y=expectations)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+ggplot(postDf,aes(x=msexpectations, y=P018)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+# i= 10  var= expectations 
+# Df Sum Sq Mean Sq F value  Pr(>F)    
+# P018         1  59.59   59.59    13.2 0.00094 ***
+# 		Residuals   33 148.96    4.51                    
+# ---
+# 		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+ggplot(postDf,aes(x=msexpectations, y=P018)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+
+
+
 

@@ -90,6 +90,46 @@ ggplot(postDf,aes(x=msexpectations))+geom_histogram()
 # boxplot of outcomeMeasures based on low v. high expectations
 ggplot(postDf,aes(x=msexpectations, y=outcomeMeasures))+geom_boxplot()
 
+#########################################################################
+## split into multiparious and primiparious
+#########################################################################
+pmindex = postDf$P001>=2
+# selects TRUE values
+postDf$P001[pmindex]
+postDf$primipsplit = "primip"
+postDf$primipsplit[pmindex] = "multip"
+postDf$primipsplit = factor(postDf$primipsplit,levels = c("primip","multip"))
+# this plot checks to make sure they were divided evenly
+ggplot(postDf,aes(x=primipsplit))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high expectations
+ggplot(postDf,aes(x=primipsplit, y=outcomeMeasures))+geom_boxplot()
 
+#########################################################################
+## split into younger (<30) and older (>30)
+#########################################################################
+ageindex = postDf$P004>=3
+# selects TRUE values
+postDf$P004[ageindex]
+postDf$agesplit = "younger"
+postDf$agesplit[ageindex] = "older"
+postDf$agesplit = factor(postDf$agesplit,levels = c("younger","older"))
+# this plot checks to make sure they were divided evenly
+ggplot(postDf,aes(x=agesplit))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high expectations
+ggplot(postDf,aes(x=agesplit, y=outcomeMeasures))+geom_boxplot()
+
+#########################################################################
+## split into low/high vocals
+#########################################################################
+vcindex = postDf$vocals>=median(postDf$vocals)
+# selects TRUE values
+postDf$vocals[vcindex]
+postDf$vocalsplit = "low"
+postDf$vocalsplit[vcindex] = "high"
+postDf$vocalsplit = factor(postDf$vocalsplit,levels = c("low","high"))
+# this plot checks to make sure they were divided evenly
+ggplot(postDf,aes(x=vocalsplit))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high expectations
+ggplot(postDf,aes(x=vocalsplit, y=outcomeMeasures))+geom_boxplot()
 
 save(postDf,newpostDf,origPostDf,descPostDf,postNumVarNames,file="rdata/postData.RData")

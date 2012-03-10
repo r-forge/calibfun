@@ -203,5 +203,14 @@ subset(postDf,outcomeMeasures==min(outcomeMeasures))
 ggplot(postDf,aes(x=painExp, y=outcomeMeasures, color=P015))+geom_point()
 ggplot(postDf,aes(x=laborLand, y=painExp, color=P015))+geom_point()
 
-
-
+# R_elY2IJEJ215KY16:
+# laborLand intuitMov
+# -6.994437 -8.646781
+# physEnv   emotEnv fluidReal intensePres   painExp expectations    memory
+# -0.9921606 -10.26134 -1.597448   -8.046077 -11.13847    -3.525081 -3.174058
+# vocals outcomeMeasures  stateQs     panas tActualAct tPerceivedAct
+# -2.295789       -11.93492 -45.2912 -12.73046          9             7
+# tDiffAct tActualPush tPerceivedPush tDiffPush mslaborLand lmhpanas drugsplit
+#    2          30             50       -20         low       low     nodrugs
+# mspainExp msexpectations primipsplit agesplit
+#   low         low          multip     older

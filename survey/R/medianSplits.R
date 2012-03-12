@@ -14,9 +14,9 @@ load("rdata/postData.RData")
 #########################################################################
 ## create a new variable based on median split of laborLand
 #########################################################################
-llindex = postDf$laborLand>=median(postDf$laborLand)
+llindex = postDf$panas>=median(postDf$panas)
 # selects TRUE values
-postDf$laborLand[llindex]
+postDf$panas[llindex]
 postDf$mslaborLand = "low"
 postDf$mslaborLand[llindex] = "high"
 postDf$mslaborLand = factor(postDf$mslaborLand,levels = c("low","high"))
@@ -24,7 +24,6 @@ postDf$mslaborLand = factor(postDf$mslaborLand,levels = c("low","high"))
 ggplot(postDf,aes(x=mslaborLand))+geom_histogram()
 # boxplot of outcomeMeasures based on low v. high laborLand
 ggplot(postDf,aes(x=mslaborLand, y=outcomeMeasures))+geom_boxplot()
-
 
 #########################################################################
 ## create a new variable based on median split of panas
@@ -46,6 +45,20 @@ ggplot(postDf,aes(x=lmhpanas))+geom_histogram()
 ggplot(postDf,aes(x=lmhpanas, y=laborLand))+geom_boxplot()
 # show histogram of how many ppl were low v. high ll based on panas
 ggplot(postDf,aes(x=lmhpanas, color=mslaborLand))+geom_histogram()
+
+#########################################################################
+## split panas into only two categories
+#########################################################################
+panasindex = postDf$panas>=median(postDf$panas)
+# selects TRUE values
+postDf$panas[panasindex]
+postDf$mspanas = "low"
+postDf$mspanas[panasindex] = "high"
+postDf$mspanas = factor(postDf$mspanas,levels = c("low","high"))
+# this plot checks to make sure they were divided evenly
+ggplot(postDf,aes(x=mspanas))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high laborLand
+ggplot(postDf,aes(x=mspanas, y=outcomeMeasures))+geom_boxplot()
 
 #########################################################################
 ## split into drugs v. no drugs (copied from checkData)

@@ -22,6 +22,7 @@ laborLandNames = c("P080","P085","P086","P089","P093",
 laborLandDf = postDf[,laborLandNames]
 laborLandDf_scale = scale(laborLandDf)
 describe(laborLandDf_scale)
+#laborLandDf$P132 = 6-laborLandDf$P132
 laborLand = apply(laborLandDf_scale,1,sum)
 laborLandDf_scale = data.frame(laborLandDf_scale, laborLand = laborLand)
 laborLandDf_scale

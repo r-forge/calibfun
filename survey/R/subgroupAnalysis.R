@@ -5,14 +5,21 @@
 ## 
 ## Author: Haaland
 ###############################################################################
-
+load("rdata/preData.RData")
+load("rdata/postData.RData")
+library(ggplot2)
+library(psych)
+library(GPArotation)
+library(Hmisc)
 #########################################################################
 ## make new variable to get at laborland/panas interaction
 #########################################################################
 ggplot(postDf,aes(x=laborLand,y=outcomeMeasures, color=mspanas))+geom_point()
 #panas/laborLand interaction
+pdf("plots/outcomeMeasures~mspanas*mslaborLand.pdf")
 ggplot(postDf,aes(x=mspanas, y=outcomeMeasures, color=mslaborLand))+ 
 		stat_summary(fun.data = "mean_cl_boot") 
+dev.off()
 tempdf = postDf
 tempdf$g1 = "high-high"
 tempdf$g1[tempdf$mspanas=="low"&tempdf$mslaborLand=="low"] = "low-low"
@@ -21,15 +28,42 @@ tempdf$g1[tempdf$mspanas=="high"&tempdf$mslaborLand=="low"] = "high-low"
 tempdf$g1 = factor(tempdf$g1)
 
 #painExp/laborLand interaction
+pdf("plots/outcomeMeasures~mspainExp*mslaborLand.pdf")
 ggplot(postDf,aes(x=mspainExp,y=outcomeMeasures, color=mslaborLand))+
 		stat_summary(fun.data = "mean_cl_boot")
+dev.off()
 tempdf$g2 = "high-high"
 tempdf$g2[tempdf$mspainExp=="low"&tempdf$mslaborLand=="low"] = "low-low"
 tempdf$g2[tempdf$mspainExp=="low"&tempdf$mslaborLand=="high"] = "low-high"
 tempdf$g2[tempdf$mspainExp=="high"&tempdf$mslaborLand=="low"] = "high-low"
 tempdf$g2 = factor(tempdf$g2)
 
-#painExp~mspanas*mslaborLand
+
+ggplot(postDf,aes(x=msexpectations, y=outcomeMeasures, color=mslaborLand)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+
+ggplot(postDf,aes(x=msfluidReal, y=outcomeMeasures, color=mslaborLand)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+
+ggplot(postDf,aes(x=msintensePres, y=outcomeMeasures, color=mslaborLand)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+
+ggplot(postDf,aes(x=educationsplit, y=outcomeMeasures, color=mslaborLand)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+
+ggplot(postDf,aes(x=msactiveLabor, y=outcomeMeasures, color=mslaborLand)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+
+ggplot(postDf,aes(x=P027, y=outcomeMeasures, color=mslaborLand)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+
+ggplot(postDf,aes(x=P051, y=outcomeMeasures, color=mslaborLand)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+
+ggplot(postDf,aes(x=msactiveFeel, y=outcomeMeasures, color=mslaborLand)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+
+# y=painExp
 ggplot(postDf,aes(x=mspanas, y=painExp, color=mslaborLand)) + 
 		stat_summary(fun.data = "mean_cl_boot")
 
@@ -39,7 +73,7 @@ ggplot(postDf,aes(x=msexpectations, y=painExp, color=mslaborLand)) +
 ggplot(postDf,aes(x=mspanas,y=painExp,color=mslaborLand)) + 
 		stat_summary(fun.data = "mean_cl_boot")
 
-
+# y=tActualAct
 ggplot(postDf,aes(x=primipsplit, y=tActualAct, color=agesplit)) + 
 		stat_summary(fun.data = "mean_cl_boot")
 
@@ -69,7 +103,9 @@ TukeyHSD(aov1)
 # low-high-high-low   3.2991175  -2.420288  9.018523 0.4124046
 # low-low-high-low   -2.8124818  -7.840120  2.215156 0.4391529
 # low-low-low-high   -6.1115993 -11.139237 -1.083961 0.0123873
+pdf("plots/outcomeMeasuresvg1.pdf")
 ggplot(tempdf,aes(x=g1,y=outcomeMeasures, color=mslaborLand))+geom_point()
+dev.off()
 hist(postDf$panas,nclass=30)
 
 #########################################################################
@@ -86,11 +122,43 @@ for (i in 1:length(loopvars)){
 	aov1b=aov(y~g1,data=df)
 	print(summary(aov1b))
 }
-ggplot(subdf,aes(x=g1,y=laborLand,color=P042))+geom_point()
-ggplot(subdf,aes(x=mslaborLand,y=P042))+stat_summary(fun.data = "mean_cl_boot")
+pdf("plots/inlowpanas-variableV.laborLand.pdf")
+#ggplot(subpanasdf,aes(x=g1,y=laborLand,color=P042))+geom_point()
+ggplot(subpanasdf,aes(x=mslaborLand,y=P042))+stat_summary(fun.data = "mean_cl_boot")
 
-ggplot(tempdf,aes(x=mspanas,y=painExp))+geom_point()
+#ggplot(subpanasdf,aes(x=g1,y=laborLand,color=P062))+geom_point()
+ggplot(subpanasdf,aes(x=mslaborLand,y=P062))+stat_summary(fun.data = "mean_cl_boot")
 
+#ggplot(subpanasdf,aes(x=g1,y=laborLand,color=P063))+geom_point()
+ggplot(subpanasdf,aes(x=mslaborLand,y=P063))+stat_summary(fun.data = "mean_cl_boot")
+
+#ggplot(subpanasdf,aes(x=g1,y=laborLand,color=P071))+geom_point()
+ggplot(subpanasdf,aes(x=mslaborLand,y=P071))+stat_summary(fun.data = "mean_cl_boot")
+
+#ggplot(subpanasdf,aes(x=g1,y=laborLand,color=P087))+geom_point()
+ggplot(subpanasdf,aes(x=mslaborLand,y=P087))+stat_summary(fun.data = "mean_cl_boot")
+
+#ggplot(subpanasdf,aes(x=g1,y=laborLand,color=P114))+geom_point()
+ggplot(subpanasdf,aes(x=mslaborLand,y=P114))+stat_summary(fun.data = "mean_cl_boot")
+
+#ggplot(subpanasdf,aes(x=g1,y=laborLand,color=P124))+geom_point()
+ggplot(subpanasdf,aes(x=mslaborLand,y=P124))+stat_summary(fun.data = "mean_cl_boot")
+
+#ggplot(subpanasdf,aes(x=g1,y=laborLand,color=P125))+geom_point()
+ggplot(subpanasdf,aes(x=mslaborLand,y=P125))+stat_summary(fun.data = "mean_cl_boot")
+
+#ggplot(subpanasdf,aes(x=g1,y=laborLand,color=P133))+geom_point()
+ggplot(subpanasdf,aes(x=mslaborLand,y=P133))+stat_summary(fun.data = "mean_cl_boot")
+
+#ggplot(subpanasdf,aes(x=g1,y=laborLand,color=P142))+geom_point()
+ggplot(subpanasdf,aes(x=mslaborLand,y=P142))+stat_summary(fun.data = "mean_cl_boot")
+
+#ggplot(subpanasdf,aes(x=g1,y=laborLand,color=P145))+geom_point()
+ggplot(subpanasdf,aes(x=mslaborLand,y=P145))+stat_summary(fun.data = "mean_cl_boot")
+
+#ggplot(subpanasdf,aes(x=g1,y=laborLand,color=P156))+geom_point()
+ggplot(subpanasdf,aes(x=mslaborLand,y=P156))+stat_summary(fun.data = "mean_cl_boot")
+dev.off()
 #########################################################################
 ## do comparisons within subgroups of painExp
 #########################################################################

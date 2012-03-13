@@ -145,4 +145,167 @@ ggplot(postDf,aes(x=vocalsplit))+geom_histogram()
 # boxplot of outcomeMeasures based on low v. high expectations
 ggplot(postDf,aes(x=vocalsplit, y=outcomeMeasures))+geom_boxplot()
 
+#########################################################################
+## split all the themes
+#########################################################################
+# intuitMov
+imindex = postDf$intuitMov>=median(postDf$intuitMov)
+# selects TRUE values
+postDf$intuitMov[imindex]
+postDf$msintuitMov = "low"
+postDf$msintuitMov[imindex] = "high"
+postDf$msintuitMov = factor(postDf$msintuitMov,levels = c("low","high"))
+# this plot checks to make sure they were divided evenly
+ggplot(postDf,aes(x=msintuitMov))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high expectations
+ggplot(postDf,aes(x=msintuitMov, y=outcomeMeasures))+geom_boxplot()
+
+# physEnv
+peindex = postDf$physEnv>=median(postDf$physEnv)
+# selects TRUE values
+postDf$physEnv[peindex]
+postDf$msphysEnv = "low"
+postDf$msphysEnv[peindex] = "high"
+postDf$msphysEnv = factor(postDf$msphysEnv,levels = c("low","high"))
+# this plot checks to make sure they were divided evenly
+ggplot(postDf,aes(x=msphysEnv))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high expectations
+ggplot(postDf,aes(x=msphysEnv, y=outcomeMeasures))+geom_boxplot()
+
+# emotEnv
+eeindex = postDf$emotEnv>=median(postDf$emotEnv)
+# selects TRUE values
+postDf$emotEnv[eeindex]
+postDf$msemotEnv = "low"
+postDf$msemotEnv[eeindex] = "high"
+postDf$msemotEnv = factor(postDf$msemotEnv,levels = c("low","high"))
+# this plot checks to make sure they were divided evenly
+ggplot(postDf,aes(x=msemotEnv))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high expectations
+ggplot(postDf,aes(x=msemotEnv, y=outcomeMeasures))+geom_boxplot()
+
+# fluidReal
+frindex = postDf$fluidReal>=median(postDf$fluidReal)
+# selects TRUE values
+postDf$fluidReal[frindex]
+postDf$msfluidReal = "low"
+postDf$msfluidReal[frindex] = "high"
+postDf$msfluidReal = factor(postDf$msfluidReal,levels = c("low","high"))
+# this plot checks to make sure they were divided evenly
+ggplot(postDf,aes(x=msfluidReal))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high expectations
+ggplot(postDf,aes(x=msfluidReal, y=outcomeMeasures))+geom_boxplot()
+
+# intensePres
+ipindex = postDf$intensePres>=median(postDf$intensePres)
+# selects TRUE values
+postDf$intensePres[ipindex]
+postDf$msintensePres = "low"
+postDf$msintensePres[ipindex] = "high"
+postDf$msintensePres = factor(postDf$msintensePres,levels = c("low","high"))
+# this plot checks to make sure they were divided evenly
+ggplot(postDf,aes(x=msintensePres))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high expectations
+ggplot(postDf,aes(x=msintensePres, y=outcomeMeasures))+geom_boxplot()
+
+#########################################################################
+## split education into less than 4-year-college and 4-year-college plus
+#########################################################################
+eduindex = postDf$P006>=5
+# selects TRUE values
+postDf$P006[eduindex]
+postDf$educationsplit = "<4-year-college"
+postDf$educationsplit[eduindex] = "4-year-college+"
+postDf$educationsplit = factor(postDf$educationsplit,levels = c("<4-year-college","4-year-college+"))
+# this plot checks to make sure they were divided evenly
+ggplot(postDf,aes(x=educationsplit))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high expectations
+ggplot(postDf,aes(x=educationsplit, y=outcomeMeasures))+geom_boxplot()
+
+#########################################################################
+## split income into less than $50,000 and more than $50,000
+#########################################################################
+incindex = postDf$P009>=3
+# selects TRUE values
+postDf$P009[incindex]
+postDf$incomesplit = "<$50,000"
+postDf$incomesplit[incindex] = ">$50,000"
+postDf$incomesplit = factor(postDf$incomesplit,levels = c("<$50,000",">$50,000"))
+# this plot checks to make sure they were divided evenly
+ggplot(postDf,aes(x=incomesplit))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high expectations
+ggplot(postDf,aes(x=incomesplit, y=outcomeMeasures))+geom_boxplot()
+
+#########################################################################
+## split into before/on due date and post-date
+#########################################################################
+ddindex = postDf$P021>=5
+# selects TRUE values
+postDf$P021[ddindex]
+postDf$duedatesplit = "on/before due date"
+postDf$duedatesplit[ddindex] = "post-date"
+postDf$duedatesplit = factor(postDf$duedatesplit,levels = c("on/before due date","post-date"))
+# this plot checks to make sure they were divided evenly
+ggplot(postDf,aes(x=duedatesplit))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high expectations
+ggplot(postDf,aes(x=duedatesplit, y=outcomeMeasures))+geom_boxplot()
+
+#########################################################################
+## split by time spent in active labor
+#########################################################################
+atindex = postDf$P022>=4
+# selects TRUE values
+postDf$P022[atindex]
+postDf$msactiveLabor = "<6hrs"
+postDf$msactiveLabor[atindex] = ">6hrs"
+postDf$msactiveLabor = factor(postDf$msactiveLabor,levels = c("<6hrs",">6hrs"))
+# this plot checks to make sure they were divided evenly
+ggplot(postDf,aes(x=msactiveLabor))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high expectations
+ggplot(postDf,aes(x=msactiveLabor, y=outcomeMeasures))+geom_boxplot()
+
+#########################################################################
+## split by time spent pushing
+#########################################################################
+pushindex = postDf$P023>=3
+# selects TRUE values
+postDf$P023[pushindex]
+postDf$mspushing = "<40min"
+postDf$mspushing[pushindex] = ">40min"
+postDf$mspushing = factor(postDf$mspushing,levels = c("<40min",">40min"))
+# this plot checks to make sure they were divided evenly
+ggplot(postDf,aes(x=mspushing))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high expectations
+ggplot(postDf,aes(x=mspushing, y=outcomeMeasures))+geom_boxplot()
+
+
+#########################################################################
+## split by time felt in active labor
+#########################################################################
+afindex = postDf$P152>median(postDf$P152)
+# selects TRUE values
+postDf$P152[afindex]
+postDf$msactiveFeel = "<4hrs"
+postDf$msactiveFeel[afindex] = ">4hrs"
+postDf$msactiveFeel = factor(postDf$msactiveFeel,levels = c("<4hrs",">4hrs"))
+# this plot checks to make sure they were divided evenly
+ggplot(postDf,aes(x=msactiveFeel))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high expectations
+ggplot(postDf,aes(x=msactiveFeel, y=outcomeMeasures))+geom_boxplot()
+
+#########################################################################
+## split by time felt pushing
+#########################################################################
+pushfindex = postDf$P153>=3
+# selects TRUE values
+postDf$P153[pushfindex]
+postDf$mspushingFeel = "<40min"
+postDf$mspushingFeel[pushfindex] = ">40min"
+postDf$mspushingFeel = factor(postDf$mspushingFeel,levels = c("<40min",">40min"))
+# this plot checks to make sure they were divided evenly
+ggplot(postDf,aes(x=mspushingFeel))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high expectations
+ggplot(postDf,aes(x=mspushingFeel, y=outcomeMeasures))+geom_boxplot()
+
+
 save(postDf,newpostDf,origPostDf,descPostDf,postNumVarNames,file="rdata/postData.RData")

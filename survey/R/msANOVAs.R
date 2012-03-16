@@ -32,6 +32,21 @@ ddply(postDf,.(mslaborLand),function(df){
 #mslaborLand      mean        se
 #1         low -2.517532 1.0516588
 #2        high  2.377669 0.6843831
+t.test(outcomeMeasures~mslaborLand, var.equal = TRUE, data=postDf)
+# t.test(outcomeMeasures~mslaborLand, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  outcomeMeasures by mslaborLand 
+# t = -3.9454, df = 33, p-value = 0.0003928
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -7.419515 -2.370887 
+# sample estimates:
+#  mean in group low mean in group high 
+#          -2.517532           2.377669 
+# 
+
 
 # this plot isn't very helpful - don't need to do it
 # plot(aov1)
@@ -45,6 +60,188 @@ stat_sum_df <- function(fun, geom="crossbar", ...) {
 g1 + stat_sum_df("mean_cl_normal", geom = "errorbar") + 
 		stat_sum_df("mean_cl_normal", geom = "point") 
 
+#########################################################################
+## look at more outcomeMeasures~theme relationships
+
+loopvars = c("msintuitMov","msphysEnv","msemotEnv","fluidReal",
+		"msintensePres","msexpectations","mspainExp","mspanas",
+		"vocalsplit","educationsplit","drugsplit","incomesplit",
+		"duedatesplit","primipsplit","agesplit","msactiveLabor",
+		"mspushing")
+for (i in 1:length(loopvars)){
+	cat("i=",i," var=",loopvars[i],"\n")
+	df=postDf[,c(loopvars[i],"outcomeMeasures")]
+	names(df)[1]="x"
+	aov1b=aov(outcomeMeasures~x,data=df)
+	print(summary(aov1b))
+}
+t.test(outcomeMeasures~msintuitMov, var.equal = TRUE, data=postDf)
+# t.test(outcomeMeasures~msintuitMov, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  outcomeMeasures by msintuitMov 
+# t = -3.4398, df = 33, p-value = 0.001597
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -7.069396 -1.814733 
+# sample estimates:
+#  mean in group low mean in group high 
+#          -2.284490           2.157574 
+ddply(postDf,.(msintuitMov),function(df){
+			data.frame(mean = mean(df$outcomeMeasures),
+					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+		})
+#msintuitMov      mean        se
+#1         low -2.284490 1.0773092
+#2        high  2.157574 0.7353409
+
+t.test(outcomeMeasures~msphysEnv, var.equal = TRUE, data=postDf)
+# t.test(outcomeMeasures~msphysEnv, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  outcomeMeasures by msphysEnv 
+# t = -2.8455, df = 33, p-value = 0.007563
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -6.582127 -1.093868 
+# sample estimates:
+#  mean in group low mean in group high 
+#          -1.973827           1.864170 
+ddply(postDf,.(msphysEnv),function(df){
+			data.frame(mean = mean(df$outcomeMeasures),
+					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+		})
+#msphysEnv      mean        se
+#1       low -1.973827 1.1548774
+#2      high  1.864170 0.7278215
+
+t.test(outcomeMeasures~msemotEnv, var.equal = TRUE, data=postDf)
+# t.test(outcomeMeasures~msemotEnv, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  outcomeMeasures by msemotEnv 
+# t = -3.6857, df = 33, p-value = 0.0008132
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -7.246692 -2.091795 
+# sample estimates:
+#  mean in group low mean in group high 
+#          -2.401325           2.267918 
+ddply(postDf,.(msemotEnv),function(df){
+			data.frame(mean = mean(df$outcomeMeasures),
+					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+		})
+#msemotEnv      mean        se
+#1       low -2.401325 1.1641352
+#2      high  2.267918 0.5555129
+
+t.test(outcomeMeasures~msfluidReal, var.equal = TRUE, data=postDf)
+# t.test(outcomeMeasures~msfluidReal, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  outcomeMeasures by msfluidReal 
+# t = -2.9927, df = 33, p-value = 0.005204
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -6.710851 -1.279084 
+# sample estimates:
+#  mean in group low mean in group high 
+#          -2.054555           1.940413 
+ddply(postDf,.(msfluidReal),function(df){
+			data.frame(mean = mean(df$outcomeMeasures),
+					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+		})
+#msfluidReal      mean        se
+#1         low -2.054555 1.1051532
+#2        high  1.940413 0.7710293
+
+t.test(outcomeMeasures~msintensePres, var.equal = TRUE, data=postDf)
+# t.test(outcomeMeasures~msintensePres, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  outcomeMeasures by msintensePres 
+# t = -2.4543, df = 33, p-value = 0.01956
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -6.213246 -0.581085 
+# sample estimates:
+#  mean in group low mean in group high 
+#          -1.747114           1.650052 
+ddply(postDf,.(msintensePres),function(df){
+			data.frame(mean = mean(df$outcomeMeasures),
+					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+		})
+#msintensePres      mean        se
+#1           low -1.747114 1.1477304
+#2          high  1.650052 0.7971704
+
+t.test(outcomeMeasures~msexpectations, var.equal = TRUE, data=postDf)
+# t.test(outcomeMeasures~msexpectations, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  outcomeMeasures by msexpectations 
+# t = -2.339, df = 33, p-value = 0.02554
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -6.096904 -0.424405 
+# sample estimates:
+#  mean in group low mean in group high 
+#          -1.676908           1.583746 
+ddply(postDf,.(msexpectations),function(df){
+			data.frame(mean = mean(df$outcomeMeasures),
+					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+		})
+#msexpectations      mean        se
+#1            low -1.676908 1.2366888
+#2           high  1.583746 0.6876789
+
+t.test(outcomeMeasures~mspainExp, var.equal = TRUE, data=postDf)
+# t.test(outcomeMeasures~mspainExp, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  outcomeMeasures by mspainExp 
+# t = -3.7048, df = 33, p-value = 0.0007712
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -7.259911 -2.112815 
+# sample estimates:
+#  mean in group low mean in group high 
+#          -2.410130           2.276234 
+ddply(postDf,.(mspainExp),function(df){
+			data.frame(mean = mean(df$outcomeMeasures),
+					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+		})
+#mspainExp      mean        se
+#1       low -2.410130 1.1281524
+#2      high  2.276234 0.6142772
+
+t.test(outcomeMeasures~educationsplit, var.equal = TRUE, data=postDf)
+# t.test(outcomeMeasures~educationsplit, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  outcomeMeasures by educationsplit 
+# t = -2.3042, df = 33, p-value = 0.02764
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -6.525555 -0.405640 
+# sample estimates:
+# mean in group <4-year-college mean in group 4-year-college+ 
+#                     -2.376410                      1.089188 
+ddply(postDf,.(educationsplit),function(df){
+			data.frame(mean = mean(df$outcomeMeasures),
+					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+		})
+#educationsplit      mean        se
+#1 <4-year-college -2.376410 1.6076975
+#2 4-year-college+  1.089188 0.7106196
 
 #########################################################################
 ## 2x3 analysis of variance: outcomeMeasures~mslaborLand*lmhpanas
@@ -80,9 +277,29 @@ ggplot(postDf,aes(x=mspanas, y=outcomeMeasures, color=mslaborLand))+
 		stat_summary(fun.data = "mean_cl_boot") 
 aov2 = aov(outcomeMeasures~mspanas*mslaborLand,data=postDf)
 summary(aov2)
+# summary(aov2)
+#                     Df Sum Sq Mean Sq F value  Pr(>F)   
+# mspanas              1   60.5   60.52   4.543 0.04109 * 
+# mslaborLand          1  160.6  160.62  12.056 0.00154 **
+# mspanas:mslaborLand  1   19.5   19.53   1.466 0.23519   
+# Residuals           31  413.0   13.32                   
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+# > cat("Synch1331862498101571000\n");
+
 #try the other order
 aov2 = aov(outcomeMeasures~mslaborLand*mspanas,data=postDf)
 summary(aov2)
+# summary(aov2)
+#                     Df Sum Sq Mean Sq F value   Pr(>F)    
+# mslaborLand          1  209.5  209.51  15.726 0.000402 ***
+# mspanas              1   11.6   11.63   0.873 0.357258    
+# mslaborLand:mspanas  1   19.5   19.53   1.466 0.235188    
+# Residuals           31  413.0   13.32                     
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+# > cat("Synch1331862486441146000\n");
+
 
 
 ## this plot isn't very helpful - don't need to do it each time

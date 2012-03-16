@@ -22,7 +22,6 @@ laborLandNames = c("P080","P085","P086","P089","P093",
 laborLandDf = postDf[,laborLandNames]
 laborLandDf_scale = scale(laborLandDf)
 describe(laborLandDf_scale)
-#laborLandDf$P132 = 6-laborLandDf$P132
 laborLand = apply(laborLandDf_scale,1,sum)
 laborLandDf_scale = data.frame(laborLandDf_scale, laborLand = laborLand)
 laborLandDf_scale
@@ -535,5 +534,222 @@ tDiffPush = tActualPush - tPerceivedPush
 postDf$tActualPush=tActualPush
 postDf$tPerceivedPush=tPerceivedPush
 postDf$tDiffPush=tDiffPush
+
+#########################################################################
+## code scales for my 4 factors (other than laborLand)
+#########################################################################
+M1Names = c("P087","P105","P109",
+		"P113","P114","P116","P119","P132","P135","P138","P139",
+		"P141","P147")
+M1Df = postDf[,M1Names]
+M1Df_scale = scale(M1Df)
+describe(M1Df_scale)
+M1ref = apply(M1Df_scale,1,sum)
+M1Df_scale = data.frame(M1Df_scale, M1ref = M1ref)
+M1Df_scale
+M1corrtest = corr.test(M1Df_scale)
+# correlations, unadjusted p and adjusted p
+M1cres = data.frame(round(M1corrtest$r[,14],3),
+		round(M1corrtest$p[14,],4),
+		round(M1corrtest$p[,14],4))
+names(M1cres) = c("cor.","p-raw","p-adjusted")
+M1cres
+# M1cres
+#        cor. p-raw p-adjusted
+# P087  0.685 0e+00     0.0005
+# P105  0.632 0e+00     0.0035
+# P109  0.766 0e+00     0.0000
+# P113  0.681 0e+00     0.0005
+# P114  0.615 1e-04     0.0062
+# P116  0.568 4e-04     0.0246
+# P119  0.565 4e-04     0.0262
+# P132  0.713 0e+00     0.0001
+# P135  0.577 3e-04     0.0197
+# P138  0.691 0e+00     0.0004
+# P139  0.878 0e+00     0.0000
+# P141  0.732 0e+00     0.0001
+# P147  0.746 0e+00     0.0000
+# M1ref 1.000 0e+00     0.0000
+
+# M1cres
+#       cor.  p-raw p-adjusted
+# P050 0.488 0.0029     0.3437
+# P058 0.411 0.0142     1.0000
+# P072 0.385 0.0223     1.0000
+# P087 0.644 0.0000     0.0042
+# P096 0.364 0.0316     1.0000
+# P105 0.650 0.0000     0.0034
+# P109 0.741 0.0000     0.0001
+# P113 0.637 0.0000     0.0053
+# P114 0.580 0.0003     0.0342
+# P116 0.587 0.0002     0.0282
+# P119 0.555 0.0005     0.0694
+# P132 0.695 0.0000     0.0005
+# P135 0.540 0.0008     0.1010
+# P138 0.695 0.0000     0.0005
+# P139 0.865 0.0000     0.0000
+# P141 0.706 0.0000     0.0003
+# P147 0.732 0.0000     0.0001
+# M1   1.000 0.0000     0.0000
+
+M2Names = c("P057","P059","P060","P068","P074","P075","P078",
+		"P090","P098","P118")
+M2Df = postDf[,M2Names]
+M2Df$P074 = 6-M2Df$P074
+M2Df$P118 = 6-M2Df$P118
+M2Df_scale = scale(M2Df)
+describe(M2Df_scale)
+M2ref = apply(M2Df_scale,1,sum)
+M2Df_scale = data.frame(M2Df_scale, M2ref = M2ref)
+M2Df_scale
+M2corrtest = corr.test(M2Df_scale)
+# correlations, unadjusted p and adjusted p
+M2cres = data.frame(round(M2corrtest$r[,11],3),
+		round(M2corrtest$p[11,],4),
+		round(M2corrtest$p[,11],4))
+names(M2cres) = c("cor.","p-raw","p-adjusted")
+M2cres
+# M2cres
+#        cor. p-raw p-adjusted
+# P057  0.534 1e-03     0.0422
+# P059  0.549 6e-04     0.0290
+# P060  0.560 5e-04     0.0226
+# P068  0.614 1e-04     0.0044
+# P074  0.713 0e+00     0.0001
+# P075  0.811 0e+00     0.0000
+# P078  0.615 1e-04     0.0044
+# P090  0.655 0e+00     0.0010
+# P098  0.577 3e-04     0.0141
+# P118  0.543 8e-04     0.0339
+# M2ref 1.000 0e+00     0.0000
+
+
+# M2cres
+#       cor.  p-raw p-adjusted
+# P057 0.606 0.0001     0.0086
+# P059 0.517 0.0015     0.0982
+# P060 0.539 0.0008     0.0582
+# P061 0.402 0.0167     0.9001
+# P068 0.569 0.0004     0.0260
+# P074 0.637 0.0000     0.0029
+# P075 0.787 0.0000     0.0000
+# P078 0.588 0.0002     0.0146
+# P090 0.653 0.0000     0.0017
+# P098 0.601 0.0001     0.0099
+# P103 0.331 0.0518     1.0000
+# P118 0.513 0.0016     0.1058
+# M2   1.000 0.0000     0.0000
+
+M3Names = c("P064","P097","P099","P106","P110","P111","P121","P137")
+M3Df = postDf[,M3Names]
+#M3Df$P071 = 6-M3Df$P071
+#M3Df$P104 = 6-M3Df$P104
+#M3Df$P120 = 6-M3Df$P120
+M3Df$P137 = 6-M3Df$P137
+M3Df_scale = scale(M3Df)
+describe(M3Df_scale)
+M3ref = apply(M3Df_scale,1,sum)
+M3Df_scale = data.frame(M3Df_scale, M3ref = M3ref)
+M3Df_scale
+M3corrtest = corr.test(M3Df_scale)
+# correlations, unadjusted p and adjusted p
+M3cres = data.frame(round(M3corrtest$r[,9],3),
+		round(M3corrtest$p[9,],4),
+		round(M3corrtest$p[,9],4))
+names(M3cres) = c("cor.","p-raw","p-adjusted")
+M3cres
+# M3cres
+#        cor.  p-raw p-adjusted
+# P064  0.547 0.0007     0.0167
+# P097  0.570 0.0004     0.0099
+# P099  0.696 0.0000     0.0001
+# P106  0.733 0.0000     0.0000
+# P110  0.775 0.0000     0.0000
+# P111  0.733 0.0000     0.0000
+# P121  0.691 0.0000     0.0001
+# P137  0.512 0.0017     0.0380
+# M3ref 1.000 0.0000     0.0000
+
+
+# M3cres
+#       cor.  p-raw p-adjusted
+# P064 0.631 0.0000     0.0036
+# P071 0.468 0.0045     0.2812
+# P097 0.513 0.0016     0.1034
+# P099 0.595 0.0002     0.0115
+# P104 0.415 0.0131     0.7619
+# P106 0.624 0.0001     0.0045
+# P110 0.714 0.0000     0.0001
+# P111 0.736 0.0000     0.0000
+# P117 0.477 0.0037     0.2354
+# P120 0.254 0.1415     1.0000
+# P121 0.588 0.0002     0.0141
+# P137 0.555 0.0005     0.0362
+# M3   1.000 0.0000     0.0000
+
+M5Names = c("P048","P062","P063","P070","P076","P077",
+		"P083","P092","P095","P102","P126","P143")
+M5Df = postDf[,M5Names]
+#M5Df$P079 = 6-M5Df$P079
+M5Df_scale = scale(M5Df)
+describe(M5Df_scale)
+M5ref = apply(M5Df_scale,1,sum)
+M5Df_scale = data.frame(M5Df_scale, M5ref = M5ref)
+M5Df_scale
+M5corrtest = corr.test(M5Df_scale)
+# correlations, unadjusted p and adjusted p
+M5cres = data.frame(round(M5corrtest$r[,13],3),
+		round(M5corrtest$p[13,],4),
+		round(M5corrtest$p[,13],4))
+names(M5cres) = c("cor.","p-raw","p-adjusted")
+M5cres
+# M5cres
+#        cor. p-raw p-adjusted
+# P048  0.554 6e-04     0.0330
+# P062  0.571 3e-04     0.0211
+# P063  0.636 0e+00     0.0028
+# P070  0.648 0e+00     0.0018
+# P076  0.629 1e-04     0.0035
+# P077  0.731 0e+00     0.0000
+# P083  0.730 0e+00     0.0000
+# P092  0.783 0e+00     0.0000
+# P095  0.637 0e+00     0.0028
+# P102  0.790 0e+00     0.0000
+# P126  0.579 3e-04     0.0169
+# P143  0.531 1e-03     0.0606
+# M5ref 1.000 0e+00     0.0000
+
+
+# M5cres
+#       cor.  p-raw p-adjusted
+# P048 0.542 0.0008     0.1023
+# P062 0.550 0.0006     0.0849
+# P063 0.608 0.0001     0.0156
+# P070 0.623 0.0001     0.0094
+# P076 0.644 0.0000     0.0044
+# P077 0.707 0.0000     0.0003
+# P079 0.438 0.0085     0.9464
+# P082 0.465 0.0049     0.5742
+# P083 0.705 0.0000     0.0003
+# P092 0.779 0.0000     0.0000
+# P095 0.616 0.0001     0.0118
+# P102 0.787 0.0000     0.0000
+# P112 0.383 0.0230     1.0000
+# P126 0.526 0.0012     0.1536
+# P143 0.559 0.0005     0.0660
+# P144 0.488 0.0029     0.3558
+# P146 0.511 0.0017     0.2194
+# M5   1.000 0.0000     0.0000
+
+
+postDf$M1=M1
+postDf$M2=M2
+postDf$M3=M3
+postDf$M5=M5
+postDf$M1ref=M1ref
+postDf$M2ref=M2ref
+postDf$M3ref=M3ref
+postDf$M5ref=M5ref
+
 
 save(postDf,newpostDf,origPostDf,descPostDf,postNumVarNames,file="rdata/postData.RData")

@@ -19,7 +19,25 @@ load("rdata/origPostData.RData")
 ## Long pp interval women - 6 (maybe only longest 2?)
 #########################################################################
 
+#    P017 P018 P016 P015
+# those who had an intentional hospital birth (5)
+#4     3    1    1    1
+#8     3    1    1    1
+#15    3    1    1    1
+#27    3    1    2    1
+#36    3    1    1    1
 
+# those who had an unintentional hospital birth vaginally (4)
+#18    3    2    1    1
+#11    3    2    2    1
+#34    3    2    2    1
+#31    3    2    3    1
+
+# those who had an unintended hospital birth by cesarean (4)
+#17    3    2    2    2
+#24    3    2    2    2
+#35    3    2    2    2
+#29    3    2    4    2
 
 #########################################################################
 ## are cesarean women outliers? looking at P015 against all themes

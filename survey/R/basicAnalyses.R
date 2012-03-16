@@ -111,5 +111,62 @@ ggplot(data=postDf,aes(x=outcomeMeasures,y=tDiffPush))+geom_point()
 
 dev.off()
 
+#########################################################################
+## check to see if difference scores are different for low v. high laborLand
+#########################################################################
+aovdiff1 = aov(tDiffAct~mslaborLand,data=postDf)
+summary(aovdiff1)
+# summary(aovdiff1)
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# mslaborLand  1   1.53   1.530   0.319  0.576
+# Residuals   33 158.01   4.788               
+ddply(postDf,.(mslaborLand),function(df){
+			data.frame(mean = mean(df$tDiffAct),
+					se=sqrt(var(df$tDiffAct)/nrow(df)),
+					n=nrow(df))
+		})
+#mslaborLand     mean        se  n
+#1         low 1.529412 0.6070520 17
+#2        high 1.111111 0.4345299 18
+
+t.test(tDiffAct~mslaborLand, var.equal = TRUE, data=postDf)
+# t.test(tDiffAct~mslaborLand, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  tDiffAct by mslaborLand 
+# t = 0.5652, df = 33, p-value = 0.5757
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -1.087349  1.923950 
+# sample estimates:
+#  mean in group low mean in group high 
+#           1.529412           1.111111 
+# 
+
+
+t.test(tDiffPush~mslaborLand, var.equal = TRUE, data=postDf)
+# t.test(tDiffPush~mslaborLand, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  tDiffPush by mslaborLand 
+# t = -0.7314, df = 33, p-value = 0.4697
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -29.66000  13.97373 
+# sample estimates:
+#  mean in group low mean in group high 
+#          -1.176471           6.666667 
+# 
+ddply(postDf,.(mslaborLand),function(df){
+			data.frame(mean = mean(df$tDiffPush),
+					se=sqrt(var(df$tDiffPush)/nrow(df)),
+					n=nrow(df))
+		})
+#mslaborLand      mean       se  n
+#1         low -1.176471 6.056253 17
+#2        high  6.666667 8.707295 18
+
 
 

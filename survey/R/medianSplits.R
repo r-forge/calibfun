@@ -14,9 +14,9 @@ load("rdata/postData.RData")
 #########################################################################
 ## create a new variable based on median split of laborLand
 #########################################################################
-llindex = postDf$panas>=median(postDf$panas)
+llindex = postDf$laborLand>=median(postDf$laborLand)
 # selects TRUE values
-postDf$panas[llindex]
+postDf$laborLand[llindex]
 postDf$mslaborLand = "low"
 postDf$mslaborLand[llindex] = "high"
 postDf$mslaborLand = factor(postDf$mslaborLand,levels = c("low","high"))

@@ -5,6 +5,10 @@
 ## 
 ## Author: Haaland
 ###############################################################################
+library(ggplot2)
+library(psych)
+library(GPArotation)
+library(Hmisc)
 load("rdata/postData.RData")
 # I'm going to save this b/c I'm going to experiment and I want to 
 # be able to get this back
@@ -244,11 +248,13 @@ pexcres
 postDf$painExp=painExp
 
 #########################################################################
-## make expectations composite score (theme 7)
+## make meeting expectations composite score (theme 7)
 #########################################################################
-expectationsNames = c("P067","P084","P088")
+expectationsNames = c("P067","P081","P084","P088","P091")
 #expectationsNames = c("P067","P084","P088")
 expectationsDf = postDf[,expectationsNames]
+expectationsDf$P081 = 6-expectationsDf$P081
+expectationsDf$P091 = 6-expectationsDf$P091
 expectationsDf_scale = scale(expectationsDf)
 describe(expectationsDf_scale)
 expectations = apply(expectationsDf_scale,1,sum)
@@ -256,17 +262,19 @@ expectationsDf_scale = data.frame(expectationsDf_scale, expectations = expectati
 expectationsDf_scale
 excorrtest = corr.test(expectationsDf_scale)
 # correlations, unadjusted p and adjusted p
-excres = data.frame(round(excorrtest$r[,4],3),
-		round(excorrtest$p[4,],4),
-		round(excorrtest$p[,4],4))
+excres = data.frame(round(excorrtest$r[,6],3),
+		round(excorrtest$p[6,],4),
+		round(excorrtest$p[,6],4))
 names(excres) = c("cor.","p-raw","p-adjusted")
 excres
 # excres
 #               cor. p-raw p-adjusted
-# P067         0.888     0          0
-# P084         0.815     0          0
-# P088         0.774     0          0
-# expectations 1.000     0          0
+# P067         0.793 0e+00     0.0000
+# P081         0.703 0e+00     0.0000
+# P084         0.783 0e+00     0.0000
+# P088         0.733 0e+00     0.0000
+# P091         0.599 1e-04     0.0014
+# expectations 1.000 0e+00     0.0000
 
 postDf$expectations=expectations
 

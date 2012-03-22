@@ -29,12 +29,12 @@ grp1cres
 # grp1cres
 #                  cor.  p-raw p-adjusted
 # intuitMov       0.696 0.0000     0.0001
-# physEnv         0.552 0.0006     0.0158
+# physEnv         0.552 0.0006     0.0181
 # emotEnv         0.733 0.0000     0.0000
-# fluidReal       0.554 0.0006     0.0154
-# intensePres     0.543 0.0007     0.0188
+# fluidReal       0.554 0.0006     0.0176
+# intensePres     0.543 0.0007     0.0216
 # painExp         0.760 0.0000     0.0000
-# expectations    0.588 0.0002     0.0069
+# expectations    0.483 0.0033     0.0660
 # vocals          0.028 0.8753     1.0000
 # laborLand       0.627 0.0001     0.0021
 # outcomeMeasures 1.000 0.0000     0.0000

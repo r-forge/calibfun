@@ -62,7 +62,7 @@ ggplot(postDf,aes(x=P015, y=intensePres, color=P015))+geom_point()
 # 3 are very high; 1 is very low (but within range)
 ggplot(postDf,aes(x=painExp, y=laborLand, color=P015))+geom_point()
 ggplot(postDf,aes(x=P015, y=painExp, color=P015))+geom_point()
-# all had low; two had lowest (expectations) **********
+# all in lower half, but no problem
 ggplot(postDf,aes(x=expectations, y=laborLand, color=P015))+geom_point()
 ggplot(postDf,aes(x=P015, y=expectations, color=P015))+geom_point()
 # fine 
@@ -93,15 +93,12 @@ summary(aovCheck2)
 aovCheck3 = aov(expectations~P015,data=postDf)
 summary(aovCheck3)
 # summary(aovCheck3)
-#             Df Sum Sq Mean Sq F value Pr(>F)  
-# P015         1  23.32  23.317   4.154 0.0496 *
-# Residuals   33 185.23   5.613                 
-# ---
-# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+#             Df Sum Sq Mean Sq F value Pr(>F)
+# P015         1   19.0   19.03    1.48  0.232
+# Residuals   33  424.2   12.85                
 
-## based on anova, cesareans are only significantly different from
-## non-cesarean population on expectations (are any of these matched
-## samples? If so, do further investigation of expectations)
+## based on anova, cesareans are not significantly different from
+## non-cesarean population on anything
 
 
 #########################################################################
@@ -224,11 +221,11 @@ ggplot(postDf,aes(x=laborLand, y=painExp, color=P015))+geom_point()
 # R_elY2IJEJ215KY16:
 # laborLand intuitMov
 # -6.994437 -8.646781
-# physEnv   emotEnv fluidReal intensePres   painExp expectations    memory
-# -0.9921606 -10.26134 -1.597448   -8.046077 -11.13847    -3.525081 -3.174058
-# vocals outcomeMeasures  stateQs     panas tActualAct tPerceivedAct
+#    physEnv   emotEnv fluidReal intensePres   painExp expectations    memory
+# -0.9921606 -10.26134 -1.597448   -8.046077 -11.13847    -6.180475 -3.174058
+#    vocals outcomeMeasures  stateQs     panas tActualAct tPerceivedAct
 # -2.295789       -11.93492 -45.2912 -12.73046          9             7
 # tDiffAct tActualPush tPerceivedPush tDiffPush mslaborLand lmhpanas drugsplit
-#    2          30             50       -20         low       low     nodrugs
+#        2          30             50       -20         low      low   nodrugs
 # mspainExp msexpectations primipsplit agesplit
-#   low         low          multip     older
+#       low            low      multip    older

@@ -44,76 +44,70 @@ summary(fit1)
 ## stepwise regression
 #########################################################################
 summary(lm1 <- lm(outcomeMeasures ~ laborLand + panas + painExp + 
-						expectations + fluidReal + intensePres + P006 + 
+						expectations + P006 + 
 						tActualAct + P027 + P051 + tPerceivedAct, data = postDf))
 #Call:
-#		lm(formula = outcomeMeasures ~ laborLand + panas + painExp + 
-#						expectations + fluidReal + intensePres + P006 + tActualAct + 
-#						P027 + P051 + tPerceivedAct, data = postDf)
+#lm(formula = outcomeMeasures ~ laborLand + panas + painExp + 
+#				expectations + P006 + tActualAct + P027 + P051 + tPerceivedAct, 
+#				data = postDf)
 #
 #Residuals:
-#		Min      1Q  Median      3Q     Max 
-#-5.2638 -1.2019  0.0037  1.6547  3.5806 
+#	Min      1Q  Median      3Q     Max 
+#-5.2141 -1.1924  0.0773  2.1372  3.9964 
 #
 #Coefficients:
-#		Estimate Std. Error t value Pr(>|t|)  
-#(Intercept)   -3.36404    5.70114  -0.590    0.561  
-#laborLand      0.11653    0.07066   1.649    0.113  
-#panas          0.04106    0.06467   0.635    0.532  
-#painExp        0.33184    0.12767   2.599    0.016 *
-#expectations   0.46421    0.32722   1.419    0.169  
-#fluidReal      0.13718    0.14199   0.966    0.344  
-#intensePres   -0.02924    0.12283  -0.238    0.814  
-#P006           0.34286    0.58221   0.589    0.562  
-#tActualAct    -0.03960    0.26755  -0.148    0.884  
-#P027           0.64642    1.21413   0.532    0.600  
-#P051          -0.02037    1.42755  -0.014    0.989  
-#tPerceivedAct  0.20327    0.26128   0.778    0.445  
+#				Estimate Std. Error t value Pr(>|t|)   
+#(Intercept)   -5.349053   5.436120  -0.984  0.33455   
+#laborLand      0.131377   0.068016   1.932  0.06483 . 
+#panas          0.055713   0.064567   0.863  0.39641   
+#painExp        0.398170   0.116152   3.428  0.00211 **
+#expectations   0.087443   0.187752   0.466  0.64544   
+#P006           0.544574   0.551428   0.988  0.33283   
+#tActualAct    -0.005641   0.266206  -0.021  0.98326   
+#P027           0.507098   1.209179   0.419  0.67852   
+#P051           0.945231   1.307712   0.723  0.47650   
+#tPerceivedAct  0.106321   0.254123   0.418  0.67924   
 #---
 #		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 #
-#Residual standard error: 2.838 on 23 degrees of freedom
-#Multiple R-squared: 0.7166,	Adjusted R-squared: 0.5811 
-#F-statistic: 5.287 on 11 and 23 DF,  p-value: 0.0003808 
+#Residual standard error: 2.868 on 25 degrees of freedom
+#Multiple R-squared: 0.6854,	Adjusted R-squared: 0.5721 
+#F-statistic: 6.052 on 9 and 25 DF,  p-value: 0.0001668 
 
 slm1 <- step(lm1,direction = "both")
 summary(slm1)
 # summary(slm1)
 # 
 # Call:
-# lm(formula = outcomeMeasures ~ laborLand + painExp + expectations, 
-#     data = postDf)
+# lm(formula = outcomeMeasures ~ laborLand + painExp, data = postDf)
 # 
 # Residuals:
 #     Min      1Q  Median      3Q     Max 
-# -5.6298 -1.0116  0.4798  1.6262  4.4504 
+# -5.8214 -0.9958  0.1966  1.4841  5.7410 
 # 
 # Coefficients:
-#                Estimate Std. Error t value Pr(>|t|)    
-# (Intercept)  -6.657e-16  4.402e-01   0.000 1.000000    
-# laborLand     1.384e-01  5.624e-02   2.461 0.019638 *  
-# painExp       3.811e-01  1.023e-01   3.726 0.000777 ***
-# expectations  3.432e-01  2.201e-01   1.559 0.129124    
+#               Estimate Std. Error t value Pr(>|t|)    
+# (Intercept) -6.191e-16  4.499e-01   0.000   1.0000    
+# laborLand    1.500e-01  5.697e-02   2.633   0.0129 *  
+# painExp      4.547e-01  9.277e-02   4.901 2.65e-05 ***
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 # 
-# Residual standard error: 2.604 on 31 degrees of freedom
-# Multiple R-squared: 0.6784,	Adjusted R-squared: 0.6472 
-# F-statistic: 21.79 on 3 and 31 DF,  p-value: 8.786e-08 
-# 
+# Residual standard error: 2.662 on 32 degrees of freedom
+# Multiple R-squared: 0.6531,	Adjusted R-squared: 0.6315 
+# F-statistic: 30.13 on 2 and 32 DF,  p-value: 4.388e-08 
 
 slm1$anova
 # slm1$anova
 #              Step Df    Deviance Resid. Df Resid. Dev      AIC
-# 1                 NA          NA        23   185.2487 82.32230
-# 2          - P051  1 0.001640397        24   185.2504 80.32261
-# 3    - tActualAct  1 0.181072874        25   185.4314 78.35680
-# 4   - intensePres  1 0.444677151        26   185.8761 76.44063
-# 5          - P027  1 2.730326634        27   188.6064 74.95101
-# 6          - P006  1 2.496657882        28   191.1031 73.41127
-# 7         - panas  1 4.819083230        29   195.9222 72.28293
-# 8 - tPerceivedAct  1 6.652404256        30   202.5746 71.45160
-# 9     - fluidReal  1 7.662210488        31   210.2368 70.75103
+# 1                 NA          NA        25   205.6431 81.97779
+# 2    - tActualAct  1 0.003693231        26   205.6468 79.97842
+# 3          - P027  1 1.444801151        27   207.0916 78.22346
+# 4  - expectations  1 1.329122782        28   208.4207 76.44737
+# 5 - tPerceivedAct  1 2.727016441        29   211.1477 74.90235
+# 6          - P051  1 6.443944950        30   217.5917 73.95453
+# 7          - P006  1 2.661441387        31   220.2531 72.38003
+# 8         - panas  1 6.468920063        32   226.7220 71.39318
 
 
 ggplot(postDf,aes(x=mslaborLand, y=outcomeMeasures, color=mspainExp)) + 
@@ -197,11 +191,11 @@ ggplot(postDf,aes(x=P087,y=laborLand))+facet_wrap(~mspainExp)+
 #########################################################################
 ## check what helps you get into laborLand if you have low expectations
 #########################################################################
-subpaindf=subset(postDf,msexpectations=="low")
+subexpdf=subset(postDf,msexpectations=="low")
 loopvars = postNumVarNames
 for (i in 1:length(loopvars)){
 	cat("i=",i," var=",loopvars[i],"\n")
-	df=subpaindf[,c(loopvars[i],"mslaborLand")]
+	df=subexpdf[,c(loopvars[i],"mslaborLand")]
 	names(df)[1]="y"
 	aov2=aov(y~mslaborLand,data=df)
 	print(summary(aov2))
@@ -219,14 +213,14 @@ loopvars = postNumVarNames[!postNumVarNames%in%laborLandNames]
 length(loopvars)
 # length(loopvars)
 # [1] 139
-expectationsNames = c("P067","P084","P088")
+expectationsNames = c("P067","P081","P084","P088","P091")
 length(expectationsNames)
 # length(expectationsNames)
-# [1] 3
+# [1] 5
 loopvars = loopvars[!loopvars%in%expectationsNames]
 length(loopvars)
 # length(loopvars)
-# [1] 136
+# [1] 134
 outcomeMeasuresNames = c("P065","P066","P122","P149","P150","P151")
 length(outcomeMeasuresNames)
 # length(outcomeMeasuresNames)
@@ -234,9 +228,9 @@ length(outcomeMeasuresNames)
 loopvars = loopvars[!loopvars%in%outcomeMeasuresNames]
 length(loopvars)
 # length(loopvars)
-# [1] 130
+# [1] 128
 result = lapply(loopvars,function(vname) {
-			df=subpaindf[,c(vname,"mslaborLand")]
+			df=subexpdf[,c(vname,"mslaborLand")]
 			names(df)[1]="y"
 			aov2=aov(y~mslaborLand,data=df)
 			data.frame(var=vname,pval=unlist(summary(aov2))[9])
@@ -246,25 +240,24 @@ names(rdf)
 rdf = rdf[order(rdf$pval),]
 head(rdf)
 # head(rdf)
-#      var        pval
-# 77  P087 0.001705419   I felt uninhibited
-# 104 P124 0.011356421   INV - My labor pain felt like suffering
-# 86  P100 0.021118981   I believe that my body holds the wisdom to give birth on its own
-# 97  P114 0.025358851   INV - I let myself down
-# 122 P145 0.029284741
-# 119 P142 0.035264023
+#      var       pval
+# 102 P124 0.03151799   INV - My labor pain felt like suffering
+# 76  P087 0.03461142   I felt uninhibited
+# 95  P114 0.04327635   INV - I let myself down
+# 4   P006 0.04421526   Highest educational level achieved
+# 126 P154 0.08726351
+# 84  P100 0.09095422   
 
+ggplot(postDf,aes(x=P124,y=laborLand))+facet_wrap(~msexpectations)+
+		geom_point()+geom_smooth(method=lm)
 ## P087 is an element of intuitMov
 ggplot(postDf,aes(x=P087,y=laborLand))+facet_wrap(~msexpectations)+
 		geom_point()+geom_smooth(method=lm)+
 		opts(title="I felt uninhibited")
-ggplot(postDf,aes(x=P124,y=laborLand))+facet_wrap(~msexpectations)+
-		geom_point()+geom_smooth(method=lm)
-ggplot(postDf,aes(x=P100,y=laborLand))+facet_wrap(~msexpectations)+
-		geom_point()+geom_smooth(method=lm)
 ggplot(postDf,aes(x=P114,y=laborLand))+facet_wrap(~msexpectations)+
 		geom_point()+geom_smooth(method=lm)
-
+ggplot(postDf,aes(x=P006,y=laborLand))+facet_wrap(~msexpectations)+
+		geom_point()+geom_smooth(method=lm)
 
 ggplot(postDf,aes(x=painExp,y=panas))+geom_point()
 
@@ -291,7 +284,7 @@ summary(lmb)$coef
 
 ## now get the parts of laborland and outcome that aren't explained
 ## by pain
- resdf = data.frame(laborres=lmb$residual,outres = lma$residual)
+resdf = data.frame(laborres=lmb$residual,outres = lma$residual)
 head(resdf)
 lmc = lm(outres ~laborres,data=resdf)
 summary(lmc)$coef
@@ -332,17 +325,15 @@ ggplot(postDf,aes(x=msreslaborLand))+geom_histogram()
 ggplot(postDf,aes(x=msreslaborLand, y=outcomeMeasures))+geom_boxplot()
 
 postDf$outres = lma$residual
+## this plot doesn't actually show the same pattern --> what does that mean??
+## does this say that the pattern observed is driven only by painExp
+## (b/c it goes away when painExp is taken out of laborLand??)
 ggplot(postDf,aes(x=mspainExp,y=outres, color=msreslaborLand))+
 		stat_summary(fun.data = "mean_cl_boot")
 
 ggplot(postDf,aes(x=mspanas,y=outres, color=msreslaborLand))+
 		stat_summary(fun.data = "mean_cl_boot")
 ggplot(postDf,aes(x=msexpectations,y=outres, color=msreslaborLand))+
-		stat_summary(fun.data = "mean_cl_boot")
-ggplot(postDf,aes(x=msfluidReal,y=outres, color=msreslaborLand))+
-		stat_summary(fun.data = "mean_cl_boot")
-### possibly?
-ggplot(postDf,aes(x=msintensePres,y=outres, color=msreslaborLand))+
 		stat_summary(fun.data = "mean_cl_boot")
 ggplot(postDf,aes(x=educationsplit,y=outres, color=msreslaborLand))+
 		stat_summary(fun.data = "mean_cl_boot")
@@ -353,7 +344,6 @@ ggplot(postDf,aes(x=P027,y=outres, color=msreslaborLand))+
 		stat_summary(fun.data = "mean_cl_boot")
 ggplot(postDf,aes(x=P051,y=outres, color=msreslaborLand))+
 		stat_summary(fun.data = "mean_cl_boot")
-### possibly?
 ggplot(postDf,aes(x=msactiveFeel,y=outres, color=msreslaborLand))+
 		stat_summary(fun.data = "mean_cl_boot")
 

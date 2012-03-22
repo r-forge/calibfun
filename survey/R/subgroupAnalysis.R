@@ -264,9 +264,9 @@ ggplot(postDf,aes(x=msexpectations, y=outcomeMeasures, color=mslaborLand)) +
 aov3 = aov(outcomeMeasures~g3,data=tempdf)
 summary(aov3)
 # summary(aov3)
-#             Df Sum Sq Mean Sq F value   Pr(>F)    
-# g3           3  301.3  100.44   8.837 0.000221 ***
-# Residuals   31  352.3   11.37                     
+#             Df Sum Sq Mean Sq F value  Pr(>F)    
+# g3           3  275.3   91.78    7.52 0.00064 ***
+# Residuals   31  378.3   12.20                    
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 TukeyHSD(aov3)
@@ -277,19 +277,19 @@ TukeyHSD(aov3)
 # Fit: aov(formula = outcomeMeasures ~ g3, data = tempdf)
 # 
 # $g3
-#                         diff        lwr          upr     p adj
-# high-low-high-high -3.149596  -7.489793  1.190601228 0.2212220
-# low-high-high-high -1.363270  -5.703467  2.976927305 0.8288989
-# low-low-high-high  -7.591323 -11.795430 -3.387216504 0.0001606
-# low-high-high-low   1.786326  -2.788644  6.361295657 0.7160422
-# low-low-high-low   -4.441727  -8.887799  0.004343838 0.0502977
-# low-low-low-high   -6.228053 -10.674125 -1.781982239 0.0033598
+#                          diff        lwr        upr     p adj
+# high-low-high-high -2.3037662  -7.044493  2.4369609 0.5582299
+# low-high-high-high -0.2081745  -4.948902  4.5325526 0.9993810
+# low-low-high-high  -6.4159523 -10.373735 -2.4581700 0.0006562
+# low-high-high-low   2.0955917  -3.378528  7.5697119 0.7281420
+# low-low-high-low   -4.1121861  -8.924206  0.6998342 0.1154284
+# low-low-low-high   -6.2077778 -11.019798 -1.3957575 0.0074017
 ggplot(tempdf,aes(x=g3,y=outcomeMeasures, color=mslaborLand))+geom_point()
 
 #########################################################################
 ## look for the factor that helps laborLand in bad expectations circumstances
 #########################################################################
-
+## see multipleRegs file
 
 #########################################################################
 ## do comparisons within subgroups of msfluidReal

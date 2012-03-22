@@ -186,20 +186,20 @@ t.test(outcomeMeasures~msexpectations, var.equal = TRUE, data=postDf)
 # 	Two Sample t-test
 # 
 # data:  outcomeMeasures by msexpectations 
-# t = -2.339, df = 33, p-value = 0.02554
+# t = -2.5057, df = 33, p-value = 0.01733
 # alternative hypothesis: true difference in means is not equal to 0 
 # 95 percent confidence interval:
-#  -6.096904 -0.424405 
+#  -6.2639742 -0.6501255 
 # sample estimates:
 #  mean in group low mean in group high 
-#          -1.676908           1.583746 
+#          -1.777911           1.679138 
 ddply(postDf,.(msexpectations),function(df){
 			data.frame(mean = mean(df$outcomeMeasures),
 					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
 		})
-#msexpectations      mean        se
-#1            low -1.676908 1.2366888
-#2           high  1.583746 0.6876789
+#msexpectations        mean        se
+#1            low -1.777911 1.1899458
+#2           high  1.679138 0.7321423
 
 t.test(outcomeMeasures~mspainExp, var.equal = TRUE, data=postDf)
 # t.test(outcomeMeasures~mspainExp, var.equal = TRUE, data=postDf)
@@ -368,8 +368,8 @@ aov13 = aov(expectations~mspanas,data=postDf)
 summary(aov13)
 # summary(aov13)
 #             Df Sum Sq Mean Sq F value Pr(>F)   
-# mspanas      1  41.67   41.67   8.239 0.0071 **
-# Residuals   33 166.88    5.06                  
+# mspanas      1   87.2   87.23   8.086 0.0076 **
+# Residuals   33  356.0   10.79                  
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
@@ -488,11 +488,11 @@ ggplot(postDf,aes(x=msexpectations, y=outcomeMeasures, color=mslaborLand)) +
 aov6 = aov(outcomeMeasures~msexpectations*mslaborLand,data=postDf)
 summary(aov6)
 # summary(aov6)
-#                            Df Sum Sq Mean Sq F value   Pr(>F)    
-# msexpectations              1   93.0   92.95   8.178 0.007520 ** 
-# mslaborLand                 1  187.8  187.82  16.525 0.000305 ***
-# msexpectations:mslaborLand  1   20.6   20.55   1.808 0.188471    
-# Residuals                  31  352.3   11.37                     
+#                            Df Sum Sq Mean Sq F value  Pr(>F)   
+# msexpectations              1  104.5  104.49   8.562 0.00637 **
+# mslaborLand                 1  140.8  140.81  11.538 0.00189 **
+# msexpectations:mslaborLand  1   30.0   30.03   2.460 0.12690   
+# Residuals                  31  378.3   12.20                   
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ddply(postDf,.(msexpectations),function(df){
@@ -500,24 +500,17 @@ ddply(postDf,.(msexpectations),function(df){
 			print(summary(aov6b))
 			coef(aov6b)
 		})
-#Df Sum Sq Mean Sq F value Pr(>F)   
-#mslaborLand  1  164.3  164.28    9.79 0.0069 **
-#		Residuals   15  251.7   16.78                  
+#Df Sum Sq Mean Sq F value  Pr(>F)   
+#mslaborLand  1  149.6   149.6   9.528 0.00752 **
+#		Residuals   15  235.5    15.7                   
 #---
 #		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#Df Sum Sq Mean Sq F value Pr(>F)  
-#mslaborLand  1  44.09   44.09   7.011 0.0175 *
-#		Residuals   16 100.62    6.29                 
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+#Df Sum Sq Mean Sq F value Pr(>F)
+#mslaborLand  1  21.23  21.229   2.379  0.143
+#Residuals   16 142.80   8.925               
 #msexpectations (Intercept) mslaborLandhigh
-#1            low  -4.6077566        6.228053
-#2           high  -0.1660292        3.149596
-
-## don't get the same relationship observed elsewhere (that in high 
-## group, ll doesn't matter, but it matters a lot in low group)
-## thus, the expectations/outcomeMeasures relationship is not really
-## mediated by laborLand
+#1            low  -3.9688917        6.207778
+#2           high   0.1432943        2.303766
 
 #what about expectations->painExp?
 ggplot(postDf,aes(x=msexpectations, y=painExp, color=mslaborLand)) + 
@@ -526,10 +519,10 @@ aov7 = aov(painExp~msexpectations*mslaborLand,data=postDf)
 summary(aov7)
 # summary(aov7)
 #                            Df Sum Sq Mean Sq F value   Pr(>F)    
-# msexpectations              1  275.3  275.30  14.005 0.000743 ***
-# mslaborLand                 1  198.3  198.34  10.090 0.003364 ** 
-# msexpectations:mslaborLand  1   38.0   38.05   1.936 0.174054    
-# Residuals                  31  609.4   19.66                     
+# msexpectations              1  307.6  307.60  14.135 0.000709 ***
+# mslaborLand                 1  109.6  109.59   5.036 0.032111 *  
+# msexpectations:mslaborLand  1   29.2   29.23   1.343 0.255323    
+# Residuals                  31  674.6   21.76                     
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ddply(postDf,.(msexpectations),function(df){
@@ -538,16 +531,16 @@ ddply(postDf,.(msexpectations),function(df){
 			coef(aov7b)
 		})
 #Df Sum Sq Mean Sq F value Pr(>F)  
-#mslaborLand  1  203.1  203.11   7.099 0.0177 *
-#		Residuals   15  429.2   28.61                 
+#mslaborLand  1  125.4  125.40   4.196 0.0584 .
+#Residuals   15  448.3   29.88                 
 #---
 #		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 #Df Sum Sq Mean Sq F value Pr(>F)
-#mslaborLand  1  33.28   33.28   2.956  0.105
-#Residuals   16 180.17   11.26               
+#mslaborLand  1  13.42   13.42   0.948  0.345
+#Residuals   16 226.37   14.15               
 #msexpectations (Intercept) mslaborLandhigh
-#1            low   -6.144710        6.925012
-#2           high    1.205296        2.736464
+#1            low   -5.056374        5.683341
+#2           high    1.660016        1.831502
 
 
 #########################################################################
@@ -814,19 +807,19 @@ ggplot(postDf,aes(x=P017, y=physEnv)) +
 # i= 8  var= physEnv 
 # Df Sum Sq Mean Sq F value Pr(>F)  
 # P017         1  61.51   61.51   7.318 0.0107 *
-# 		Residuals   33 277.39    8.41                 
+# Residuals   33 277.39    8.41                 
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ggplot(postDf,aes(x=P017, y=expectations)) + 
 		stat_summary(fun.data = "mean_cl_boot")
 ggplot(postDf,aes(x=msexpectations, y=P017)) + 
 		stat_summary(fun.data = "mean_cl_boot")
-# i= 10  var= expectations 
-# Df Sum Sq Mean Sq F value  Pr(>F)   
-# P017         1  50.81   50.81   10.63 0.00259 **
-# 		Residuals   33 157.74    4.78                   
-# ---
-# 		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+#i= 10  var= expectations 
+#Df Sum Sq Mean Sq F value Pr(>F)  
+#P017         1   74.8   74.76   6.696 0.0143 *
+#Residuals   33  368.5   11.17                 
+#---
+#Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 ggplot(postDf,aes(x=P018, y=laborLand)) + 
 		stat_summary(fun.data = "mean_cl_boot")
@@ -853,15 +846,18 @@ ggplot(postDf,aes(x=P018, y=expectations)) +
 		stat_summary(fun.data = "mean_cl_boot")
 ggplot(postDf,aes(x=msexpectations, y=P018)) + 
 		stat_summary(fun.data = "mean_cl_boot")
-# i= 10  var= expectations 
-# Df Sum Sq Mean Sq F value  Pr(>F)    
-# P018         1  59.59   59.59    13.2 0.00094 ***
-# 		Residuals   33 148.96    4.51                    
-# ---
-# 		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+#i= 10  var= expectations 
+#Df Sum Sq Mean Sq F value Pr(>F)  
+#P018         1   76.7   76.73   6.909 0.0129 *
+#Residuals   33  366.5   11.11                 
+#---
+#Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 ggplot(postDf,aes(x=msexpectations, y=P018)) + 
 		stat_summary(fun.data = "mean_cl_boot")
+## this is pretty obvious; a higher P018 means that they didn't give
+## birth where they intended which obviously means their expectations
+## were not met
 
 #########################################################################
 ## testing center: looking for more plots that carry the signature trend
@@ -874,20 +870,18 @@ ddply(postDf,.(msexpectations),function(df){
 			print(summary(aovtest1))
 			coef(aovtest1)
 		})
-#Df Sum Sq Mean Sq F value Pr(>F)   
-#mslaborLand  1  164.3  164.28    9.79 0.0069 **
-#		Residuals   15  251.7   16.78                  
+#Df Sum Sq Mean Sq F value  Pr(>F)   
+#mslaborLand  1  149.6   149.6   9.528 0.00752 **
+#Residuals   15  235.5    15.7                   
 #---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#Df Sum Sq Mean Sq F value Pr(>F)  
-#mslaborLand  1  44.09   44.09   7.011 0.0175 *
-#		Residuals   16 100.62    6.29                 
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#msexpectations (Intercept) mslaborLandhigh
-#1            low  -4.6077566        6.228053
-#2           high  -0.1660292        3.149596
-##### NOPE #####
+#Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+#Df Sum Sq Mean Sq F value Pr(>F)
+#mslaborLand  1  21.23  21.229   2.379  0.143
+#Residuals   16 142.80   8.925               
+# msexpectations (Intercept) mslaborLandhigh
+#1            low  -3.9688917        6.207778
+#2           high   0.1432943        2.303766
+##### YEP #####
 
 ggplot(postDf,aes(x=agesplit,y=outcomeMeasures,color=mslaborLand)) + 
 		stat_summary(fun.data = "mean_cl_boot")
@@ -896,29 +890,6 @@ ggplot(postDf,aes(x=agesplit,y=outcomeMeasures,color=mslaborLand)) +
 ggplot(postDf,aes(x=primipsplit,y=outcomeMeasures,color=mslaborLand)) + 
 		stat_summary(fun.data = "mean_cl_boot")
 ##### NOPE #####
-
-ggplot(postDf,aes(x=msexpectations, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-ddply(postDf,.(msexpectations),function(df){
-			aovtest3 = aov(outcomeMeasures~mslaborLand,data=df)
-			print(summary(aovtest3))
-			coef(aovtest3)
-		})
-#Df Sum Sq Mean Sq F value Pr(>F)   
-#mslaborLand  1  164.3  164.28    9.79 0.0069 **
-#		Residuals   15  251.7   16.78                  
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#Df Sum Sq Mean Sq F value Pr(>F)  
-#mslaborLand  1  44.09   44.09   7.011 0.0175 *
-#		Residuals   16 100.62    6.29                 
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#msexpectations (Intercept) mslaborLandhigh
-#1            low  -4.6077566        6.228053
-#2           high  -0.1660292        3.149596
-##### NOT QUITE ##### - Just Different...When it comes to 
-## expectations, laborLand matters even for high expectations
 
 ggplot(postDf,aes(x=msintuitMov, y=outcomeMeasures, color=mslaborLand)) + 
 		stat_summary(fun.data = "mean_cl_boot")
@@ -952,7 +923,7 @@ ddply(postDf,.(msfluidReal),function(df){
 #msfluidReal (Intercept) mslaborLandhigh
 #1         low  -3.4915513        4.885788
 #2        high  -0.1798855        2.935798
-##### YEP #####
+##### NOPE #####
 
 ggplot(postDf,aes(x=msintensePres, y=outcomeMeasures, color=mslaborLand)) + 
 		stat_summary(fun.data = "mean_cl_boot")

@@ -30,15 +30,15 @@ grp1cres
 # grp1cres
 #                  cor.  p-raw p-adjusted
 # intuitMov       0.696 0.0000     0.0002
-# physEnv         0.552 0.0006     0.0211
+# physEnv         0.552 0.0006     0.0234
 # emotEnv         0.733 0.0000     0.0000
-# fluidReal       0.554 0.0006     0.0204
-# intensePres     0.543 0.0007     0.0252
+# fluidReal       0.554 0.0006     0.0226
+# intensePres     0.543 0.0007     0.0282
 # painExp         0.760 0.0000     0.0000
-# expectations    0.588 0.0002     0.0089
+# expectations    0.483 0.0033     0.0956
 # vocals          0.028 0.8753     1.0000
 # panas           0.423 0.0114     0.2947
-# laborLand       0.627 0.0001     0.0026
+# laborLand       0.627 0.0001     0.0027
 # outcomeMeasures 1.000 0.0000     0.0000
 
 ## to get the whole correlation matrix
@@ -56,9 +56,9 @@ names(grp2cres) = c("cor.","p-raw","p-adjusted")
 grp2cres
 # grp2cres
 #                  cor.  p-raw p-adjusted
-# painExp         0.515 0.0015     0.0092
-# expectations    0.384 0.0228     0.0911
-# panas           0.384 0.0229     0.0911
+# painExp         0.515 0.0015     0.0123
+# expectations    0.333 0.0504     0.0923
+# panas           0.384 0.0229     0.0917
 # outcomeMeasures 0.627 0.0001     0.0005
 # laborLand       1.000 0.0000     0.0000
 
@@ -79,8 +79,8 @@ ggplot(groups2Df,aes(x=painExp, y=laborLand))+geom_point()+
 		geom_text(aes(x=x, y=y, label=label),data=adf)
 ## expectations
 adf = grp2cres[rownames(grp2cres)=="expectations",]
-adf$x = -3
-adf$y = 10
+adf$x = -4
+adf$y = 12
 adf$label = paste("cor=",adf$cor.,"\np-raw=",adf$'p-raw',
 		"\np-adjusted=",adf$'p-adjusted')
 ggplot(groups2Df,aes(x=expectations, y=laborLand))+geom_point()+

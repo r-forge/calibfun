@@ -68,6 +68,7 @@ for (i in 1:length(loopvars)){
 	print(summary(lm1))
 }
 ## how to read an "lm" summary?
+## none show significant linear regression
 
 loopvars = c("laborLand","intuitMov","physEnv","emotEnv","fluidReal",
 		"intensePres","painExp","expectations","outcomeMeasures")
@@ -78,6 +79,7 @@ for (i in 1:length(loopvars)){
 	lm1=lm(tDiffPush~x,data=df)
 	print(summary(lm1))
 }
+## Nope, none
 
 pdf("plots/tDiffComparisons.pdf")
 #########################################################################

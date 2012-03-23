@@ -61,7 +61,7 @@ ggplot(postDf,aes(x=mspanas))+geom_histogram()
 ggplot(postDf,aes(x=mspanas, y=outcomeMeasures))+geom_boxplot()
 
 #########################################################################
-## split into drugs v. no drugs (copied from checkData)
+## split into drugs v. no drugs
 #########################################################################
 drugsindex = postDf$P016!=1
 # selects TRUE values

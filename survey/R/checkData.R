@@ -100,6 +100,190 @@ summary(aovCheck3)
 ## based on anova, cesareans are not significantly different from
 ## non-cesarean population on anything
 
+loopvars = c("laborLand","intuitMov","physEnv","emotEnv","fluidReal",
+		"intensePres","painExp","expectations","outcomeMeasures",
+		"vocals","memory","panas","tActualAct","tDiffAct","tActualPush",
+		"tDiffPush","tPerceivedAct","tPerceivedPush")
+for (i in 1:length(loopvars)){
+	cat("i=",i," var=",loopvars[i],"\n")
+	df=postDf[,c(loopvars[i],"drugsplit")]
+	names(df)[1]="y"
+	aovCheck4=aov(y~drugsplit,data=df)
+	print(summary(aovCheck4))
+}
+ggplot(postDf,aes(x=drugsplit, y=intuitMov, color=drugsplit))+ 
+		stat_summary(fun.data = "mean_cl_boot") 
+#i= 2  var= intuitMov 
+#			 Df Sum Sq Mean Sq F value Pr(>F)  
+#drugsplit    1  43.07   43.07    4.65 0.0384 *
+#Residuals   33 305.66    9.26 
+ddply(postDf,.(drugsplit),function(df){
+			data.frame(mean = mean(df$intuitMov),
+					se=sqrt(var(df$intuitMov)/nrow(df)),
+					n=nrow(df))
+		})
+#  drugsplit       mean        se  n
+#1     drugs -2.0380339 1.0154614  8
+#2   nodrugs  0.6038619 0.5942702 27
+t.test(intuitMov~drugsplit, var.equal = TRUE, data=postDf)
+# t.test(intuitMov~drugsplit, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  intuitMov by drugsplit 
+# t = -2.1565, df = 33, p-value = 0.03843
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -5.1343739 -0.1494176 
+# sample estimates:
+#   mean in group drugs mean in group nodrugs 
+#            -2.0380339             0.6038619 
+
+
+ggplot(postDf,aes(x=drugsplit, y=physEnv, color=drugsplit))+ 
+		stat_summary(fun.data = "mean_cl_boot") 
+#i= 3  var= physEnv 
+#			 Df Sum Sq Mean Sq F value  Pr(>F)   
+#drugsplit    1  62.82   62.82    7.51 0.00983 **
+#Residuals   33 276.07    8.37  
+ddply(postDf,.(drugsplit),function(df){
+			data.frame(mean = mean(df$physEnv),
+					se=sqrt(var(df$physEnv)/nrow(df)),
+					n=nrow(df))
+		})
+#  drugsplit       mean        se  n
+#1     drugs -2.4613245 1.2277468  8
+#2   nodrugs  0.7292813 0.5225146 27
+t.test(physEnv~drugsplit, var.equal = TRUE, data=postDf)
+# t.test(physEnv~drugsplit, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  physEnv by drugsplit 
+# t = -2.7404, df = 33, p-value = 0.009826
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -5.559379 -0.821833 
+# sample estimates:
+#   mean in group drugs mean in group nodrugs 
+#            -2.4613245             0.7292813 
+# 
+
+
+ggplot(postDf,aes(x=drugsplit, y=expectations, color=drugsplit))+ 
+		stat_summary(fun.data = "mean_cl_boot") 
+#i= 8  var= expectations 
+#			 Df Sum Sq Mean Sq F value  Pr(>F)   
+#drugsplit    1   96.1   96.08   9.134 0.00482 **
+#Residuals   33  347.1   10.52  
+ddply(postDf,.(drugsplit),function(df){
+			data.frame(mean = mean(df$expectations),
+					se=sqrt(var(df$expectations)/nrow(df)),
+					n=nrow(df))
+		})
+#  drugsplit       mean        se  n
+#1     drugs -3.0438296 0.7318042  8
+#2   nodrugs  0.9018754 0.6721468 27
+t.test(expectations~drugsplit, var.equal = TRUE, data=postDf)
+# t.test(expectations~drugsplit, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  expectations by drugsplit 
+# t = -3.0222, df = 33, p-value = 0.004824
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -6.601924 -1.289486 
+# sample estimates:
+#   mean in group drugs mean in group nodrugs 
+#            -3.0438296             0.9018754 
+
+
+ggplot(postDf,aes(x=drugsplit, y=tActualAct, color=drugsplit))+ 
+		stat_summary(fun.data = "mean_cl_boot") 
+#i= 13  var= tActualAct 
+#			 Df Sum Sq Mean Sq F value Pr(>F)  
+#drugsplit    1   92.9   92.89   6.233 0.0177 *
+#Residuals   33  491.8   14.90  
+ddply(postDf,.(drugsplit),function(df){
+			data.frame(mean = mean(df$tActualAct),
+					se=sqrt(var(df$tActualAct)/nrow(df)),
+					n=nrow(df))
+		})
+#  drugsplit    mean        se  n
+#1     drugs 9.25000 1.5323884  8
+#2   nodrugs 5.37037 0.7164095 27
+t.test(tActualAct~drugsplit, var.equal = TRUE, data=postDf)
+# t.test(tActualAct~drugsplit, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  tActualAct by drugsplit 
+# t = 2.4966, df = 33, p-value = 0.01771
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  0.7180526 7.0412066 
+# sample estimates:
+#   mean in group drugs mean in group nodrugs 
+#               9.25000               5.37037 
+
+
+ggplot(postDf,aes(x=drugsplit, y=tPerceivedAct, color=drugsplit))+ 
+		stat_summary(fun.data = "mean_cl_boot") 
+#i= 17  var= tPerceivedAct 
+#			 Df Sum Sq Mean Sq F value  Pr(>F)   
+#drugsplit    1  170.7  170.70   11.33 0.00195 **
+#Residuals   33  497.2   15.07   
+ddply(postDf,.(drugsplit),function(df){
+			data.frame(mean = mean(df$tPerceivedAct),
+					se=sqrt(var(df$tPerceivedAct)/nrow(df)),
+					n=nrow(df))
+		})
+#  drugsplit     mean        se  n
+#1     drugs 9.000000 1.9639610  8
+#2   nodrugs 3.740741 0.6328892 27
+t.test(tPerceivedAct~drugsplit, var.equal = TRUE, data=postDf)
+# t.test(tPerceivedAct~drugsplit, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  tPerceivedAct by drugsplit 
+# t = 3.366, df = 33, p-value = 0.001949
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  2.080408 8.438111 
+# sample estimates:
+#   mean in group drugs mean in group nodrugs 
+#              9.000000              3.740741 
+
+
+#i= 1  var= laborLand 
+#			 Df Sum Sq Mean Sq F value Pr(>F)
+#drugsplit    1   66.1   66.14   0.751  0.392
+#Residuals   33 2905.8   88.05   
+t.test(laborLand~drugsplit, var.equal = TRUE, data=postDf)
+# t.test(laborLand~drugsplit, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  laborLand by drugsplit 
+# t = -0.8667, df = 33, p-value = 0.3924
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -10.958637   4.411261 
+# sample estimates:
+#   mean in group drugs mean in group nodrugs 
+#            -2.5254166             0.7482716 
+ddply(postDf,.(drugsplit),function(df){
+			data.frame(mean = mean(df$laborLand),
+					se=sqrt(var(df$laborLand)/nrow(df)),
+					n=nrow(df))
+		})
+#  drugsplit       mean      se  n
+#1     drugs -2.5254166 3.37686  8
+#2   nodrugs  0.7482716 1.79711 27
+
+
 
 #########################################################################
 ## check for any effects of pain medications/hospital birth
@@ -127,42 +311,7 @@ subset(postDf,P016!=1)
 # only 5 (of 13) planned hospital births; 4 of these 5 had no drugs;
 # of transfers, 4 due to cesarean; 3 more were to receive drugs; 1
 # transfered but did not receive drugs (possibly got pitocin)
-subset(postDf,P017==3,select=c(P015,P016,P017,P018))
-
-#split participants in to drugs v. no drugs
-drugsindex = origPostDf$P016!=1
-# selects TRUE values
-origPostDf$P016[drugsindex]
-origPostDf$drugsplit = "nodrugs"
-origPostDf$drugsplit[drugsindex] = "drugs"
-origPostDf$drugsplit = factor(origPostDf$drugsplit,levels = c("nodrugs","drugs"))
-# this plot checks to make sure they were divided correctly
-ggplot(origPostDf,aes(x=drugsplit))+geom_histogram()
-
-# boxplot of laborLand based on drugs v. no drugs
-ggplot(postDf,aes(x=drugsplit, y=laborLand))+geom_boxplot()
-aovCheck6 = aov(laborLand~drugsplit,data=postDf)
-summary(aovCheck6)
-# summary(aovCheck6)
-#             Df Sum Sq Mean Sq F value Pr(>F)
-# drugsplit    1     56   56.29   0.544  0.466
-# Residuals   32   3311  103.48                           
-
-ggplot(postDf,aes(x=drugsplit, y=outcomeMeasures))+geom_boxplot()
-aovCheck7 = aov(outcomeMeasures~drugsplit,data=postDf)
-summary(aovCheck7)
-# summary(aovCheck7)
-#             Df Sum Sq Mean Sq F value Pr(>F)
-# drugsplit    1   51.4   51.40   2.769  0.106
-# Residuals   32  594.0   18.56               
-
-ggplot(postDf,aes(x=drugsplit, y=painExp))+geom_boxplot()
-aovCheck8 = aov(painExp~drugsplit,data=postDf)
-summary(aovCheck8)
-# summary(aovCheck8)
-#             Df Sum Sq Mean Sq F value Pr(>F)
-# drugsplit    1   55.1   55.12   1.665  0.206
-# Residuals   32 1059.6   33.11               
+subset(postDf,P017==3,select=c(P015,P016,P017,P018))             
 
 
 #########################################################################
@@ -176,7 +325,91 @@ summary(aovCheck4)
 #             Df Sum Sq Mean Sq F value Pr(>F)
 # P026         1    171  171.44   1.769  0.193
 # Residuals   33   3198   96.91               
-       
+ddply(postDf,.(P026),function(df){
+			data.frame(mean = mean(df$laborLand),
+					se=sqrt(var(df$laborLand)/nrow(df)),
+					n=nrow(df))
+		})       
+#  P026       mean       se  n
+#1    1 -2.4342085 3.072763 10
+#2    2  0.9736834 1.843536 25
+
+loopvars = c("laborLand","intuitMov","physEnv","emotEnv","fluidReal",
+		"intensePres","painExp","expectations","outcomeMeasures",
+		"vocals","memory","panas","tActualAct","tDiffAct","tActualPush",
+		"tDiffPush","tPerceivedAct","tPerceivedPush")
+for (i in 1:length(loopvars)){
+	cat("i=",i," var=",loopvars[i],"\n")
+	df=postDf[,c(loopvars[i],"P026")]
+	names(df)[1]="y"
+	aovCheck4b=aov(y~P026,data=df)
+	print(summary(aovCheck4b))
+}
+t.test(laborLand~P026, var.equal = TRUE, data=postDf)
+# t.test(laborLand~P026, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  laborLand by P026 
+# t = -0.9734, df = 33, p-value = 0.3374
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -10.530476   3.714692 
+# sample estimates:
+# mean in group 1 mean in group 2 
+#      -2.4342085       0.9736834 
+ddply(postDf,.(P026),function(df){
+			data.frame(mean = mean(df$laborLand),
+					se=sqrt(var(df$laborLand)/nrow(df)),
+					n=nrow(df))
+		})
+#  P026       mean       se  n
+#1  Yes -2.4342085 3.072763 10
+#2   No  0.9736834 1.843536 25
+
+t.test(outcomeMeasures~P026, var.equal = TRUE, data=postDf)
+# t.test(outcomeMeasures~P026, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  outcomeMeasures by P026 
+# t = -1.5012, df = 33, p-value = 0.1428
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -5.696622  0.859211 
+# sample estimates:
+# mean in group 1 mean in group 2 
+#      -1.7276469       0.6910588 
+ ddply(postDf,.(P026),function(df){
+			data.frame(mean = mean(df$outcomeMeasures),
+					se=sqrt(var(df$outcomeMeasures)/nrow(df)),
+					n=nrow(df))
+		})
+#  P026       mean        se  n
+#1  Yes -1.7276469 1.2273424 10
+#2   No  0.6910588 0.8909711 25
+
+t.test(painExp~P026, var.equal = TRUE, data=postDf)
+# t.test(painExp~P026, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  painExp by P026 
+# t = -0.3715, df = 33, p-value = 0.7126
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -5.236224  3.619054 
+# sample estimates:
+# mean in group 1 mean in group 2 
+#      -0.5775608       0.2310243 
+ddply(postDf,.(P026),function(df){
+			data.frame(mean = mean(df$painExp),
+					se=sqrt(var(df$painExp)/nrow(df)),
+					n=nrow(df))
+		})
+#  P026       mean       se  n
+#1  Yes -0.5775608 2.085681 10
+#2   No  0.2310243 1.099140 25
 
 #########################################################################
 ## Test for w/ or w/o birth plan --> no sig. difference

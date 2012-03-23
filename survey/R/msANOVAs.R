@@ -1196,5 +1196,9 @@ ggplot(postDf,aes(x=agesplit, y=painExp, color=mslaborLand)) +
 		stat_summary(fun.data = "mean_cl_boot")
 ##### NOT QUITE #####
 
+ggplot(postDf,aes(x=P026, y=painExp, color=mslaborLand)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+ggplot(postDf,aes(x=mslaborLand, y=outcomeMeasures, color="P026")) + 
+		stat_summary(fun.data = "mean_cl_boot")
 
 

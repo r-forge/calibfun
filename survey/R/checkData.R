@@ -433,10 +433,95 @@ postDf$P002
 # 5/4/11, 7/16/12???, 1/3/11, 5/11/11, 6/26/11, 9/23/10
 # 18, 19, 20*, 22, 25, 30*
 
-# split participants into two groups (shortpp and longpp)
-# ?????
+# add a variable called ppInterval
 
-ggplot(postDf,aes(x=laborLand, y=P002, color=P002))+geom_point()
+ppInterval = c(5,15,20,22,23,16,54,116,23,41,94,14,14,122,47,69,275,
+		203,397,87,270,144,118,226,15,62,69,52,510,21,15,27,21,13,160)
+length(ppInterval)
+postDf$ppInterval = ppInterval
+
+# split participants into two groups (shortpp and longpp)
+# short pp = anything under 124 days (4 months)
+
+## split women into short and long groups
+pIindex = postDf$ppInterval>=124
+# selects TRUE values
+postDf$ppInterval[pIindex]
+postDf$ppIntervalsplit = "shortinterval"
+postDf$ppIntervalsplit[pIindex] = "longinterval"
+postDf$ppIntervalsplit = factor(postDf$ppIntervalsplit,levels = c("shortinterval","longinterval"))
+# 8 women fall into longinterval
+ggplot(postDf,aes(x=ppIntervalsplit))+geom_histogram()
+
+# check for any differences in short v. long pp interval
+loopvars = c("laborLand","outcomeMeasures","painExp","memory",
+		"fluidReal","intensePres","physEnv","emotEnv","expectations",
+		"intuitMov","panas","tPerceivedAct","tPerceivedPush","vocals")
+for (i in 1:length(loopvars)){
+	cat("i=",i," var=",loopvars[i],"\n")
+	df=postDf[,c(loopvars[i],"ppIntervalsplit")]
+	names(df)[1]="y"
+	aov1=aov(y~ppIntervalsplit,data=df)
+	print(summary(aov1))
+}
+
+
+ggplot(postDf,aes(x=ppIntervalsplit, y=outcomeMeasures))+geom_boxplot()
+# t-test
+t.test(outcomeMeasures~ppIntervalsplit, var.equal = TRUE, data=postDf)
+# t.test(outcomeMeasures~ppIntervalsplit, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  outcomeMeasures by ppIntervalsplit 
+# t = -1.5793, df = 33, p-value = 0.1238
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -6.2427200  0.7862845 
+# sample estimates:
+# mean in group shortinterval  mean in group longinterval 
+#                  -0.6235926                   2.1046251 
+
+ddply(postDf,.(ppIntervalsplit),function(df){
+			data.frame(mean = mean(df$outcomeMeasures),
+					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+		})
+#ppIntervalsplit       mean        se
+#1   shortinterval -0.6235926 0.8547341
+#2    longinterval  2.1046251 1.3015248
+
+ggplot(postDf,aes(x=ppIntervalsplit, y=laborLand))+geom_boxplot()
+t.test(laborLand~ppIntervalsplit, var.equal = TRUE, data=postDf)
+# t.test(laborLand~ppIntervalsplit, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  laborLand by ppIntervalsplit 
+# t = -2.3674, df = 33, p-value = 0.02393
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -15.547014  -1.175732 
+# sample estimates:
+# mean in group shortinterval  mean in group longinterval 
+#                   -1.911171                    6.450202 
+ddply(postDf,.(ppIntervalsplit),function(df){
+			data.frame(mean = mean(df$laborLand),
+					se=sqrt(var(df$laborLand)/nrow(df)))
+		})
+#	ppIntervalsplit      mean       se
+#1   shortinterval -1.911171 1.727855
+#2    longinterval  6.450202 2.817772
+
+
+
+
+
+ggplot(postDf,aes(x=ppIntervalsplit, y=painExp))+geom_boxplot()
+ggplot(postDf,aes(x=ppIntervalsplit, y=expectations))+geom_boxplot()
+
+
+
+
 
 
 

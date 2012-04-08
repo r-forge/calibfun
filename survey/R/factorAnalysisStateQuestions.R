@@ -29,6 +29,7 @@ stateQsMat = scale(stateQsMat)
 head(stateQsMat)
 
 VSS.scree(cor(stateQsDf))
+screeplot(cor(stateQsDf))
 #########################################################################
 ## based on scree plot, choose 5 factors
 #########################################################################

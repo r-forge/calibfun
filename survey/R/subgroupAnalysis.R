@@ -47,21 +47,23 @@ tempdf$g3[tempdf$msexpectations=="low"&tempdf$mslaborLand=="high"] = "low-high"
 tempdf$g3[tempdf$msexpectations=="high"&tempdf$mslaborLand=="low"] = "high-low"
 tempdf$g3 = factor(tempdf$g3)
 
-ggplot(postDf,aes(x=msfluidReal, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-tempdf$g4 = "high-high"
-tempdf$g4[tempdf$msfluidReal=="low"&tempdf$mslaborLand=="low"] = "low-low"
-tempdf$g4[tempdf$msfluidReal=="low"&tempdf$mslaborLand=="high"] = "low-high"
-tempdf$g4[tempdf$msfluidReal=="high"&tempdf$mslaborLand=="low"] = "high-low"
-tempdf$g4 = factor(tempdf$g4)
+## this one is thrown out
+#ggplot(postDf,aes(x=msfluidReal, y=outcomeMeasures, color=mslaborLand)) + 
+#		stat_summary(fun.data = "mean_cl_boot")
+#tempdf$g4 = "high-high"
+#tempdf$g4[tempdf$msfluidReal=="low"&tempdf$mslaborLand=="low"] = "low-low"
+#tempdf$g4[tempdf$msfluidReal=="low"&tempdf$mslaborLand=="high"] = "low-high"
+#tempdf$g4[tempdf$msfluidReal=="high"&tempdf$mslaborLand=="low"] = "high-low"
+#tempdf$g4 = factor(tempdf$g4)
 
-ggplot(postDf,aes(x=msintensePres, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-tempdf$g5= "high-high"
-tempdf$g5[tempdf$msintensePres=="low"&tempdf$mslaborLand=="low"] = "low-low"
-tempdf$g5[tempdf$msintensePres=="low"&tempdf$mslaborLand=="high"] = "low-high"
-tempdf$g5[tempdf$msintensePres=="high"&tempdf$mslaborLand=="low"] = "high-low"
-tempdf$g5 = factor(tempdf$g5)
+## this one is iffy
+#ggplot(postDf,aes(x=msintensePres, y=outcomeMeasures, color=mslaborLand)) + 
+#		stat_summary(fun.data = "mean_cl_boot")
+#tempdf$g5= "high-high"
+#tempdf$g5[tempdf$msintensePres=="low"&tempdf$mslaborLand=="low"] = "low-low"
+#tempdf$g5[tempdf$msintensePres=="low"&tempdf$mslaborLand=="high"] = "low-high"
+#tempdf$g5[tempdf$msintensePres=="high"&tempdf$mslaborLand=="low"] = "high-low"
+#tempdf$g5 = factor(tempdf$g5)
 
 ggplot(postDf,aes(x=educationsplit, y=outcomeMeasures, color=mslaborLand)) + 
 		stat_summary(fun.data = "mean_cl_boot")
@@ -103,17 +105,6 @@ tempdf$g10[tempdf$msactiveFeel=="<4hrs"&tempdf$mslaborLand=="high"] = "low-high"
 tempdf$g10[tempdf$msactiveFeel==">4hrs"&tempdf$mslaborLand=="low"] = "high-low"
 tempdf$g10 = factor(tempdf$g10)
 
-# y=painExp
-ggplot(postDf,aes(x=mspanas, y=painExp, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-
-ggplot(postDf,aes(x=msexpectations, y=painExp, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-
-
-# y=tActualAct
-ggplot(postDf,aes(x=primipsplit, y=tActualAct, color=agesplit)) + 
-		stat_summary(fun.data = "mean_cl_boot")
 
 #########################################################################
 ## now try new 1-way ANOVA strategy
@@ -141,6 +132,13 @@ TukeyHSD(aov1)
 # low-high-high-low   3.2991175  -2.420288  9.018523 0.4124046
 # low-low-high-low   -2.8124818  -7.840120  2.215156 0.4391529
 # low-low-low-high   -6.1115993 -11.139237 -1.083961 0.0123873
+ddply(tempdf,.(g1),function(df){
+			aov1b = aov(outcomeMeasures,data=df)
+			print(summary(aov1b))
+			coef(aov1b)
+		})
+
+
 pdf("plots/outcomeMeasuresvg1.pdf")
 ggplot(tempdf,aes(x=g1,y=outcomeMeasures, color=mslaborLand))+geom_point()
 dev.off()
@@ -504,4 +502,46 @@ TukeyHSD(aov10)
 # low-low-high-low    4.211386  -0.3707495  8.7935213 0.0806122
 # low-low-low-high   -2.591954  -6.7501742  1.5662661 0.3450172
 ggplot(tempdf,aes(x=g10,y=outcomeMeasures, color=mslaborLand))+geom_point()
+
+
+
+#########################################################################
+## check to see if interacting variables are correlated with painExp
+#########################################################################
+groups1Df = data.frame(expectations = postDf$expectations, panas = postDf$panas,
+		P006 = postDf$P006, tActualAct = postDf$tActualAct,
+		tPerceivedAct = postDf$tPerceivedAct, P027 = postDf$P027,
+		P051 = postDf$P051, painExp = postDf$painExp)
+grp1corrtest = corr.test(groups1Df)
+# correlations, unadjusted p and adjusted p
+grp1cres = data.frame(round(grp1corrtest$r[,8],3),
+		round(grp1corrtest$p[8,],4),
+		round(grp1corrtest$p[,8],4))
+names(grp1cres) = c("cor.","p-raw","p-adjusted")
+grp1cres
+# grp1cres
+#                 cor.  p-raw p-adjusted
+# expectations   0.489 0.0029     0.0780
+# panas          0.353 0.0377     0.7927
+# P006           0.289 0.0920     1.0000
+# tActualAct    -0.250 0.1475     1.0000
+# tPerceivedAct -0.359 0.0344     0.7578
+# P027          -0.054 0.7574     1.0000
+# P051           0.105 0.5494     1.0000
+# painExp        1.000 0.0000     0.0000
+# > cat("Synch1333850208176276000\n");
+
+# grp1cres
+#                 cor.  p-raw p-adjusted
+# expectations   0.489 0.0029     0.0405
+# panas          0.353 0.0377     0.3100
+# P006           0.289 0.0920     0.5902
+# tActualAct    -0.250 0.1475     0.7373
+# tPerceivedAct -0.359 0.0344     0.3100
+# painExp        1.000 0.0000     0.0000
+
+
+
+#P027 = postDf$P027,
+#P051 = postDf$P051,
 

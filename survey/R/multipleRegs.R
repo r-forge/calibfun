@@ -284,6 +284,7 @@ summary(lmb)$coef
 
 ## now get the parts of laborland and outcome that aren't explained
 ## by pain
+## "partial correlation"
 resdf = data.frame(laborres=lmb$residual,outres = lma$residual)
 head(resdf)
 lmc = lm(outres ~laborres,data=resdf)

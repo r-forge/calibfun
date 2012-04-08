@@ -18,15 +18,31 @@ load("rdata/postData.RData")
 groups1Df = data.frame(intuitMov = postDf$intuitMov, physEnv = postDf$physEnv,
 		emotEnv = postDf$emotEnv, fluidReal = postDf$fluidReal, intensePres = postDf$intensePres,
 		painExp = postDf$painExp, expectations = postDf$expectations,
-		vocals = postDf$vocals, panas = postDf$panas, laborLand = postDf$laborLand, 
+		vocals = postDf$vocals, memory = postDf$memory, panas = postDf$panas, laborLand = postDf$laborLand, 
 		outcomeMeasures = postDf$outcomeMeasures)
 grp1corrtest = corr.test(groups1Df)
 # correlations, unadjusted p and adjusted p
-grp1cres = data.frame(round(grp1corrtest$r[,11],3),
-		round(grp1corrtest$p[11,],4),
-		round(grp1corrtest$p[,11],4))
+grp1cres = data.frame(round(grp1corrtest$r[,12],3),
+		round(grp1corrtest$p[12,],4),
+		round(grp1corrtest$p[,12],4))
 names(grp1cres) = c("cor.","p-raw","p-adjusted")
 grp1cres
+# grp1cres
+#                  cor.  p-raw p-adjusted
+# intuitMov       0.696 0.0000     0.0002
+# physEnv         0.552 0.0006     0.0298
+# emotEnv         0.733 0.0000     0.0000
+# fluidReal       0.554 0.0006     0.0287
+# intensePres     0.543 0.0007     0.0364
+# painExp         0.760 0.0000     0.0000
+# expectations    0.483 0.0033     0.1319
+# vocals          0.028 0.8753     1.0000
+# memory          0.105 0.5470     1.0000
+# panas           0.423 0.0114     0.4194
+# laborLand       0.627 0.0001     0.0033
+# outcomeMeasures 1.000 0.0000     0.0000
+# > cat("Synch1333826248672050000\n");
+
 # grp1cres
 #                  cor.  p-raw p-adjusted
 # intuitMov       0.696 0.0000     0.0002
@@ -61,6 +77,37 @@ grp2cres
 # panas           0.384 0.0229     0.0917
 # outcomeMeasures 0.627 0.0001     0.0005
 # laborLand       1.000 0.0000     0.0000
+
+
+
+
+groups3Df = data.frame(intuitMov = postDf$intuitMov, physEnv = postDf$physEnv,
+		emotEnv = postDf$emotEnv, fluidReal = postDf$fluidReal, intensePres = postDf$intensePres,
+		painExp = postDf$painExp, expectations = postDf$expectations,
+		vocals = postDf$vocals, memory = postDf$memory, panas = postDf$panas, 
+		laborLand = postDf$laborLand)
+grp3corrtest = corr.test(groups3Df)
+# correlations, unadjusted p and adjusted p
+grp3cres = data.frame(round(grp3corrtest$r[,11],3),
+		round(grp3corrtest$p[11,],4),
+		round(grp3corrtest$p[,11],4))
+names(grp3cres) = c("cor.","p-raw","p-adjusted")
+grp3cres
+# grp3cres
+#               cor.  p-raw p-adjusted
+# intuitMov    0.578 0.0003     0.0134
+# physEnv      0.227 0.1890     1.0000
+# emotEnv      0.586 0.0002     0.0110
+# fluidReal    0.423 0.0113     0.3854
+# intensePres  0.471 0.0043     0.1531
+# painExp      0.515 0.0015     0.0644
+# expectations 0.333 0.0504     1.0000
+# vocals       0.079 0.6507     1.0000
+# memory       0.032 0.8548     1.0000
+# panas        0.384 0.0229     0.6877
+# laborLand    1.000 0.0000     0.0000
+
+
 
 
 library(ggplot2)

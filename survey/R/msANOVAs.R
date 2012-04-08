@@ -272,35 +272,6 @@ ddply(postDf,.(mslaborLand,lmhpanas),function(df){
 					n=nrow(df))
 		})
 
-# try it with mspanas instead of lmhpanas
-ggplot(postDf,aes(x=mspanas, y=outcomeMeasures, color=mslaborLand))+ 
-		stat_summary(fun.data = "mean_cl_boot") 
-aov2 = aov(outcomeMeasures~mspanas*mslaborLand,data=postDf)
-summary(aov2)
-# summary(aov2)
-#                     Df Sum Sq Mean Sq F value  Pr(>F)   
-# mspanas              1   60.5   60.52   4.543 0.04109 * 
-# mslaborLand          1  160.6  160.62  12.056 0.00154 **
-# mspanas:mslaborLand  1   19.5   19.53   1.466 0.23519   
-# Residuals           31  413.0   13.32                   
-# ---
-# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-# > cat("Synch1331862498101571000\n");
-
-#try the other order
-aov2 = aov(outcomeMeasures~mslaborLand*mspanas,data=postDf)
-summary(aov2)
-# summary(aov2)
-#                     Df Sum Sq Mean Sq F value   Pr(>F)    
-# mslaborLand          1  209.5  209.51  15.726 0.000402 ***
-# mspanas              1   11.6   11.63   0.873 0.357258    
-# mslaborLand:mspanas  1   19.5   19.53   1.466 0.235188    
-# Residuals           31  413.0   13.32                     
-# ---
-# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-# > cat("Synch1331862486441146000\n");
-
-
 
 ## this plot isn't very helpful - don't need to do it each time
 plot(aov2)
@@ -411,137 +382,6 @@ summary(aov15)
 # drugsplit    1   66.1   66.14   0.751  0.392
 # Residuals   33 2905.8   88.05               
 
-# this shows that high ll is clustered in the corner of best
-# painExp and best outcomeMeasures; but low ll is spread all 
-# along the axis (but still w/ a correlation)
-ggplot(postDf,aes(x=painExp, y=outcomeMeasures, color=mslaborLand))+geom_point()
-ggplot(postDf,aes(x=mspainExp, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")+facet_wrap(~mspanas)
-# it matters what order the terms come in (when the design is unbalanced)
-aov5 = aov(outcomeMeasures~mspainExp*mslaborLand,data=postDf)
-summary(aov5)
-# summary(aov5)
-#                       Df Sum Sq Mean Sq F value   Pr(>F)    
-# mspainExp              1  192.0  192.01  18.661 0.000149 ***
-# mslaborLand            1  113.8  113.75  11.055 0.002282 ** 
-# mspainExp:mslaborLand  1   28.9   28.92   2.811 0.103698    
-# Residuals             31  319.0   10.29                     
-# ---
-# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-
-# if you look at anovas within each of the levels of pain, the 
-# differences are significent --> led us to analysis of subgroups 
-# comparisons
-ddply(postDf,.(mspainExp),function(df){
-			aov5b = aov(outcomeMeasures~mslaborLand,data=df)
-			print(summary(aov5b))
-			coef(aov5b)
-		})
-#Df Sum Sq Mean Sq F value  Pr(>F)   
-#mslaborLand  1  128.1  128.05   8.806 0.00959 **
-#		Residuals   15  218.1   14.54                   
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#Df Sum Sq Mean Sq F value Pr(>F)
-#mslaborLand  1  14.62  14.620    2.32  0.147
-#Residuals   16 100.85   6.303               
-#mspainExp (Intercept) mslaborLandhigh
-#1       low   -4.437116        5.743128
-#2      high    1.001706        1.911792
-
-ggplot(postDf,aes(x=mspanas, y=painExp, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-aov8 = aov(painExp~mslaborLand*mspanas,data=postDf)
-summary(aov8)
-# summary(aov8)
-#                     Df Sum Sq Mean Sq F value  Pr(>F)   
-# mslaborLand          1  238.5  238.46   9.207 0.00485 **
-# mspanas              1   43.4   43.41   1.676 0.20504   
-# mslaborLand:mspanas  1   36.2   36.23   1.399 0.24590   
-# Residuals           31  802.9   25.90                   
-# ---
-# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-ddply(postDf,.(mspanas),function(df){
-			aov8b = aov(painExp~mslaborLand,data=df)
-			print(summary(aov8b))
-			coef(aov8b)
-		})
-#Df Sum Sq Mean Sq F value Pr(>F)  
-#mslaborLand  1  172.3  172.34   7.732  0.014 *
-#		Residuals   15  334.3   22.29                 
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#Df Sum Sq Mean Sq F value Pr(>F)
-#mslaborLand  1   22.5   22.55    0.77  0.393
-#Residuals   16  468.6   29.29               
-#mspanas (Intercept) mslaborLandhigh
-#1     low  -4.2821968        6.662611
-#2    high   0.2406909        2.374104
-
-
-
-#########################################################################
-## does laborLand mediate the expectations->outcomeMeasures relationship?
-#########################################################################
-ggplot(postDf,aes(x=msexpectations, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-aov6 = aov(outcomeMeasures~msexpectations*mslaborLand,data=postDf)
-summary(aov6)
-# summary(aov6)
-#                            Df Sum Sq Mean Sq F value  Pr(>F)   
-# msexpectations              1  104.5  104.49   8.562 0.00637 **
-# mslaborLand                 1  140.8  140.81  11.538 0.00189 **
-# msexpectations:mslaborLand  1   30.0   30.03   2.460 0.12690   
-# Residuals                  31  378.3   12.20                   
-# ---
-# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-ddply(postDf,.(msexpectations),function(df){
-			aov6b = aov(outcomeMeasures~mslaborLand,data=df)
-			print(summary(aov6b))
-			coef(aov6b)
-		})
-#Df Sum Sq Mean Sq F value  Pr(>F)   
-#mslaborLand  1  149.6   149.6   9.528 0.00752 **
-#		Residuals   15  235.5    15.7                   
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#Df Sum Sq Mean Sq F value Pr(>F)
-#mslaborLand  1  21.23  21.229   2.379  0.143
-#Residuals   16 142.80   8.925               
-#msexpectations (Intercept) mslaborLandhigh
-#1            low  -3.9688917        6.207778
-#2           high   0.1432943        2.303766
-
-#what about expectations->painExp?
-ggplot(postDf,aes(x=msexpectations, y=painExp, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-aov7 = aov(painExp~msexpectations*mslaborLand,data=postDf)
-summary(aov7)
-# summary(aov7)
-#                            Df Sum Sq Mean Sq F value   Pr(>F)    
-# msexpectations              1  307.6  307.60  14.135 0.000709 ***
-# mslaborLand                 1  109.6  109.59   5.036 0.032111 *  
-# msexpectations:mslaborLand  1   29.2   29.23   1.343 0.255323    
-# Residuals                  31  674.6   21.76                     
-# ---
-# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-ddply(postDf,.(msexpectations),function(df){
-			aov7b = aov(painExp~mslaborLand,data=df)
-			print(summary(aov7b))
-			coef(aov7b)
-		})
-#Df Sum Sq Mean Sq F value Pr(>F)  
-#mslaborLand  1  125.4  125.40   4.196 0.0584 .
-#Residuals   15  448.3   29.88                 
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#Df Sum Sq Mean Sq F value Pr(>F)
-#mslaborLand  1  13.42   13.42   0.948  0.345
-#Residuals   16 226.37   14.15               
-#msexpectations (Intercept) mslaborLandhigh
-#1            low   -5.056374        5.683341
-#2           high    1.660016        1.831502
-
 
 #########################################################################
 ## look at outcomeMeasures~mslaborLand as each individual question
@@ -646,6 +486,7 @@ summary(aov19)
 # agesplit     1   11.0   11.04   0.567  0.457
 # Residuals   33  642.6   19.47               
 
+## NOPE
 ggplot(postDf,aes(x=mslaborLand, y=outcomeMeasures, color=agesplit)) + 
 		stat_summary(fun.data = "mean_cl_boot")
 aov20 = aov(outcomeMeasures~mslaborLand*agesplit,data=postDf)
@@ -791,7 +632,7 @@ summary(aov31)
 # P017         1   23.7   23.66   1.226  0.276
 # P018         1   12.7   12.66   0.656  0.424
 # Residuals   32  617.3   19.29               
-## ????????????????
+
 
 loopvars = c("laborLand","outcomeMeasures","painExp","memory","intuitMov",
 		"fluidReal","intensePres","physEnv","emotEnv","expectations")
@@ -859,289 +700,6 @@ ggplot(postDf,aes(x=msexpectations, y=P018)) +
 ## birth where they intended which obviously means their expectations
 ## were not met
 
-#########################################################################
-## testing center: looking for more plots that carry the signature trend
-## for outcomeMeasures~variable*mslaborLand
-#########################################################################
-ggplot(postDf,aes(x=msexpectations,y=outcomeMeasures,color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-ddply(postDf,.(msexpectations),function(df){
-			aovtest1 = aov(outcomeMeasures~mslaborLand,data=df)
-			print(summary(aovtest1))
-			coef(aovtest1)
-		})
-#Df Sum Sq Mean Sq F value  Pr(>F)   
-#mslaborLand  1  149.6   149.6   9.528 0.00752 **
-#Residuals   15  235.5    15.7                   
-#---
-#Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#Df Sum Sq Mean Sq F value Pr(>F)
-#mslaborLand  1  21.23  21.229   2.379  0.143
-#Residuals   16 142.80   8.925               
-# msexpectations (Intercept) mslaborLandhigh
-#1            low  -3.9688917        6.207778
-#2           high   0.1432943        2.303766
-##### YEP #####
-
-ggplot(postDf,aes(x=agesplit,y=outcomeMeasures,color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-##### NOPE #####
-
-ggplot(postDf,aes(x=primipsplit,y=outcomeMeasures,color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-##### NOPE #####
-
-ggplot(postDf,aes(x=msintuitMov, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-##### NOPE #####
-
-ggplot(postDf,aes(x=msphysEnv, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-##### NOPE #####
-
-ggplot(postDf,aes(x=msemotEnv, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-##### NOPE #####
-
-ggplot(postDf,aes(x=msfluidReal, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-ddply(postDf,.(msfluidReal),function(df){
-			aovtest4 = aov(outcomeMeasures~mslaborLand,data=df)
-			print(summary(aovtest4))
-			coef(aovtest4)
-		})
-#Df Sum Sq Mean Sq F value Pr(>F)  
-#mslaborLand  1  84.25   84.25   5.097 0.0393 *
-#		Residuals   15 247.96   16.53                 
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#Df Sum Sq Mean Sq F value Pr(>F)  
-#mslaborLand  1  31.12  31.124   3.303  0.088 .
-#Residuals   16 150.79   9.424                 
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#msfluidReal (Intercept) mslaborLandhigh
-#1         low  -3.4915513        4.885788
-#2        high  -0.1798855        2.935798
-##### NOPE #####
-
-ggplot(postDf,aes(x=msintensePres, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-ddply(postDf,.(msintensePres),function(df){
-			aovtest5 = aov(outcomeMeasures~mslaborLand,data=df)
-			print(summary(aovtest5))
-			coef(aovtest5)
-		})
-#Df Sum Sq Mean Sq F value Pr(>F)  
-#mslaborLand  1  91.08   91.08   5.112 0.0391 *
-#		Residuals   15 267.23   17.82                 
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#Df Sum Sq Mean Sq F value Pr(>F)  
-#mslaborLand  1  40.91   40.91   4.263 0.0556 .
-#Residuals   16 153.55    9.60                 
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#msintensePres (Intercept) mslaborLandhigh
-#1           low  -3.2411809        5.079829
-#2          high  -0.7807744        3.365759
-##### YEP #####
-
-ggplot(postDf,aes(x=vocalsplit, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-##### NOPE #####
-
-ggplot(postDf,aes(x=agesplit, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-##### NOPE #####
-
-ggplot(postDf,aes(x=primipsplit, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-##### NOPE #####
-
-ggplot(postDf,aes(x=educationsplit, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-ddply(postDf,.(educationsplit),function(df){
-			aovtest6 = aov(outcomeMeasures~mslaborLand,data=df)
-			print(summary(aovtest6))
-			coef(aovtest6)
-		})
-#Df Sum Sq Mean Sq F value Pr(>F)  
-#mslaborLand  1  142.4  142.42   9.034 0.0148 *
-#		Residuals    9  141.9   15.77                 
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#Df Sum Sq Mean Sq F value Pr(>F)  
-#mslaborLand  1  45.29   45.29   4.268 0.0508 .
-#Residuals   22 233.46   10.61                 
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#educationsplit (Intercept) mslaborLandhigh
-#1 <4-year-college  -4.5798975        8.079456
-#2 4-year-college+  -0.6843181        2.837609
-##### YEP #####
-
-ggplot(postDf,aes(x=incomesplit, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-##### NOPE #####
-
-ggplot(postDf,aes(x=P015, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-##### NOPE #####
-
-ggplot(postDf,aes(x=drugsplit, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-##### NOPE #####
-
-ggplot(postDf,aes(x=P017, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-ddply(postDf,.(P017),function(df){
-			aovtest7 = aov(outcomeMeasures~mslaborLand,data=df)
-			print(summary(aovtest7))
-			coef(aovtest7)
-		})
-#Df Sum Sq Mean Sq F value  Pr(>F)   
-#mslaborLand  1  177.8  177.84   14.11 0.00452 **
-#		Residuals    9  113.5   12.61                   
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#Df Sum Sq Mean Sq F value Pr(>F)  
-#mslaborLand  1  27.61  27.611   4.902 0.0541 .
-#Residuals    9  50.69   5.632                 
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#Df Sum Sq Mean Sq F value Pr(>F)
-#mslaborLand  1  53.48   53.48    3.15  0.104
-#Residuals   11 186.75   16.98               
-#P017 (Intercept) mslaborLandhigh
-#1    1  -3.9122817        8.075188
-#2    2  -0.2699821        3.181820
-#3    3  -3.6027904        4.068707
-##### HUH???? WHAT DOES THIS MEAN??? #####
-ddply(postDf,.(mslaborLand,P017),function(df){
-			data.frame(mean = mean(df$outcomeMeasures),
-					se=sqrt(var(df$outcomeMeasures)/nrow(df)),
-					n=nrow(df))
-		})
-
-ggplot(postDf,aes(x=P018, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-##### NOPE?? #####
-
-ggplot(postDf,aes(x=duedatesplit, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-ddply(postDf,.(duedatesplit),function(df){
-			aovtest8 = aov(outcomeMeasures~mslaborLand,data=df)
-			print(summary(aovtest8))
-			coef(aovtest8)
-		})
-##### NOPE #####
-
-ggplot(postDf,aes(x=msactiveLabor, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-ddply(postDf,.(msactiveLabor),function(df){
-			aovtest9 = aov(outcomeMeasures~mslaborLand,data=df)
-			print(summary(aovtest9))
-			coef(aovtest9)
-		})
-#Df Sum Sq Mean Sq F value Pr(>F)
-#mslaborLand  1  24.02   24.02   2.134  0.162
-#Residuals   17 191.36   11.26               
-#Df Sum Sq Mean Sq F value  Pr(>F)   
-#mslaborLand  1  206.0  205.99   14.89 0.00174 **
-#		Residuals   14  193.7   13.83                   
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#msactiveLabor (Intercept) mslaborLandhigh
-#1         short  -0.5081091        2.330896
-#2          long  -3.9241280        7.411562
-##### YEP #####
-
-ggplot(postDf,aes(x=mspushing, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-##### NOPE #####
-
-ggplot(postDf,aes(x=P026, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-##### NOPE #####
-
-ggplot(postDf,aes(x=P027, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-# 1 = used birth plan; 2 = didn't use birth plan
-ddply(postDf,.(P027),function(df){
-			aovtest10 = aov(outcomeMeasures~mslaborLand,data=df)
-			print(summary(aovtest10))
-			coef(aovtest10)
-		})
-#Df Sum Sq Mean Sq F value   Pr(>F)    
-#mslaborLand  1 182.64  182.64   21.84 0.000679 ***
-#		Residuals   11  92.01    8.36                     
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#Df Sum Sq Mean Sq F value Pr(>F)  
-#mslaborLand  1  63.35   63.35   4.029 0.0584 .
-#Residuals   20 314.47   15.72                 
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#P027 (Intercept) mslaborLandhigh
-#1    1   -4.500101        7.704379
-#2    2   -1.691462        3.407843
-##### YEP #####
-
-ggplot(postDf,aes(x=P051, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-# 1 = noboby present besides partner & care providers; 2 = opposite
-ddply(postDf,.(P051),function(df){
-			aovtest11 = aov(outcomeMeasures~mslaborLand,data=df)
-			print(summary(aovtest11))
-			coef(aovtest11)
-		})
-#Df Sum Sq Mean Sq F value Pr(>F)
-#mslaborLand  1  12.35   12.35   0.929  0.354
-#Residuals   12 159.39   13.28               
-#Df Sum Sq Mean Sq F value   Pr(>F)    
-#mslaborLand  1  247.5  247.52   20.95 0.000206 ***
-#		Residuals   19  224.5   11.81                     
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#P051 (Intercept) mslaborLandhigh
-#1    1   -1.591585        1.878113
-#2    2   -3.165695        6.874090
-##### YEP #####
-
-ggplot(postDf,aes(x=P054, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-## only 6 in second category --> not the best comparison?
-ddply(postDf,.(P054),function(df){
-			aovtest12 = aov(outcomeMeasures~mslaborLand,data=df)
-			print(summary(aovtest12))
-			coef(aovtest12)
-		})
-##### NOPE ##### (both are sig.)
-
-ggplot(postDf,aes(x=msactiveFeel, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-ddply(postDf,.(msactiveFeel),function(df){
-			aovtest13 = aov(outcomeMeasures~mslaborLand,data=df)
-			print(summary(aovtest13))
-			coef(aovtest13)
-		})
-#Df Sum Sq Mean Sq F value Pr(>F)
-#mslaborLand  1  33.59   33.59   2.833   0.11
-#Residuals   18 213.42   11.86               
-#Df Sum Sq Mean Sq F value   Pr(>F)    
-#mslaborLand  1  244.0  243.97   21.09 0.000505 ***
-#		Residuals   13  150.4   11.57                     
-#---
-#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#msactiveFeel (Intercept) mslaborLandhigh
-#1        <4hrs  -0.7834319        2.591954
-#2        >4hrs  -4.9948178        8.083920
-##### YEP #####
-
-ggplot(postDf,aes(x=mspushingFeel, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-##### NOPE #####
 
 #########################################################################
 ## testing for other relationships
@@ -1201,4 +759,78 @@ ggplot(postDf,aes(x=P026, y=painExp, color=mslaborLand)) +
 ggplot(postDf,aes(x=mslaborLand, y=outcomeMeasures, color="P026")) + 
 		stat_summary(fun.data = "mean_cl_boot")
 
+#########################################################################
+ggplot(postDf,aes(x=mspanas, y=painExp, color=mslaborLand)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+aov8 = aov(painExp~mslaborLand*mspanas,data=postDf)
+summary(aov8)
+# summary(aov8)
+#                     Df Sum Sq Mean Sq F value  Pr(>F)   
+# mslaborLand          1  238.5  238.46   9.207 0.00485 **
+# mspanas              1   43.4   43.41   1.676 0.20504   
+# mslaborLand:mspanas  1   36.2   36.23   1.399 0.24590   
+# Residuals           31  802.9   25.90                   
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+ddply(postDf,.(mspanas),function(df){
+			aov8b = aov(painExp~mslaborLand,data=df)
+			print(summary(aov8b))
+			coef(aov8b)
+		})
+#Df Sum Sq Mean Sq F value Pr(>F)  
+#mslaborLand  1  172.3  172.34   7.732  0.014 *
+#		Residuals   15  334.3   22.29                 
+#---
+#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+#Df Sum Sq Mean Sq F value Pr(>F)
+#mslaborLand  1   22.5   22.55    0.77  0.393
+#Residuals   16  468.6   29.29               
+#mspanas (Intercept) mslaborLandhigh
+#1     low  -4.2821968        6.662611
+#2    high   0.2406909        2.374104
+
+
+
+ggplot(postDf,aes(x=msexpectations, y=painExp, color=mslaborLand)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+aov7 = aov(painExp~msexpectations*mslaborLand,data=postDf)
+summary(aov7)
+# summary(aov7)
+#                            Df Sum Sq Mean Sq F value   Pr(>F)    
+# msexpectations              1  307.6  307.60  14.135 0.000709 ***
+# mslaborLand                 1  109.6  109.59   5.036 0.032111 *  
+# msexpectations:mslaborLand  1   29.2   29.23   1.343 0.255323    
+# Residuals                  31  674.6   21.76                     
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+ddply(postDf,.(msexpectations),function(df){
+			aov7b = aov(painExp~mslaborLand,data=df)
+			print(summary(aov7b))
+			coef(aov7b)
+		})
+#Df Sum Sq Mean Sq F value Pr(>F)  
+#mslaborLand  1  125.4  125.40   4.196 0.0584 .
+#Residuals   15  448.3   29.88                 
+#---
+#		Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+#Df Sum Sq Mean Sq F value Pr(>F)
+#mslaborLand  1  13.42   13.42   0.948  0.345
+#Residuals   16 226.37   14.15               
+#msexpectations (Intercept) mslaborLandhigh
+#1            low   -5.056374        5.683341
+#2           high    1.660016        1.831502
+
+
+
+# y=painExp
+ggplot(postDf,aes(x=mspanas, y=painExp, color=mslaborLand)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+
+ggplot(postDf,aes(x=msexpectations, y=painExp, color=mslaborLand)) + 
+		stat_summary(fun.data = "mean_cl_boot")
+
+
+# y=tActualAct
+ggplot(postDf,aes(x=primipsplit, y=tActualAct, color=agesplit)) + 
+		stat_summary(fun.data = "mean_cl_boot")
 

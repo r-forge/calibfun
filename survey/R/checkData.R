@@ -119,12 +119,12 @@ ggplot(postDf,aes(x=drugsplit, y=intuitMov, color=drugsplit))+
 #Residuals   33 305.66    9.26 
 ddply(postDf,.(drugsplit),function(df){
 			data.frame(mean = mean(df$intuitMov),
-					se=sqrt(var(df$intuitMov)/nrow(df)),
+					sd=sd(df$intuitMov),
 					n=nrow(df))
 		})
-#  drugsplit       mean        se  n
-#1     drugs -2.0380339 1.0154614  8
-#2   nodrugs  0.6038619 0.5942702 27
+#  drugsplit       mean       sd  n
+#1     drugs -2.0380339 2.872158  8
+#2   nodrugs  0.6038619 3.087918 27
 t.test(intuitMov~drugsplit, var.equal = TRUE, data=postDf)
 # t.test(intuitMov~drugsplit, var.equal = TRUE, data=postDf)
 # 
@@ -148,12 +148,12 @@ ggplot(postDf,aes(x=drugsplit, y=physEnv, color=drugsplit))+
 #Residuals   33 276.07    8.37  
 ddply(postDf,.(drugsplit),function(df){
 			data.frame(mean = mean(df$physEnv),
-					se=sqrt(var(df$physEnv)/nrow(df)),
+					sd=sd(df$physEnv),
 					n=nrow(df))
 		})
-#  drugsplit       mean        se  n
-#1     drugs -2.4613245 1.2277468  8
-#2   nodrugs  0.7292813 0.5225146 27
+#  drugsplit       mean       sd  n
+#1     drugs -2.4613245 3.472592  8
+#2   nodrugs  0.7292813 2.715066 27
 t.test(physEnv~drugsplit, var.equal = TRUE, data=postDf)
 # t.test(physEnv~drugsplit, var.equal = TRUE, data=postDf)
 # 
@@ -178,12 +178,12 @@ ggplot(postDf,aes(x=drugsplit, y=expectations, color=drugsplit))+
 #Residuals   33  347.1   10.52  
 ddply(postDf,.(drugsplit),function(df){
 			data.frame(mean = mean(df$expectations),
-					se=sqrt(var(df$expectations)/nrow(df)),
+					sd=sd(df$expectations),
 					n=nrow(df))
 		})
-#  drugsplit       mean        se  n
-#1     drugs -3.0438296 0.7318042  8
-#2   nodrugs  0.9018754 0.6721468 27
+#  drugsplit       mean       sd  n
+#1     drugs -3.0438296 2.069855  8
+#2   nodrugs  0.9018754 3.492577 27
 t.test(expectations~drugsplit, var.equal = TRUE, data=postDf)
 # t.test(expectations~drugsplit, var.equal = TRUE, data=postDf)
 # 
@@ -207,12 +207,12 @@ ggplot(postDf,aes(x=drugsplit, y=tActualAct, color=drugsplit))+
 #Residuals   33  491.8   14.90  
 ddply(postDf,.(drugsplit),function(df){
 			data.frame(mean = mean(df$tActualAct),
-					se=sqrt(var(df$tActualAct)/nrow(df)),
+					sd=sd(df$tActualAct),
 					n=nrow(df))
 		})
-#  drugsplit    mean        se  n
-#1     drugs 9.25000 1.5323884  8
-#2   nodrugs 5.37037 0.7164095 27
+#  drugsplit    mean       sd  n
+#1     drugs 9.25000 4.334249  8
+#2   nodrugs 5.37037 3.722573 27
 t.test(tActualAct~drugsplit, var.equal = TRUE, data=postDf)
 # t.test(tActualAct~drugsplit, var.equal = TRUE, data=postDf)
 # 
@@ -236,12 +236,12 @@ ggplot(postDf,aes(x=drugsplit, y=tPerceivedAct, color=drugsplit))+
 #Residuals   33  497.2   15.07   
 ddply(postDf,.(drugsplit),function(df){
 			data.frame(mean = mean(df$tPerceivedAct),
-					se=sqrt(var(df$tPerceivedAct)/nrow(df)),
+					sd=sd(df$tPerceivedAct),
 					n=nrow(df))
 		})
-#  drugsplit     mean        se  n
-#1     drugs 9.000000 1.9639610  8
-#2   nodrugs 3.740741 0.6328892 27
+#  drugsplit     mean       sd  n
+#1     drugs 9.000000 5.554921  8
+#2   nodrugs 3.740741 3.288589 27
 t.test(tPerceivedAct~drugsplit, var.equal = TRUE, data=postDf)
 # t.test(tPerceivedAct~drugsplit, var.equal = TRUE, data=postDf)
 # 
@@ -276,12 +276,12 @@ t.test(laborLand~drugsplit, var.equal = TRUE, data=postDf)
 #            -2.5254166             0.7482716 
 ddply(postDf,.(drugsplit),function(df){
 			data.frame(mean = mean(df$laborLand),
-					se=sqrt(var(df$laborLand)/nrow(df)),
+					sd=sd(df$laborLand),
 					n=nrow(df))
 		})
-#  drugsplit       mean      se  n
-#1     drugs -2.5254166 3.37686  8
-#2   nodrugs  0.7482716 1.79711 27
+#  drugsplit       mean       sd  n
+#1     drugs -2.5254166 9.551201  8
+#2   nodrugs  0.7482716 9.338056 27
 
 
 
@@ -360,12 +360,12 @@ t.test(laborLand~P026, var.equal = TRUE, data=postDf)
 #      -2.4342085       0.9736834 
 ddply(postDf,.(P026),function(df){
 			data.frame(mean = mean(df$laborLand),
-					se=sqrt(var(df$laborLand)/nrow(df)),
+					sd=sd(df$laborLand),
 					n=nrow(df))
 		})
-#  P026       mean       se  n
-#1  Yes -2.4342085 3.072763 10
-#2   No  0.9736834 1.843536 25
+#  P026       mean       sd  n
+#1    1 -2.4342085 9.716929 10
+#2    2  0.9736834 9.217681 25
 
 t.test(outcomeMeasures~P026, var.equal = TRUE, data=postDf)
 # t.test(outcomeMeasures~P026, var.equal = TRUE, data=postDf)
@@ -382,12 +382,12 @@ t.test(outcomeMeasures~P026, var.equal = TRUE, data=postDf)
 #      -1.7276469       0.6910588 
  ddply(postDf,.(P026),function(df){
 			data.frame(mean = mean(df$outcomeMeasures),
-					se=sqrt(var(df$outcomeMeasures)/nrow(df)),
+					sd=sd(df$outcomeMeasures),
 					n=nrow(df))
 		})
-#  P026       mean        se  n
-#1  Yes -1.7276469 1.2273424 10
-#2   No  0.6910588 0.8909711 25
+#  P026       mean       sd  n
+#1    1 -1.7276469 3.881197 10
+#2    2  0.6910588 4.454855 25
 
 t.test(painExp~P026, var.equal = TRUE, data=postDf)
 # t.test(painExp~P026, var.equal = TRUE, data=postDf)
@@ -404,12 +404,12 @@ t.test(painExp~P026, var.equal = TRUE, data=postDf)
 #      -0.5775608       0.2310243 
 ddply(postDf,.(P026),function(df){
 			data.frame(mean = mean(df$painExp),
-					se=sqrt(var(df$painExp)/nrow(df)),
+					sd=sd(df$painExp),
 					n=nrow(df))
 		})
-#  P026       mean       se  n
-#1  Yes -0.5775608 2.085681 10
-#2   No  0.2310243 1.099140 25
+#  P026       mean       sd  n
+#1    1 -0.5775608 6.595502 10
+#2    2  0.2310243 5.495698 25
 
 #########################################################################
 ## Test for w/ or w/o birth plan --> no sig. difference
@@ -506,11 +506,11 @@ t.test(laborLand~ppIntervalsplit, var.equal = TRUE, data=postDf)
 #                   -1.911171                    6.450202 
 ddply(postDf,.(ppIntervalsplit),function(df){
 			data.frame(mean = mean(df$laborLand),
-					se=sqrt(var(df$laborLand)/nrow(df)))
+					sd=sd(df$laborLand))
 		})
-#	ppIntervalsplit      mean       se
-#1   shortinterval -1.911171 1.727855
-#2    longinterval  6.450202 2.817772
+#  ppIntervalsplit      mean       sd
+#1   shortinterval -1.911171 8.978196
+#2    longinterval  6.450202 7.969862
 
 
 

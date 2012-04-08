@@ -109,6 +109,7 @@ tempdf$g10 = factor(tempdf$g10)
 #########################################################################
 ## now try new 1-way ANOVA strategy
 #########################################################################
+## PANAS
 aov1 = aov(outcomeMeasures~g1,data=tempdf)
 summary(aov1)
 # summary(aov1)
@@ -133,11 +134,18 @@ TukeyHSD(aov1)
 # low-low-high-low   -2.8124818  -7.840120  2.215156 0.4391529
 # low-low-low-high   -6.1115993 -11.139237 -1.083961 0.0123873
 ddply(tempdf,.(g1),function(df){
-			aov1b = aov(outcomeMeasures,data=df)
-			print(summary(aov1b))
-			coef(aov1b)
+			data.frame(mean = mean(df$outcomeMeasures),
+					sd=sd(df$outcomeMeasures))
 		})
+#		  g1       mean       sd
+#1 high-high  2.2657903 3.365635
+#2  high-low -0.6976908 3.680315
+#3  low-high  2.6014267 1.911610
+#4   low-low -3.5101726 4.498833
 
+
+ggplot(tempdf,aes(x=g1,y=outcomeMeasures, color=mslaborLand))+
+		stat_summary(fun.data = "mean_cl_boot")
 
 pdf("plots/outcomeMeasuresvg1.pdf")
 ggplot(tempdf,aes(x=g1,y=outcomeMeasures, color=mslaborLand))+geom_point()
@@ -221,6 +229,18 @@ TukeyHSD(aov2)
 # low-high-high-low   0.3043064  -4.722095  5.330708 0.9983864
 # low-low-high-low   -5.4388215  -9.857275 -1.020368 0.0111542
 # low-low-low-high   -5.7431279 -10.161582 -1.324674 0.0069120
+ddply(tempdf,.(g2),function(df){
+			data.frame(mean = mean(df$outcomeMeasures),
+					sd=sd(df$outcomeMeasures))
+		})
+#		  g2      mean       sd
+#1 high-high  2.913498 2.357780
+#2  high-low  1.001706 2.817616
+#3  low-high  1.306012 3.790459
+#4   low-low -4.437116 3.824793
+
+
+
 ggplot(tempdf,aes(x=g2,y=outcomeMeasures, color=mslaborLand))+geom_point()
 
 #########################################################################
@@ -282,6 +302,17 @@ TukeyHSD(aov3)
 # low-high-high-low   2.0955917  -3.378528  7.5697119 0.7281420
 # low-low-high-low   -4.1121861  -8.924206  0.6998342 0.1154284
 # low-low-low-high   -6.2077778 -11.019798 -1.3957575 0.0074017
+ddply(tempdf,.(g3),function(df){
+			data.frame(mean = mean(df$outcomeMeasures),
+					sd=sd(df$outcomeMeasures))
+		})
+#		  g3       mean       sd
+#1 high-high  2.4470606 3.058657
+#2  high-low  0.1432943 2.824441
+#3  low-high  2.2388860 2.836962
+#4   low-low -3.9688917 4.419163
+
+
 ggplot(tempdf,aes(x=g3,y=outcomeMeasures, color=mslaborLand))+geom_point()
 
 #########################################################################
@@ -289,69 +320,6 @@ ggplot(tempdf,aes(x=g3,y=outcomeMeasures, color=mslaborLand))+geom_point()
 #########################################################################
 ## see multipleRegs file
 
-#########################################################################
-## do comparisons within subgroups of msfluidReal
-#########################################################################
-##### this one doesn't quite follow the pattern of significance #####
-ggplot(postDf,aes(x=msfluidReal, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-aov4 = aov(outcomeMeasures~g4,data=tempdf)
-summary(aov4)
-# summary(aov4)
-#             Df Sum Sq Mean Sq F value Pr(>F)   
-# g4           3  254.9   84.97   6.606 0.0014 **
-# Residuals   31  398.7   12.86                  
-# ---
-# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-TukeyHSD(aov4)
-# TukeyHSD(aov4)
-#   Tukey multiple comparisons of means
-#     95% family-wise confidence level
-# 
-# Fit: aov(formula = outcomeMeasures ~ g4, data = tempdf)
-# 
-# $g4
-#                         diff        lwr        upr     p adj
-# high-low-high-high -2.935798  -8.058158  2.1865629 0.4180146
-# low-high-high-high -1.361675  -6.484036  3.7606853 0.8877781
-# low-low-high-high  -6.247463 -10.144175 -2.3507517 0.0007506
-# low-high-high-low   1.574122  -4.582189  7.7304337 0.8986138
-# low-low-high-low   -3.311666  -8.492974  1.8696423 0.3235750
-# low-low-low-high   -4.885788 -10.067096  0.2955199 0.0702273
-ggplot(tempdf,aes(x=g4,y=outcomeMeasures, color=mslaborLand))+geom_point()
-##### low-low-low-high is not quite significant #####
-
-#########################################################################
-## do comparisons within subgroups of msintensePres
-#########################################################################
-##### this one doesn't quite follow the pattern of significance #####
-ggplot(postDf,aes(x=msintensePres, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")
-aov5 = aov(outcomeMeasures~g5,data=tempdf)
-summary(aov5)
-# summary(aov5)
-#             Df Sum Sq Mean Sq F value Pr(>F)   
-# g5           3  232.9   77.63   5.719 0.0031 **
-# Residuals   31  420.8   13.57                  
-# ---
-# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-TukeyHSD(aov5)
-# TukeyHSD(aov5)
-#   Tukey multiple comparisons of means
-#     95% family-wise confidence level
-# 
-# Fit: aov(formula = outcomeMeasures ~ g5, data = tempdf)
-# 
-# $g5
-#                         diff        lwr        upr     p adj
-# high-low-high-high -3.365759  -8.627692  1.8961735 0.3229281
-# low-high-high-high -0.746337  -6.008270  4.5155957 0.9802492
-# low-low-high-high  -5.826166  -9.829054 -1.8232780 0.0022548
-# low-high-high-low   2.619422  -3.704634  8.9434783 0.6776602
-# low-low-high-low   -2.460407  -7.782893  2.8620797 0.5978131
-# low-low-low-high   -5.079829 -10.402315  0.2426575 0.0656744
-ggplot(tempdf,aes(x=g5,y=outcomeMeasures, color=mslaborLand))+geom_point()
-##### low-low-low-high is not quite significant #####
 
 #########################################################################
 ## do comparisons within subgroups of educationsplit
@@ -381,6 +349,17 @@ TukeyHSD(aov6)
 # low-high-high-low   4.183877  -2.112152 10.4799047 0.2909080
 # low-low-high-low   -3.895579  -8.484559  0.6934002 0.1190065
 # low-low-low-high   -8.079456 -14.473103 -1.6858092 0.0088981
+ddply(tempdf,.(g6),function(df){
+			data.frame(mean = mean(df$outcomeMeasures),
+					sd=sd(df$outcomeMeasures))
+		})
+#		  g6       mean       sd
+#1 high-high  2.1532912 3.115942
+#2  high-low -0.6843181 3.491582
+#3  low-high  3.4995585 1.197071
+#4   low-low -4.5798975 4.456556
+
+
 ggplot(tempdf,aes(x=g6,y=outcomeMeasures, color=mslaborLand))+geom_point()
 
 #########################################################################
@@ -411,6 +390,15 @@ TukeyHSD(aov7)
 # low-high-high-low   5.746915   1.651459  9.842370 0.0033009
 # low-low-high-low    3.416019  -1.297627  8.129664 0.2222280
 # low-low-low-high   -2.330896  -6.879924  2.218133 0.5144675
+ddply(tempdf,.(g7),function(df){
+			data.frame(mean = mean(df$outcomeMeasures),
+					sd=sd(df$outcomeMeasures))
+		})
+#		  g7       mean       sd
+#1 high-high  3.4874339 1.642144
+#2  high-low -3.9241280 4.474289
+#3  low-high  1.8227866 3.285740
+#4   low-low -0.5081091 3.478631
 ggplot(tempdf,aes(x=g7,y=outcomeMeasures, color=mslaborLand))+geom_point()
 
 #########################################################################
@@ -441,6 +429,16 @@ TukeyHSD(aov8)
 # YES-high-NO-low   4.895740   0.4099905  9.3814901 0.0282233
 # YES-low-NO-low   -2.808639  -8.0398773  2.4225992 0.4747086
 # YES-low-YES-high -7.704379 -13.3070791 -2.1016797 0.0040442
+ddply(tempdf,.(g8),function(df){
+			data.frame(mean = mean(df$outcomeMeasures),
+					sd=sd(df$outcomeMeasures))
+		})
+#		 g8      mean       sd
+#1  NO-high  1.716381 3.363568
+#2   NO-low -1.691462 4.396723
+#3 YES-high  3.204279 2.126793
+#4  YES-low -4.500101 3.884061
+
 ggplot(tempdf,aes(x=g8,y=outcomeMeasures, color=mslaborLand))+geom_point()
 
 #########################################################################
@@ -471,6 +469,17 @@ TukeyHSD(aov9)
 # YES-high-NO-low   5.299980   0.6823601  9.917599 0.0195390
 # YES-low-NO-low   -1.574110  -6.2806604  3.132440 0.8008494
 # YES-low-YES-high -6.874090 -11.0470146 -2.701165 0.0005381
+ddply(tempdf,.(g9),function(df){
+			data.frame(mean = mean(df$outcomeMeasures),
+					sd=sd(df$outcomeMeasures))
+		})
+#		 g9       mean       sd
+#1  NO-high  0.2865286 3.289197
+#2   NO-low -1.5915848 3.968073
+#3 YES-high  3.7083948 1.682921
+#4  YES-low -3.1656950 4.668473
+
+
 ggplot(tempdf,aes(x=g9,y=outcomeMeasures, color=mslaborLand))+geom_point()
 
 #########################################################################
@@ -501,6 +510,17 @@ TukeyHSD(aov10)
 # low-high-high-low   6.803340   2.2212045 11.3854753 0.0018178
 # low-low-high-low    4.211386  -0.3707495  8.7935213 0.0806122
 # low-low-low-high   -2.591954  -6.7501742  1.5662661 0.3450172
+ddply(tempdf,.(g10),function(df){
+			data.frame(mean = mean(df$outcomeMeasures),
+					sd=sd(df$outcomeMeasures))
+		})
+#		 g10       mean       sd
+#1 high-high  3.0891027 1.834362
+#2  high-low -4.9948178 4.598141
+#3  low-high  1.8085222 3.535247
+#4   low-low -0.7834319 3.348983
+
+
 ggplot(tempdf,aes(x=g10,y=outcomeMeasures, color=mslaborLand))+geom_point()
 
 

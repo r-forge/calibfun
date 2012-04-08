@@ -27,11 +27,11 @@ summary(aov1)
 # this code gives me the mean and std for my anovas!
 ddply(postDf,.(mslaborLand),function(df){
 			data.frame(mean = mean(df$outcomeMeasures),
-					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+					sd=sd(df$outcomeMeasures))
 		})
-#mslaborLand      mean        se
-#1         low -2.517532 1.0516588
-#2        high  2.377669 0.6843831
+#  mslaborLand      mean       sd
+#1         low -2.517532 4.336100
+#2        high  2.377669 2.903591
 t.test(outcomeMeasures~mslaborLand, var.equal = TRUE, data=postDf)
 # t.test(outcomeMeasures~mslaborLand, var.equal = TRUE, data=postDf)
 # 
@@ -90,11 +90,11 @@ t.test(outcomeMeasures~msintuitMov, var.equal = TRUE, data=postDf)
 #          -2.284490           2.157574 
 ddply(postDf,.(msintuitMov),function(df){
 			data.frame(mean = mean(df$outcomeMeasures),
-					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+					sd=sd(df$outcomeMeasures))
 		})
-#msintuitMov      mean        se
-#1         low -2.284490 1.0773092
-#2        high  2.157574 0.7353409
+#  msintuitMov      mean       sd
+#1         low -2.284490 4.441860
+#2        high  2.157574 3.119787
 
 t.test(outcomeMeasures~msphysEnv, var.equal = TRUE, data=postDf)
 # t.test(outcomeMeasures~msphysEnv, var.equal = TRUE, data=postDf)
@@ -111,11 +111,11 @@ t.test(outcomeMeasures~msphysEnv, var.equal = TRUE, data=postDf)
 #          -1.973827           1.864170 
 ddply(postDf,.(msphysEnv),function(df){
 			data.frame(mean = mean(df$outcomeMeasures),
-					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+					sd=sd(df$outcomeMeasures))
 		})
-#msphysEnv      mean        se
-#1       low -1.973827 1.1548774
-#2      high  1.864170 0.7278215
+#  msphysEnv      mean       sd
+#1       low -1.973827 4.761681
+#2      high  1.864170 3.087885
 
 t.test(outcomeMeasures~msemotEnv, var.equal = TRUE, data=postDf)
 # t.test(outcomeMeasures~msemotEnv, var.equal = TRUE, data=postDf)
@@ -132,11 +132,11 @@ t.test(outcomeMeasures~msemotEnv, var.equal = TRUE, data=postDf)
 #          -2.401325           2.267918 
 ddply(postDf,.(msemotEnv),function(df){
 			data.frame(mean = mean(df$outcomeMeasures),
-					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+					sd=sd(df$outcomeMeasures))
 		})
-#msemotEnv      mean        se
-#1       low -2.401325 1.1641352
-#2      high  2.267918 0.5555129
+#  msemotEnv      mean       sd
+#1       low -2.401325 4.799852
+#2      high  2.267918 2.356842
 
 t.test(outcomeMeasures~msfluidReal, var.equal = TRUE, data=postDf)
 # t.test(outcomeMeasures~msfluidReal, var.equal = TRUE, data=postDf)
@@ -153,11 +153,11 @@ t.test(outcomeMeasures~msfluidReal, var.equal = TRUE, data=postDf)
 #          -2.054555           1.940413 
 ddply(postDf,.(msfluidReal),function(df){
 			data.frame(mean = mean(df$outcomeMeasures),
-					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+					sd=sd(df$outcomeMeasures))
 		})
-#msfluidReal      mean        se
-#1         low -2.054555 1.1051532
-#2        high  1.940413 0.7710293
+#  msfluidReal      mean       sd
+#1         low -2.054555 4.556663
+#2        high  1.940413 3.271200
 
 t.test(outcomeMeasures~msintensePres, var.equal = TRUE, data=postDf)
 # t.test(outcomeMeasures~msintensePres, var.equal = TRUE, data=postDf)
@@ -174,11 +174,11 @@ t.test(outcomeMeasures~msintensePres, var.equal = TRUE, data=postDf)
 #          -1.747114           1.650052 
 ddply(postDf,.(msintensePres),function(df){
 			data.frame(mean = mean(df$outcomeMeasures),
-					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+					sd=sd(df$outcomeMeasures))
 		})
-#msintensePres      mean        se
-#1           low -1.747114 1.1477304
-#2          high  1.650052 0.7971704
+#  msintensePres      mean       sd
+#1           low -1.747114 4.732214
+#2          high  1.650052 3.382108
 
 t.test(outcomeMeasures~msexpectations, var.equal = TRUE, data=postDf)
 # t.test(outcomeMeasures~msexpectations, var.equal = TRUE, data=postDf)
@@ -195,11 +195,11 @@ t.test(outcomeMeasures~msexpectations, var.equal = TRUE, data=postDf)
 #          -1.777911           1.679138 
 ddply(postDf,.(msexpectations),function(df){
 			data.frame(mean = mean(df$outcomeMeasures),
-					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+					sd=sd(df$outcomeMeasures))
 		})
-#msexpectations        mean        se
-#1            low -1.777911 1.1899458
-#2           high  1.679138 0.7321423
+#  msexpectations      mean       sd
+#1            low -1.777911 4.906272
+#2           high  1.679138 3.106217
 
 t.test(outcomeMeasures~mspainExp, var.equal = TRUE, data=postDf)
 # t.test(outcomeMeasures~mspainExp, var.equal = TRUE, data=postDf)
@@ -216,11 +216,11 @@ t.test(outcomeMeasures~mspainExp, var.equal = TRUE, data=postDf)
 #          -2.410130           2.276234 
 ddply(postDf,.(mspainExp),function(df){
 			data.frame(mean = mean(df$outcomeMeasures),
-					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+					sd=sd(df$outcomeMeasures))
 		})
-#mspainExp      mean        se
-#1       low -2.410130 1.1281524
-#2      high  2.276234 0.6142772
+#  mspainExp      mean       sd
+#1       low -2.410130 4.651492
+#2      high  2.276234 2.606157
 
 t.test(outcomeMeasures~educationsplit, var.equal = TRUE, data=postDf)
 # t.test(outcomeMeasures~educationsplit, var.equal = TRUE, data=postDf)
@@ -237,11 +237,11 @@ t.test(outcomeMeasures~educationsplit, var.equal = TRUE, data=postDf)
 #                     -2.376410                      1.089188 
 ddply(postDf,.(educationsplit),function(df){
 			data.frame(mean = mean(df$outcomeMeasures),
-					se=sqrt(var(df$outcomeMeasures)/nrow(df)))
+					sd=sd(df$outcomeMeasures))
 		})
-#educationsplit      mean        se
-#1 <4-year-college -2.376410 1.6076975
-#2 4-year-college+  1.089188 0.7106196
+#   educationsplit      mean       sd
+#1 <4-year-college -2.376410 5.332129
+#2 4-year-college+  1.089188 3.481311
 
 #########################################################################
 ## 2x3 analysis of variance: outcomeMeasures~mslaborLand*lmhpanas

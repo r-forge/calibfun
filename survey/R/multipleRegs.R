@@ -118,6 +118,128 @@ ggplot(postDf,aes(x=mslaborLand, y=outcomeMeasures, color=msexpectations)) +
 		facet_wrap(~mspainExp) +
 		stat_summary(fun.data = "mean_cl_boot")
 
+
+#########################################################################
+## version #2
+#########################################################################
+summary(lm1 <- lm(outcomeMeasures ~ laborLand + panas + intuitMov + 
+						physEnv + emotEnv + fluidReal + intensePres +
+						painExp + expectations + memory + vocals + 
+						P006 + P009 + P021 +
+						tActualAct + P027 + P051 + tPerceivedAct, data = postDf))
+#Residuals:
+#		Min      1Q  Median      3Q     Max 
+#-3.0658 -1.5006 -0.1622  1.2315  5.4280 
+#
+#Coefficients:
+#				Estimate Std. Error t value Pr(>|t|)  
+#(Intercept)   -1.427729   9.392779  -0.152   0.8811  
+#laborLand      0.064298   0.097701   0.658   0.5198  
+#panas         -0.005773   0.075787  -0.076   0.9402  
+#intuitMov      0.530903   0.390234   1.360   0.1925  
+#physEnv        0.302626   0.419246   0.722   0.4808  
+#emotEnv       -0.099652   0.223334  -0.446   0.6614  
+#fluidReal      0.132463   0.236612   0.560   0.5833  
+#intensePres    0.101641   0.162912   0.624   0.5415  
+#painExp        0.361209   0.147607   2.447   0.0263 *
+#expectations  -0.036364   0.229713  -0.158   0.8762  
+#memory        -0.255681   0.198298  -1.289   0.2156  
+#vocals         0.038483   0.341053   0.113   0.9116  
+#P006           0.485612   0.746524   0.650   0.5246  
+#P009          -1.075617   0.922466  -1.166   0.2607  
+#P021           0.156894   0.378312   0.415   0.6839  
+#tActualAct    -0.194681   0.318464  -0.611   0.5496  
+#P027           0.672219   1.504543   0.447   0.6610  
+#P051           0.030890   1.984731   0.016   0.9878  
+#tPerceivedAct  0.309915   0.300265   1.032   0.3174  
+#---
+#Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+#
+#Residual standard error: 2.808 on 16 degrees of freedom
+#Multiple R-squared: 0.807,	Adjusted R-squared: 0.5899 
+#F-statistic: 3.717 on 18 and 16 DF,  p-value: 0.005583 
+slm1 <- step(lm1,direction = "both")
+summary(slm1)
+# summary(slm1)
+# 
+# Call:
+# lm(formula = outcomeMeasures ~ laborLand + intuitMov + physEnv + 
+#     painExp + memory + P006 + P009 + tPerceivedAct, data = postDf)
+# 
+# Residuals:
+#     Min      1Q  Median      3Q     Max 
+# -3.5754 -1.3957  0.1725  1.2876  4.8806 
+# 
+# Coefficients:
+#               Estimate Std. Error t value Pr(>|t|)    
+# (Intercept)   -1.13590    2.20691  -0.515 0.611111    
+# laborLand      0.10616    0.05781   1.837 0.077741 .  
+# intuitMov      0.34085    0.19293   1.767 0.089016 .  
+# physEnv        0.32095    0.17000   1.888 0.070242 .  
+# painExp        0.37543    0.09096   4.127 0.000335 ***
+# memory        -0.18558    0.13888  -1.336 0.193020    
+# P006           0.55689    0.38681   1.440 0.161883    
+# P009          -0.81278    0.53889  -1.508 0.143544    
+# tPerceivedAct  0.15935    0.10888   1.464 0.155314    
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+# 
+# Residual standard error: 2.332 on 26 degrees of freedom
+# Multiple R-squared: 0.7837,	Adjusted R-squared: 0.7171 
+# F-statistic: 11.77 on 8 and 26 DF,  p-value: 6.495e-07 
+
+slm1$anova
+# slm1$anova
+#              Step Df    Deviance Resid. Df Resid. Dev      AIC
+# 1                 NA          NA        16   126.1461 82.87325
+# 2          - P051  1 0.001909759        17   126.1480 80.87378
+# 3         - panas  1 0.053047059        18   126.2011 78.88850
+# 4        - vocals  1 0.129607598        19   126.3307 76.92442
+# 5  - expectations  1 0.319451200        20   126.6501 75.01282
+# 6          - P021  1 1.850833999        21   128.5010 73.52060
+# 7       - emotEnv  1 1.925311878        22   130.4263 72.04111
+# 8    - tActualAct  1 1.720660459        23   132.1469 70.49983
+# 9     - fluidReal  1 1.677594119        24   133.8245 68.94135
+# 10         - P027  1 2.543307538        25   136.3679 67.60028
+# 11  - intensePres  1 5.027023445        26   141.3949 66.86730
+
+
+#########################################################################
+## try on option by hand
+#########################################################################
+fit1 <- lm(outcomeMeasures ~ painExp + laborLand + physEnv + intuitMov, data=postDf)
+summary(fit1)
+# summary(fit1)
+# 
+# Call:
+# lm(formula = outcomeMeasures ~ painExp + laborLand + physEnv + 
+#     intuitMov, data = postDf)
+# 
+# Residuals:
+#     Min      1Q  Median      3Q     Max 
+# -4.5117 -1.2654  0.0904  1.5107  4.8039 
+# 
+# Coefficients:
+#               Estimate Std. Error t value Pr(>|t|)    
+# (Intercept) -7.161e-16  3.998e-01   0.000 1.000000    
+# painExp      3.513e-01  8.864e-02   3.963 0.000423 ***
+# laborLand    1.006e-01  5.792e-02   1.736 0.092762 .  
+# physEnv      2.406e-01  1.683e-01   1.429 0.163320    
+# intuitMov    3.215e-01  1.943e-01   1.655 0.108400    
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+# 
+# Residual standard error: 2.365 on 30 degrees of freedom
+# Multiple R-squared: 0.7432,	Adjusted R-squared: 0.709 
+# F-statistic: 21.71 on 4 and 30 DF,  p-value: 1.691e-08 
+
+
+## It looks like this secondary option ultimately gets me to the 
+## same place - BUT, I get a larger Rsqrd if I include physEnv
+## and intuitMov...is this helpful? Or should I stick with what
+## I had before??
+
+
 #########################################################################
 ## check what helps you get into laborLand if you have low painExp
 #########################################################################
@@ -260,6 +382,11 @@ ggplot(postDf,aes(x=P006,y=laborLand))+facet_wrap(~msexpectations)+
 		geom_point()+geom_smooth(method=lm)
 
 ggplot(postDf,aes(x=painExp,y=panas))+geom_point()
+
+
+#########################################################################
+## partial correlation analysis
+#########################################################################
 
 ## this is the biggest finding
 ## pain is the biggest determiner of outcomes

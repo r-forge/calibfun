@@ -208,6 +208,17 @@ ggplot(postDf,aes(x=msintensePres))+geom_histogram()
 # boxplot of outcomeMeasures based on low v. high expectations
 ggplot(postDf,aes(x=msintensePres, y=outcomeMeasures))+geom_boxplot()
 
+memindex = postDf$memory>=median(postDf$memory)
+# selects TRUE values
+postDf$memory[memindex]
+postDf$msmemory = "low"
+postDf$msmemory[memindex] = "high"
+postDf$msmemory = factor(postDf$msmemory,levels = c("low","high"))
+# this plot checks to make sure they were divided evenly
+ggplot(postDf,aes(x=msmemory))+geom_histogram()
+# boxplot of outcomeMeasures based on low v. high expectations
+ggplot(postDf,aes(x=msmemory, y=outcomeMeasures))+geom_boxplot()
+
 #########################################################################
 ## split education into less than 4-year-college and 4-year-college plus
 #########################################################################

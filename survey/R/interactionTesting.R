@@ -44,8 +44,19 @@ ddply(postDf,.(mspanas),function(df){
 
 #########################################################################
 ## Pain Management
-ggplot(postDf,aes(x=mspainExp, y=outcomeMeasures, color=mslaborLand)) + 
-		stat_summary(fun.data = "mean_cl_boot")+facet_wrap(~mspanas)
+tdf=postDf
+tdf$Laborland = tdf$mslaborLand
+adf = ddply(tdf,.(mspainExp,Laborland),function(df){
+			data.frame(outcomeMeasures=mean(df$outcomeMeasures))})
+adf
+pdf("plots/Figure2.pdf")
+ggplot(tdf,aes(x=mspainExp, y=outcomeMeasures, color=Laborland,
+						shape=Laborland)) + 
+		stat_summary(fun.data = "mean_cl_normal")+
+		xlab("Pain Management")+
+		ylab("Outcome Measures")+theme_bw()+
+		geom_line(aes(x=as.numeric(mspainExp), y=outcomeMeasures, color=Laborland),data=adf)
+dev.off()
 # it matters what order the terms come in (when the design is unbalanced)
 aov5 = aov(outcomeMeasures~mspainExp*mslaborLand,data=postDf)
 summary(aov5)

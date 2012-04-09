@@ -109,6 +109,39 @@ slm1$anova
 # 7          - P006  1 2.661441387        31   220.2531 72.38003
 # 8         - panas  1 6.468920063        32   226.7220 71.39318
 
+fitmodel <- lm(outcomeMeasures ~ painExp + laborLand, data=postDf)
+summary(fitmodel)
+# summary(fitmodel)
+# 
+# Call:
+# lm(formula = outcomeMeasures ~ painExp + laborLand, data = postDf)
+# 
+# Residuals:
+#     Min      1Q  Median      3Q     Max 
+# -5.8214 -0.9958  0.1966  1.4841  5.7410 
+# 
+# Coefficients:
+#               Estimate Std. Error t value Pr(>|t|)    
+# (Intercept) -6.191e-16  4.499e-01   0.000   1.0000    
+# painExp      4.547e-01  9.277e-02   4.901 2.65e-05 ***
+# laborLand    1.500e-01  5.697e-02   2.633   0.0129 *  
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+# 
+# Residual standard error: 2.662 on 32 degrees of freedom
+# Multiple R-squared: 0.6531,	Adjusted R-squared: 0.6315 
+# F-statistic: 30.13 on 2 and 32 DF,  p-value: 4.388e-08 
+print(fitmodel)
+# print(fitmodel)
+# 
+# Call:
+# lm(formula = outcomeMeasures ~ painExp + laborLand, data = postDf)
+# 
+# Coefficients:
+# (Intercept)      painExp    laborLand  
+#  -6.191e-16    4.547e-01    1.500e-01  
+
+
 
 ggplot(postDf,aes(x=mslaborLand, y=outcomeMeasures, color=mspainExp)) + 
 		facet_wrap(~msexpectations) +
@@ -233,7 +266,6 @@ summary(fit1)
 # Multiple R-squared: 0.7432,	Adjusted R-squared: 0.709 
 # F-statistic: 21.71 on 4 and 30 DF,  p-value: 1.691e-08 
 
-
 ## It looks like this secondary option ultimately gets me to the 
 ## same place - BUT, I get a larger Rsqrd if I include physEnv
 ## and intuitMov...is this helpful? Or should I stick with what
@@ -244,7 +276,7 @@ summary(fit1)
 ## check what helps you get into laborLand if you have low painExp
 #########################################################################
 subpaindf=subset(postDf,mspainExp=="low")
-loopvars = postNumVarNames
+loopvars = postNumVarNames[45:153]
 for (i in 1:length(loopvars)){
 	cat("i=",i," var=",loopvars[i],"\n")
 	df=subpaindf[,c(loopvars[i],"mslaborLand")]
@@ -261,7 +293,7 @@ laborLandNames = c("P080","P085","P086","P089","P093",
 length(laborLandNames)
 # length(laborLandNames)
 # [1] 14
-loopvars = postNumVarNames[!postNumVarNames%in%laborLandNames]
+loopvars = loopvars[!loopvars%in%laborLandNames]
 length(loopvars)
 # length(loopvars)
 # [1] 139
@@ -282,7 +314,11 @@ loopvars = loopvars[!loopvars%in%outcomeMeasuresNames]
 length(loopvars)
 # length(loopvars)
 # [1] 125
-result = lapply(loopvars,function(vname) {
+#we decided to do this with only the themes
+subpaindf=subset(postDf,mspainExp=="low")
+themevars= c("intuitMov","physEnv","emotEnv","fluidReal","intensePres",
+		"expectations","memory","vocals","panas")
+result = lapply(themevars,function(vname) {
 			df=subpaindf[,c(vname,"mslaborLand")]
 			names(df)[1]="y"
 			aov1=aov(y~mslaborLand,data=df)
@@ -291,24 +327,176 @@ result = lapply(loopvars,function(vname) {
 rdf = ldply(result)
 names(rdf)
 rdf = rdf[order(rdf$pval),]
+rdf$pval.adj=p.adjust(rdf$pval,method="holm")
 head(rdf)
+# head(rdf)
+#      var        pval  pval.adj
+# 110 P129 0.006231875 0.7789844
+# 92  P104 0.008572385 1.0000000
+# 115 P138 0.016285973 1.0000000
+# 79  P087 0.024431748 1.0000000
+# 101 P116 0.037770051 1.0000000
+# 100 P114 0.038924128 1.0000000
+
 # head(rdf)
 #      var        pval
 # 110 P129 0.006231875   My labor pain was productive
 # 92  P104 0.008572385   My sense of self dissolved
 # 115 P138 0.016285973   I felt connected to all the women who have labored and birthed before me
 # 79  P087 0.024431748   I felt uninhibited
-# 101 P116 0.037770051
-# 100 P114 0.038924128
+# 101 P116 0.037770051	 My "mental chatter" disappeared
+# 100 P114 0.038924128	 INV - I let myself down
+
+
+
+
+
+
+
+
+
+
 
 ggplot(postDf,aes(x=P129,y=laborLand))+facet_wrap(~mspainExp)+
 		geom_point()+geom_smooth(method=lm)
+t.test(P129~mslaborLand, var.equal = TRUE, data=postDf)
+# t.test(P129~mslaborLand, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  P129 by mslaborLand 
+# t = -2.5448, df = 33, p-value = 0.0158
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -1.4348795 -0.1598917 
+# sample estimates:
+#  mean in group low mean in group high 
+#           3.647059           4.444444 
+ddply(postDf,.(mslaborLand),function(df){
+			data.frame(mean = mean(df$P129),
+					sd=sd(df$P129))
+		})
+#  mslaborLand     mean        sd
+#1         low 3.647059 1.1147408
+#2        high 4.444444 0.7047922
+
+
 ggplot(postDf,aes(x=P104,y=laborLand))+facet_wrap(~mspainExp)+
 		geom_point()+geom_smooth(method=lm)
+t.test(P104~mslaborLand, var.equal = TRUE, data=postDf)
+# t.test(P104~mslaborLand, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  P104 by mslaborLand 
+# t = 1.1954, df = 33, p-value = 0.2404
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -0.3578275  1.3774353 
+# sample estimates:
+#  mean in group low mean in group high 
+#           3.176471           2.666667 
+ddply(postDf,.(mslaborLand),function(df){
+			data.frame(mean = mean(df$P104),
+					sd=sd(df$P104))
+		})
+#  mslaborLand     mean       sd
+#1         low 3.176471 1.014599
+#2        high 2.666667 1.455214
+
 ggplot(postDf,aes(x=P138,y=laborLand))+facet_wrap(~mspainExp)+
 		geom_point()+geom_smooth(method=lm)
+t.test(P138~mslaborLand, var.equal = TRUE, data=postDf)
+# t.test(P138~mslaborLand, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  P138 by mslaborLand 
+# t = -1.8723, df = 33, p-value = 0.07006
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -1.80708121  0.07505506 
+# sample estimates:
+#  mean in group low mean in group high 
+#           2.411765           3.277778 
+ddply(postDf,.(mslaborLand),function(df){
+			data.frame(mean = mean(df$P138),
+					sd=sd(df$P138))
+		})
+#  mslaborLand     mean       sd
+#1         low 2.411765 1.227743
+#2        high 3.277778 1.487420
+
+
 ggplot(postDf,aes(x=P087,y=laborLand))+facet_wrap(~mspainExp)+
 		geom_point()+geom_smooth(method=lm)
+t.test(P087~mslaborLand, var.equal = TRUE, data=postDf)
+# t.test(P087~mslaborLand, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  P087 by mslaborLand 
+# t = -4.3981, df = 33, p-value = 0.0001073
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -1.395671 -0.512826 
+# sample estimates:
+#  mean in group low mean in group high 
+#           3.823529           4.777778 
+ddply(postDf,.(mslaborLand),function(df){
+			data.frame(mean = mean(df$P087),
+					sd=sd(df$P087))
+		})
+#  mslaborLand     mean        sd
+#1         low 3.823529 0.8089572
+#2        high 4.777778 0.4277926
+
+ggplot(postDf,aes(x=P116,y=laborLand))+facet_wrap(~mspainExp)+
+		geom_point()+geom_smooth(method=lm)
+t.test(P116~mslaborLand, var.equal = TRUE, data=postDf)
+# t.test(P116~mslaborLand, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  P116 by mslaborLand 
+# t = -2.192, df = 33, p-value = 0.03554
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -1.48077949 -0.05516822 
+# sample estimates:
+#  mean in group low mean in group high 
+#           3.176471           3.944444 
+ddply(postDf,.(mslaborLand),function(df){
+			data.frame(mean = mean(df$P116),
+					sd=sd(df$P116))
+		})
+#  mslaborLand     mean        sd
+#1         low 3.176471 1.1850788
+#2        high 3.944444 0.8726041
+
+
+ggplot(postDf,aes(x=P114,y=laborLand))+facet_wrap(~mspainExp)+
+		geom_point()+geom_smooth(method=lm)
+t.test(P114~mslaborLand, var.equal = TRUE, data=postDf)
+# t.test(P114~mslaborLand, var.equal = TRUE, data=postDf)
+# 
+# 	Two Sample t-test
+# 
+# data:  P114 by mslaborLand 
+# t = -3.2097, df = 33, p-value = 0.002957
+# alternative hypothesis: true difference in means is not equal to 0 
+# 95 percent confidence interval:
+#  -1.9488976 -0.4367233 
+# sample estimates:
+#  mean in group low mean in group high 
+#           3.529412           4.722222 
+ddply(postDf,.(mslaborLand),function(df){
+			data.frame(mean = mean(df$P114),
+					sd=sd(df$P114))
+		})
+#  mslaborLand     mean        sd
+#1         low 3.529412 1.5048940
+#2        high 4.722222 0.4608886
 
 #########################################################################
 ## check what helps you get into laborLand if you have low expectations
@@ -407,7 +595,6 @@ summary(lmb)$coef
 #                 Estimate Std. Error      t value    Pr(>|t|)
 # (Intercept) 1.428818e-15  1.3746719 1.039388e-15 1.000000000
 # painExp     8.390771e-01  0.2428971 3.454455e+00 0.001534314
-# > cat("Synch1332298962181572000\n");
 
 ## now get the parts of laborland and outcome that aren't explained
 ## by pain
@@ -420,6 +607,20 @@ summary(lmc)$coef
 #                 Estimate Std. Error      t value   Pr(>|t|)
 # (Intercept) 1.501296e-16 0.44305319 3.388522e-16 1.00000000
 # laborres    1.500193e-01 0.05610478 2.673914e+00 0.01156778
+
+
+groups1Df = data.frame(laborres = resdf$laborres, outres = resdf$outres)
+grp1corrtest = corr.test(groups1Df)
+# correlations, unadjusted p and adjusted p
+grp1cres = data.frame(round(grp1corrtest$r[,2],3),
+		round(grp1corrtest$p[2,],4),
+		round(grp1corrtest$p[,2],4))
+names(grp1cres) = c("cor.","p-raw","p-adjusted")
+grp1cres
+# grp1cres
+#           cor.  p-raw p-adjusted
+# laborres 0.422 0.0116     0.0116
+# outres   1.000 0.0000     0.0000
 
 ## after you take away the parts of outcome and laborland explained by 
 ## pain, more laborland is still better

@@ -13,29 +13,40 @@ load("rdata/postData.RData")
 
 names(postDf)
 
-unassignedNames = c("P049","P057","P058","P062","P068","P069",
-		"P073","P074","P075","P078","P080","P081","P082","P083",
-		"P091","P104","P112","P113","P118","P120","P121","P129",
-		"P131","P137")
-unassignedDf = postDf[,unassignedNames]
-head(unassignedDf)
-unassignedMat = as.matrix(unassignedDf)
-unassignedMat = scale(unassignedMat)
-head(unassignedMat)
+themeNames = c("P087","P100","P106","P112","P121","P048","P051",
+		"P083","P102","P110","P063","P076","P092","P095","P097","P098",
+		"P109","P113","P114","P138","P126","P132","P135","P141","P143",
+		"P144","P146","P058","P071","P072","P105","P116","P119",
+		"P120","P139","P147","P067","P081","P084","P088","P091",
+		"P125","P128","P134","P140","P057","P099","P103")
+themeDf = postDf[,themeNames]
+head(themeDf)
+themeMat = as.matrix(themeDf)
+themeMat = scale(themeMat)
+head(themeMat)
 
-VSS.scree(cor(unassignedDf))
+VSS.scree(cor(themeDf))
 #########################################################################
-## based on scree plot, choose 5 factors
+## based on scree plot, choose 2 factors ?
 #########################################################################
-faUnassigned = fa(unassignedMat,nfactors=5,rotate="varimax")
-faUnassigned
-# The degrees of freedom for the null model are  276  and the objective function was  21.86 with Chi Square of  353.43
-# The degrees of freedom for the model are 166  and the objective function was  14.21 
+faTheme = fa(themeMat,nfactors=2,rotate="varimax")
+faTheme 
+#                  MR1  MR2
+# SS loadings    11.45 4.70
+# Proportion Var  0.24 0.10
+# Cumulative Var  0.24 0.34
 # 
-# The root mean square of the residuals is  0.07 
-# The df corrected root mean square of the residuals is  0.13 
-# The number of observations was  26  with Chi Square =  182.41  with prob <  0.18 
-names(faUnassigned)
+# Test of the hypothesis that 2 factors are sufficient.
+# 
+# The degrees of freedom for the null model are  1128  and the objective function was  531.26 with Chi Square of  9119.99
+# The degrees of freedom for the model are 1033  and the objective function was  NaN 
+# 
+# The root mean square of the residuals is  0.09 
+# The df corrected root mean square of the residuals is  0.14 
+# The number of observations was  35  with Chi Square =  NaN  with prob <  NaN 
+# 
+
+names(faTheme)
 # names(faUnassigned)
 #  [1] "residual"     "dof"          "fit"          "fit.off"      "sd"          
 #  [6] "crms"         "rms"          "factors"      "n.obs"        "objective"   
@@ -45,55 +56,57 @@ names(faUnassigned)
 # [26] "communality"  "uniquenesses" "values"       "e.values"     "loadings"    
 # [31] "fm"           "scores"       "fn"          
 ## these are the new factors
-head(faUnassigned$scores)
-# head(faUnassigned$scores)
-#          MR3         MR5         MR1        MR2         MR4
-# 2  0.2654729  0.40357956 -0.74856080  0.5659095  0.68387813
-# 3  1.1761356  1.57782311 -0.04222596 -1.4374735  0.21444720
-# 4  0.4816785 -0.01037843  0.27033732 -1.2034104  0.02431296
-# 5  0.4629572  0.25725356 -0.14362322  0.8073276 -3.12447209
-# 6  0.3670064 -1.19643137 -0.19067246 -2.1099421  0.17514043
-# 7 -0.9189983  0.06441476 -1.12599654  0.1620317  0.43894096
+head(faTheme$scores)
+# head(faTheme$scores)
+#           MR1        MR3        MR5        MR2       MR4       MR6
+# 2   2.8438292  0.7587461   3.244906   3.319005 -1.848162  3.254639
+# 3   1.9625234  4.8210927   4.310324  -1.805994  3.214959  3.624243
+# 4  -9.7022773 -4.4928814  -5.327772  -2.469097  3.570236 -4.079281
+# 5  -2.5214733 -2.3722987  -2.123335  -3.192580  3.552425 -1.760634
+# 6  -0.2935592  1.3417107   7.037938   2.838687 -5.966997 -1.176163
+# 7 -17.3281417 -3.5343114 -11.943978 -13.279851 -3.541905 -2.671103
 
 ## add the new factors to the original matrix,
 ## I'm not going to do this permanently right now
-faUnassignedDf = cbind(postDf,faUnassigned$scores)
-dim(faUnassignedDf)
-# dim(faUnassignedDf)
-# [1]  26 174
-names(faUnassignedDf)
+faThemeDf = cbind(postDf,faTheme$scores)
+dim(faThemeDf)
+# dim(faThemeDf)
+# [1]  35 212
+names(faThemeDf)
 
 ## what does the factor represent?
 ## pick the variables that have the largest absolute values
 ## MR2 represents, e.g., P030, P032, P036, P037, ...
 ## then you make up a story and a name
-faUnassigned$loadings
-# faUnassigned$loadings
-#                  MR3   MR5   MR1   MR2   MR4
-# SS loadings    2.642 2.236 2.199 2.097 1.790
-# Proportion Var 0.110 0.093 0.092 0.087 0.075
-# Cumulative Var 0.110 0.203 0.295 0.382 0.457
+faTheme$loadings
+# faTheme$loadings
+#                   MR1   MR2
+# SS loadings    11.451 4.696
+# Proportion Var  0.239 0.098
+# Cumulative Var  0.239 0.336
+
 
 ## this is another way to look at it, you could extract just these 
 ## variables and look at them more closely
-head(factor2cluster(faUnassigned$loadings))
-# head(factor2cluster(faUnassigned$loadings))
-#      MR3 MR5 MR1 MR2 MR4
-# P049   0   0   0  -1   0
-# P057   0   1   0   0   0
-# P058   0   0   0   0  -1
-# P062   0   0   0   1   0
-# P068   1   0   0   0   0
-# P069   0   0   0   0   1
+head(factor2cluster(faTheme$loadings))
+# head(factor2cluster(faTheme$loadings))
+#      MR1 MR2
+# P087   1   0
+# P100   1   0
+# P106   1   0
+# P112   1   0
+# P121   1   0
+# P048   1   0
+
 
 ## could I recall only the questions = 1 and make a table?
 # These variables won't be accurate b/c they're being written
 # over with each factor analysis done
-MR1 = factor2cluster(faUnassigned$loadings)[,"MR1",drop=FALSE]
-MR2 = factor2cluster(faUnassigned$loadings)[,"MR2",drop=FALSE]
-MR3 = factor2cluster(faUnassigned$loadings)[,"MR3",drop=FALSE]
-MR4 = factor2cluster(faUnassigned$loadings)[,"MR4",drop=FALSE]
-MR5 = factor2cluster(faUnassigned$loadings)[,"MR5",drop=FALSE]
+MR1 = factor2cluster(faTheme$loadings)[,"MR1",drop=FALSE]
+MR2 = factor2cluster(faTheme$loadings)[,"MR2",drop=FALSE]
+MR3 = factor2cluster(faTheme$loadings)[,"MR3",drop=FALSE]
+MR4 = factor2cluster(faTheme$loadings)[,"MR4",drop=FALSE]
+MR5 = factor2cluster(faTheme$loadings)[,"MR5",drop=FALSE]
 
 ## copied from corrlations below to aid in recording factor ?s
 ## sQFa5GroupsDf should stay accurate as long as I don't re-run it

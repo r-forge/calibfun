@@ -53,6 +53,7 @@ if(require("RUnit", quietly=TRUE)) {
   ## Load the package - not needed for .runRUnitTests()  
   if(.way %in% c("shell"))
     library(package=.pkg, character.only=TRUE)
+  require(nlme)
 
   ## Define tests
   testSuite <- defineTestSuite(name=paste(.pkg, "RUnit testing"),

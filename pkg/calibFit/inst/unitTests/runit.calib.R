@@ -8,6 +8,8 @@ load("data/RUnitcalib.rda")
 ELISA <- read.table("../../data/ELISA.txt", header = TRUE)
 HPLC <- read.table("../../data/HPLC.txt", header = TRUE)
 library(RUnit)
+library(nlme)
+library(calibFit)
 
 ######################################################################
 ## pdh 09-01-2010

@@ -45,8 +45,14 @@ plot.calib <- function(calib.out, int.meth = "w", ylim, xlim = c(min(0,
 	## This gives the size of the outer margins in lines of text.
 	par(oma = oma, cex = cex) #outer margin text lines and point size
 	max.x <- calib.out@max.x * (max(1/calib.out@dilution,na.rm=TRUE))
-	if(missing(ylim))
+	## if the user supplies ylims, then keep them
+	## else try to set the plot limits sensibly
+	if(missing(ylim)) {
 		ylim <- c(0, 1.05 * max.x)
+		user.ylim = FALSE
+	} else {
+		user.ylim = TRUE
+	}
 	cal.plot <- calib.out@Estimated.x
 	too.low <- calib.out@labels$too.low
 	too.high <- calib.out@labels$too.high
@@ -67,7 +73,10 @@ plot.calib <- function(calib.out, int.meth = "w", ylim, xlim = c(min(0,
 	}
 	cal.low <- ifelse(is.finite(xlow), xlow, max.x)
 	cal.up <- ifelse(!is.finite(xup), max(ylim), xup)
-	ylim[2] <- 1.05*max(cal.up)
+	## reset the upper ylim if it hasn't been provided by the user
+	if(!user.ylim) {
+		ylim[2] <- 1.05*max(cal.up)
+	}
 	x <- calib.out@labels$plot.ind
 	x.ax <- calib.out@labels$xlabs
 	if(missing(ylab)) {

@@ -7,7 +7,7 @@ Author: Perry Haaland <perry_haaland@bd.com>, Daniel Samarov <daniel_samarov@bd.
 Maintainer: Perry Haaland <perry_d_haaland@bd.com>
 Depends: R (>= 2.7.0), stats, nlme, methods
 Imports: graphics
-Suggests:
+Suggests: RUnit
 Description: Provides basic S4 data structures and routines for
         calibration of bioassays. A variety of linear and nonlinear
         calibration curves can be fit to data. Most models have a
